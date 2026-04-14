@@ -1,0 +1,30 @@
+---
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+	title="Page not found | Spacious Clarity"
+	description="The page you were looking for could not be found."
+	path="/404"
+	noindex={true}
+>
+	<SiteHeader />
+
+	<main id="main-content">
+		<section class="not-found-page">
+			<div class="not-found-card">
+				<p class="eyebrow">404</p>
+				<h1>This page drifted out of reach.</h1>
+				<p>
+					The route does not exist yet, or it moved while the site is still in its
+					first public build.
+				</p>
+				<a class="button" href="/">Return to the homepage</a>
+			</div>
+		</section>
+	</main>
+
+	<SiteFooter />
+</BaseLayout>

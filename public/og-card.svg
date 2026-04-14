@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Spacious Clarity social card">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbf8f1" />
+      <stop offset="50%" stop-color="#f4eee4" />
+      <stop offset="100%" stop-color="#d7e2cf" />
+    </linearGradient>
+    <radialGradient id="bloom" cx="0%" cy="0%" r="90%">
+      <stop offset="0%" stop-color="#d7e2cf" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#d7e2cf" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="sand" cx="100%" cy="100%" r="90%">
+      <stop offset="0%" stop-color="#e8dfd0" stop-opacity="1" />
+      <stop offset="100%" stop-color="#e8dfd0" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" rx="32" />
+  <circle cx="150" cy="120" r="220" fill="url(#bloom)" />
+  <circle cx="1050" cy="520" r="240" fill="url(#sand)" />
+  <rect x="70" y="70" width="1060" height="490" rx="30" fill="rgba(255,255,255,0.45)" stroke="rgba(85,100,79,0.16)" />
+  <text x="110" y="180" fill="#55644f" font-family="Manrope, sans-serif" font-size="24" letter-spacing="10">GROUNDED MINDFULNESS</text>
+  <text x="110" y="310" fill="#2e342d" font-family="Newsreader, serif" font-size="90">Meditation that</text>
+  <text x="110" y="410" fill="#2e342d" font-family="Newsreader, serif" font-size="90">welcomes all of life.</text>
+  <text x="110" y="500" fill="#55644f" font-family="Manrope, sans-serif" font-size="30">Spacious Clarity • spaceiousclarity.com</text>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Spacious Clarity favicon">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fdfaf3" />
+      <stop offset="100%" stop-color="#d7e2cf" />
+    </linearGradient>
+    <linearGradient id="ink" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#55644f" />
+      <stop offset="100%" stop-color="#3f4d3b" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="18" fill="url(#bg)" />
+  <path
+    d="M45.5 23.1c-2.4-4.1-6.9-6.6-12.4-6.6-8.4 0-14.8 6.2-14.8 15.1S24.9 46.9 34 46.9c5.3 0 9.9-2.2 12.5-6.1"
+    fill="none"
+    stroke="url(#ink)"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="5"
+  />
+  <path
+    d="M24.6 31.9c1.8 2.6 4.8 4.1 8.5 4.1 4.2 0 7.4-1.8 9.7-5.2"
+    fill="none"
+    stroke="url(#ink)"
+    stroke-linecap="round"
+    stroke-width="4"
+  />
+</svg>
