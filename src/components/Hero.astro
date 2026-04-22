@@ -6,8 +6,12 @@ import { site } from '../content/site';
 	<div class="hero-backdrop" aria-hidden="true">
 		<img
 			class="hero-image-source"
-			src="/images/img-4142.jpg"
+			src="/images/hero-1800.jpg"
+			srcset="/images/hero-800.jpg 800w, /images/hero-1400.jpg 1400w, /images/hero-1800.jpg 1800w"
+			sizes="100vw"
 			alt=""
+			width="1800"
+			height="2400"
 			loading="eager"
 			decoding="async"
 			fetchpriority="high"
@@ -45,7 +49,7 @@ import { site } from '../content/site';
 
 			<form
 				class="hero-waitlist"
-				data-hero-waitlist
+				data-waitlist
 				data-waitlist-recipient={site.email}
 				novalidate
 			>
@@ -79,6 +83,7 @@ import { site } from '../content/site';
 		getShaderNoiseTexture,
 		halftoneCmykFragmentShader,
 	} from '@paper-design/shaders';
+	import { initWaitlistForms } from '../scripts/waitlist';
 
 	const waitForImage = (image: HTMLImageElement) =>
 		image.complete && image.naturalWidth > 0
@@ -160,35 +165,14 @@ import { site } from '../content/site';
 		}
 	};
 
-	const initWaitlist = () => {
-		const form = document.querySelector('[data-hero-waitlist]');
-		if (!(form instanceof HTMLFormElement)) return;
-
-		const input = form.querySelector('input[name="email"]');
-		const recipient = form.dataset.waitlistRecipient;
-
-		if (!(input instanceof HTMLInputElement) || !recipient) return;
-
-		form.addEventListener('submit', (event) => {
-			event.preventDefault();
-
-			if (!input.reportValidity()) return;
-
-			const subject = 'Spacious Clarity Waitlist';
-			const body = `Please add me to the waitlist.%0A%0AEmail: ${encodeURIComponent(
-				input.value,
-			)}`;
-			window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(
-				subject,
-			)}&body=${body}`;
-		});
+	const run = () => {
+		void initHeroPaperTexture();
+		initWaitlistForms();
 	};
 
 	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', initHeroPaperTexture, { once: true });
-		document.addEventListener('DOMContentLoaded', initWaitlist, { once: true });
+		document.addEventListener('DOMContentLoaded', run, { once: true });
 	} else {
-		void initHeroPaperTexture();
-		initWaitlist();
+		run();
 	}
 </script>

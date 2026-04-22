@@ -6,11 +6,10 @@ import Hero from '../components/Hero.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import TeacherSection from '../components/TeacherSection.astro';
 import TestimonialSection from '../components/TestimonialSection.astro';
-import { site } from '../content/site';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title={site.title} description={site.description} path="/">
+<BaseLayout path="/">
 	<main id="main-content" class="main-home">
 		<Hero />
 		<ApproachSection />

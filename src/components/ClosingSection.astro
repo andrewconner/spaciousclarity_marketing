@@ -39,34 +39,3 @@ import { site } from '../content/site';
 	</div>
 </section>
 
-<script>
-	const initClosingWaitlist = () => {
-		const form = document.querySelector('.closing-waitlist[data-waitlist]');
-		if (!(form instanceof HTMLFormElement)) return;
-
-		const input = form.querySelector('input[name="email"]');
-		const recipient = form.dataset.waitlistRecipient;
-
-		if (!(input instanceof HTMLInputElement) || !recipient) return;
-
-		form.addEventListener('submit', (event) => {
-			event.preventDefault();
-
-			if (!input.reportValidity()) return;
-
-			const subject = 'Spacious Clarity Waitlist';
-			const body = `Please add me to the waitlist.%0A%0AEmail: ${encodeURIComponent(
-				input.value,
-			)}`;
-			window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(
-				subject,
-			)}&body=${body}`;
-		});
-	};
-
-	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', initClosingWaitlist, { once: true });
-	} else {
-		initClosingWaitlist();
-	}
-</script>

@@ -36,30 +36,22 @@
 	--midnight:     #10212B; /* primary dark surface */
 	--terrain:      #17303A; /* dark cards / dark buttons */
 	--lichen:       #55624B; /* secondary earthy accent */
-	--moss:         #43503E; /* deeper green variant */
 	--sun-clay:     #C87435; /* primary orienting accent */
-	--dust-orange:  #D99157; /* softer accent */
-	--gold:         #C6A36A; /* restrained highlight */
-	--mist:         #AEBCC3; /* rare cool support */
 
 	/* Semantic roles */
 	--surface:            var(--ivory);
 	--surface-elevated:   var(--chalk);
 	--surface-dark:       var(--midnight);
-	--surface-dark-alt:   var(--terrain);
 
 	--ink:                #1A2129; /* near-midnight, a touch warmer for type */
 	--ink-soft:           #3D4750;
 	--ink-dim:            var(--fog);
 	--ink-on-dark:        #ECE6D8; /* warm off-white ink on dark */
-	--ink-on-dark-soft:   color-mix(in srgb, var(--ink-on-dark) 70%, transparent);
 
 	--rule:               color-mix(in srgb, var(--stone) 90%, black 4%);
 	--rule-dark:          color-mix(in srgb, var(--ink-on-dark) 18%, transparent);
 
 	--accent:             var(--sun-clay);
-	--accent-hover:       var(--dust-orange);
-	--accent-ink:         #F9EEDC;
 
 	/* Type scale — fluid for marketing display, fixed for controls. */
 	--font-serif: 'Literata Variable', 'Iowan Old Style', Georgia, serif;
@@ -67,10 +59,9 @@
 
 	--fs-metadata: 1rem;                                     /* 16px — labels read clearly */
 	--fs-caption:  0.8125rem;                                /* 13px   */
-	--fs-body:     1rem;                                     /* 16px   */
+	--fs-body:     1.3rem;                                   /* 20.8px */
 	--fs-body-lg:  1.25rem;                                  /* 20px   */
 	--fs-lede:     clamp(1.15rem, 1rem + 0.7vw, 1.625rem);
-	--fs-h3:       clamp(1.35rem, 1.18rem + 0.75vw, 1.75rem);
 	--fs-h2:       clamp(1.9rem, 1.35rem + 2.4vw, 3.4rem);
 	--fs-h1:       clamp(2.35rem, 1.55rem + 4vw, 5.25rem);
 
@@ -93,7 +84,6 @@
 
 	--shell:        min(54rem, calc(100% - 3rem));
 	--shell-narrow: min(48rem, calc(100% - 3rem));
-	--shell-wide:   min(88rem, calc(100% - 2rem));
 
 	--paper-grain: url('/textures/paper-grain.png');
 }
@@ -190,11 +180,6 @@ section[id] {
 	margin-inline: auto;
 }
 
-.shell-wide {
-	width: var(--shell-wide);
-	margin-inline: auto;
-}
-
 .sr-only {
 	position: absolute;
 	width: 1px;
@@ -264,44 +249,6 @@ section[id] {
 .button:hover {
 	background: var(--terrain);
 	transform: translateY(-1px);
-}
-
-.button--accent {
-	background: var(--accent);
-	color: var(--accent-ink);
-}
-
-.button--accent:hover {
-	background: var(--accent-hover);
-}
-
-.button--ghost {
-	background: transparent;
-	color: var(--ink);
-	border-color: var(--rule);
-}
-
-.button--ghost:hover {
-	background: var(--chalk);
-	border-color: color-mix(in srgb, var(--stone) 100%, black 10%);
-	transform: none;
-}
-
-/* ───────────── shared textures ───────────── */
-
-.paper-grain {
-	position: absolute;
-	inset: 0;
-	pointer-events: none;
-	background-image: var(--paper-grain);
-	background-size: 480px 480px;
-	mix-blend-mode: multiply;
-	opacity: 0.15;
-}
-
-.paper-grain--dark {
-	mix-blend-mode: overlay;
-	opacity: 0.09;
 }
 
 /* ─────────────────────────── hero ─────────────────────────── */

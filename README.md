@@ -5,14 +5,15 @@ Static Astro landing page for `spaciousclarity.com`, designed to deploy as a Clo
 ## Stack
 
 - Astro 6
-- Hand-authored CSS with local variable fonts
+- Hand-authored CSS with local variable fonts (Literata + Host Grotesk via `@fontsource-variable`)
+- `@paper-design/shaders` halftone effect over the hero image
 - Cloudflare Workers Static Assets via Wrangler
 - GitHub Actions for validation plus manual production deploys
 
 ## Prerequisites
 
 - Node `22.12.0` or newer
-- npm
+- pnpm
 - A Cloudflare account with the target domain added to your zone
 
 The repo includes `.nvmrc` so local Node version managers can switch automatically.
@@ -21,20 +22,20 @@ The repo includes `.nvmrc` so local Node version managers can switch automatical
 
 | Command | Purpose |
 | :------ | :------ |
-| `npm run dev` | Start the Astro dev server |
-| `npm run check` | Run Astro's project checks |
-| `npm run build` | Build the static site into `dist/` |
-| `npm run preview` | Preview the production build locally |
-| `npm run validate` | Run checks and build together |
-| `npm run deploy:dry-run` | Build and validate the Cloudflare deploy configuration |
-| `npm run deploy` | Build and deploy to Cloudflare Workers |
+| `pnpm dev` | Start the Astro dev server |
+| `pnpm check` | Run Astro's project checks |
+| `pnpm build` | Build the static site into `dist/` |
+| `pnpm preview` | Preview the production build locally |
+| `pnpm validate` | Run checks and build together |
+| `pnpm deploy:dry-run` | Build and validate the Cloudflare deploy configuration |
+| `pnpm deploy` | Build and deploy to Cloudflare Workers |
 
 ## Local development
 
 ```sh
 nvm use
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 ## Manual-first Cloudflare deployment
@@ -42,13 +43,13 @@ npm run dev
 1. Authenticate Wrangler:
 
    ```sh
-   npx wrangler login
+   pnpm dlx wrangler login
    ```
 
 2. Build and deploy the site:
 
    ```sh
-   npm run deploy
+   pnpm deploy
    ```
 
 3. Confirm the generated `*.workers.dev` URL looks correct before attaching the production domain.
@@ -61,7 +62,7 @@ npm run dev
 
 ## GitHub pipeline
 
-- `.github/workflows/validate.yml` runs `npm run validate` on pushes to `main` and on pull requests.
+- `.github/workflows/validate.yml` runs `pnpm validate` on pushes to `main` and on pull requests.
 - `.github/workflows/deploy.yml` is manual-only and deploys to Cloudflare with Wrangler.
 - Add these repository secrets before using the deploy workflow:
   - `CLOUDFLARE_API_TOKEN`
@@ -69,5 +70,5 @@ npm run dev
 
 ## Notes
 
-- V1 intentionally uses a direct email CTA instead of an embedded signup form.
-- If the production domain spelling changes later, update both `astro.config.mjs` and `src/content/site.ts`.
+- The production domain lives in two places: `astro.config.mjs` (`site`) and `src/content/site.ts` (`url`/`email`). Keep them aligned if it ever changes.
+- The teacher section expects `public/images/charlie-awbery.jpg`. Drop in a portrait-orientation headshot at that path.
