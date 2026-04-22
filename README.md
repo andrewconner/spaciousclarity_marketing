@@ -1,6 +1,6 @@
 # Spacious Clarity Marketing
 
-Static Astro landing page for `spaceiousclarity.com`, designed to deploy as a Cloudflare Workers static-assets site.
+Static Astro landing page for `spaciousclarity.com`, designed to deploy as a Cloudflare Workers static-assets site.
 
 ## Stack
 
@@ -54,10 +54,10 @@ npm run dev
 3. Confirm the generated `*.workers.dev` URL looks correct before attaching the production domain.
 
 4. In Cloudflare:
-   - Add `spaceiousclarity.com` to your account if it is not already present.
+   - Add `spaciousclarity.com` to your account if it is not already present.
    - Point the registrar nameservers to Cloudflare.
-   - Open the deployed Worker and attach `spaceiousclarity.com` as a custom domain.
-   - Add `www.spaceiousclarity.com` as a redirect to the apex domain.
+   - Open the deployed Worker and attach `spaciousclarity.com` as a custom domain.
+   - Add `www.spaciousclarity.com` as a redirect to the apex domain.
 
 ## GitHub pipeline
 

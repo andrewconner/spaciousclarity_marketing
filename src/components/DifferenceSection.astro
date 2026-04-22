@@ -1,56 +1,56 @@
 ---
-import FeatureIcon from './FeatureIcon.astro';
-
-const cards = [
+const principles = [
 	{
-		icon: 'spa',
 		title: 'Life-affirming, not renunciative',
 		copy: 'Welcome emotions, thoughts, and ordinary life, rather than regarding them as obstacles to overcome.',
 	},
 	{
-		icon: 'restore',
 		title: 'Sustainable Practice',
 		copy: 'Build a meditation habit that actually fits into your real, ordinary life, not just for the mountain tops.',
 	},
 	{
-		icon: 'visibility',
 		title: 'Presence in Daily Life',
 		copy: "Become more present and vivid during your daily activities, not just while you're meditating.",
 	},
 	{
-		icon: 'all_inclusive',
-		title: 'Emotional Resilience',
-		copy: 'Handle difficult emotions with spaciousness and curiosity instead of being overwhelmed or rigidly controlling them.',
-	},
-	{
-		icon: 'energy_savings_leaf',
 		title: 'Relief from Effort',
 		copy: 'Find a radical alternative to exhausting, effort-based self-improvement approaches that leave you drained.',
-	},
-	{
-		icon: 'groups',
-		title: 'Improved Relationships',
-		copy: 'Discover capacity for authenticity, responsiveness, and rich connections with those around you.',
 	},
 ];
 ---
 
-<section class="difference-section" id="difference">
-	<div class="shell">
-		<div class="difference-heading">
-			<h2>What makes this different</h2>
-		</div>
+<section class="principles-section" id="principles" aria-labelledby="principles-heading">
+	<div class="principles-contour" aria-hidden="true">
+		<svg viewBox="0 0 600 600" fill="none" focusable="false">
+			<path d="M 60 320 C 140 280 240 270 320 282 C 400 294 480 326 560 324" />
+			<path d="M 80 280 C 160 240 260 228 340 242 C 420 256 500 290 580 286" />
+			<path d="M 110 236 C 190 198 290 188 370 202 C 450 216 520 250 600 244" />
+			<path d="M 150 194 C 230 160 320 152 400 166 C 470 178 540 208 610 200" />
+			<path d="M 200 160 C 270 132 350 126 420 138 C 480 148 540 172 610 164" />
+			<path d="M 250 130 C 310 112 380 108 440 118 C 500 128 560 150 620 142" />
+		</svg>
+	</div>
 
-		<div class="feature-grid">
+	<div class="shell">
+		<header class="principles-heading">
+			<span class="label label--on-dark">What Makes This Different</span>
+			<h2 id="principles-heading">
+				Four commitments that shape the <em>whole course.</em>
+			</h2>
+		</header>
+
+		<ol class="principles-list">
 			{
-				cards.map((card) => (
-					<article class="feature-card">
-						<FeatureIcon name={card.icon} />
-						<h3>{card.title}</h3>
-						<p>{card.copy}</p>
-					</article>
+				principles.map((p, i) => (
+					<li class="principle">
+						<span class="principle-number">{String(i + 1).padStart(2, '0')}</span>
+						<div class="principle-body">
+							<h3 class="principle-title">{p.title}</h3>
+							<p class="principle-copy">{p.copy}</p>
+						</div>
+					</li>
 				))
 			}
-		</div>
+		</ol>
 	</div>
 </section>

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://spaceiousclarity.com/sitemap-index.xml
+Sitemap: https://spaciousclarity.com/sitemap-index.xml

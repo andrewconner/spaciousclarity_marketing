@@ -1,5 +1,5 @@
 {
-  "name": "spaceiousclarity-marketing",
+  "name": "spaciousclarity-marketing",
   "private": true,
   "type": "module",
   "version": "0.0.1",
@@ -18,8 +18,8 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",
-    "@fontsource-variable/manrope": "^5.2.8",
-    "@fontsource-variable/newsreader": "^5.2.10",
+    "@fontsource-variable/host-grotesk": "^5.2.8",
+    "@fontsource-variable/literata": "^5.2.8",
     "@paper-design/shaders": "^0.0.71",
     "astro": "^6.1.6"
   },

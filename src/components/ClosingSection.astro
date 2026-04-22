@@ -1,20 +1,72 @@
 ---
-import { primaryContactHref, site } from '../content/site';
+import { site } from '../content/site';
 ---
 
-<section class="waitlist-section" id="begin">
-	<div class="waitlist-inner">
-		<h2>Join the waitlist</h2>
+<section class="closing-section" id="begin" aria-labelledby="closing-heading">
+	<div class="closing-inner">
+		<span class="label">Course Access</span>
+
+		<h2 id="closing-heading">
+			Get <em>early access</em> to the course.
+		</h2>
 		<p>
-			We're opening the course on a rolling basis. Get early access.
+			We're actively building and testing the course, and adding new people on a
+			rolling basis. Leave your email and we'll keep you included as we expand
+			access.
 		</p>
 
-		<div class="waitlist-bar">
-			<a class="waitlist-address" href={primaryContactHref}>
-				<span>Email address</span>
-				<strong>{site.email}</strong>
-			</a>
-			<a class="button waitlist-button" href={primaryContactHref}>Join waitlist</a>
-		</div>
+		<form
+			class="closing-waitlist"
+			data-waitlist
+			data-waitlist-recipient={site.email}
+			novalidate
+		>
+			<label class="sr-only" for="closing-email">Email address</label>
+			<div class="closing-waitlist-field">
+				<input
+					id="closing-email"
+					class="closing-waitlist-input"
+					name="email"
+					type="email"
+					autocomplete="email"
+					inputmode="email"
+					placeholder="you@example.com"
+					required
+				/>
+				<button class="closing-waitlist-button" type="submit">Join the waitlist</button>
+			</div>
+		</form>
 	</div>
 </section>
+
+<script>
+	const initClosingWaitlist = () => {
+		const form = document.querySelector('.closing-waitlist[data-waitlist]');
+		if (!(form instanceof HTMLFormElement)) return;
+
+		const input = form.querySelector('input[name="email"]');
+		const recipient = form.dataset.waitlistRecipient;
+
+		if (!(input instanceof HTMLInputElement) || !recipient) return;
+
+		form.addEventListener('submit', (event) => {
+			event.preventDefault();
+
+			if (!input.reportValidity()) return;
+
+			const subject = 'Spacious Clarity Waitlist';
+			const body = `Please add me to the waitlist.%0A%0AEmail: ${encodeURIComponent(
+				input.value,
+			)}`;
+			window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(
+				subject,
+			)}&body=${body}`;
+		});
+	};
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initClosingWaitlist, { once: true });
+	} else {
+		initClosingWaitlist();
+	}
+</script>

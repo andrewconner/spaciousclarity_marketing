@@ -1,6 +1,6 @@
 ---
-import manropeFontUrl from '@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2?url';
-import newsreaderFontUrl from '@fontsource-variable/newsreader/files/newsreader-latin-wght-normal.woff2?url';
+import hostGroteskFontUrl from '@fontsource-variable/host-grotesk/files/host-grotesk-latin-wght-normal.woff2?url';
+import literataFontUrl from '@fontsource-variable/literata/files/literata-latin-wght-normal.woff2?url';
 import { site } from '../content/site';
 import '../styles/global.css';
 
@@ -38,20 +38,20 @@ const schema = {
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
-		<meta name="theme-color" content="#f7f2e8" />
+		<meta name="theme-color" content="#f6f2ea" />
 		<meta name="robots" content={noindex ? 'noindex' : 'index,follow'} />
 		<link rel="canonical" href={canonical} />
 		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 		<link
 			rel="preload"
-			href={newsreaderFontUrl}
+			href={literataFontUrl}
 			as="font"
 			type="font/woff2"
 			crossorigin="anonymous"
 		/>
 		<link
 			rel="preload"
-			href={manropeFontUrl}
+			href={hostGroteskFontUrl}
 			as="font"
 			type="font/woff2"
 			crossorigin="anonymous"
