@@ -1,0 +1,57 @@
+---
+import { site } from '../content/site';
+---
+
+<div class="shell hero-shell">
+	<div class="hero-masthead">
+		<h1 class="hero-mark">
+			<img
+				class="hero-mark-logo"
+				src="/images/logo.svg"
+				alt=""
+				width="32"
+				height="32"
+				decoding="async"
+				loading="eager"
+			/>
+			<span class="hero-mark-text">Spacious Clarity</span>
+		</h1>
+		<span class="hero-masthead-meta">An Opening Awareness Course</span>
+	</div>
+
+	<div class="hero-copy">
+		<h2 id="hero-heading" class="hero-title">
+			Meditation that welcomes <em>all of life.</em>
+		</h2>
+
+		<p class="hero-intro">
+			Uncomplicated presence that leads to spacious clarity and vividness with
+			life as it actually is
+		</p>
+
+		<form
+			class="hero-waitlist"
+			data-waitlist
+			data-waitlist-recipient={site.email}
+			novalidate
+		>
+			<p class="hero-waitlist-note">
+				The course opens on a rolling basis. Leave your email for early access.
+			</p>
+			<div class="hero-waitlist-field">
+				<label class="sr-only" for="hero-email">Email address</label>
+				<input
+					id="hero-email"
+					class="hero-waitlist-input"
+					name="email"
+					type="email"
+					autocomplete="email"
+					inputmode="email"
+					placeholder="you@example.com"
+					required
+				/>
+				<button class="hero-waitlist-button" type="submit">Join the waitlist</button>
+			</div>
+		</form>
+	</div>
+</div>

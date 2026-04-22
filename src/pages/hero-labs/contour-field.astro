@@ -1,0 +1,28 @@
+---
+import ApproachSection from '../../components/ApproachSection.astro';
+import ClosingSection from '../../components/ClosingSection.astro';
+import DifferenceSection from '../../components/DifferenceSection.astro';
+import HeroContour from '../../components/HeroContour.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import TeacherSection from '../../components/TeacherSection.astro';
+import TestimonialSection from '../../components/TestimonialSection.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout path="/hero-labs/contour-field/" noindex={true}>
+	<main id="main-content" class="main-home">
+		<HeroContour />
+		<ApproachSection />
+		<TeacherSection />
+		<TestimonialSection />
+		<DifferenceSection />
+		<ClosingSection />
+	</main>
+
+	<div class="shell labs-nav">
+		<a href="/hero-labs/">← Labs index</a>
+		<a href="/hero-labs/risograph/">Next: Risograph duotone →</a>
+	</div>
+
+	<SiteFooter />
+</BaseLayout>

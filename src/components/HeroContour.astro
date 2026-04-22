@@ -1,0 +1,172 @@
+---
+import HeroCopy from './HeroCopy.astro';
+---
+
+<section class="hero hero--contour hero--light" aria-labelledby="hero-heading">
+	<div class="hero-contour-canvas" aria-hidden="true"></div>
+	<div class="hero-paper" aria-hidden="true"></div>
+
+	<HeroCopy />
+</section>
+
+<script>
+	import { ShaderMount } from '@paper-design/shaders';
+	import { initWaitlistForms } from '../scripts/waitlist';
+
+	// Fragment shader: procedurally-generated topographic contour map.
+	// Layered simplex noise produces an altitude field; iso-lines are drawn
+	// where altitude crosses regular thresholds. Every fourth line is an
+	// "index" line (heavier), mirroring USGS convention.
+	//
+	// The field drifts very slowly over time. Sun Clay disk is parked at a
+	// fixed screen position as the single orienting mark.
+	const fragmentShader = `#version 300 es
+precision mediump float;
+
+uniform float u_time;
+uniform vec2 u_resolution;
+
+out vec4 fragColor;
+
+vec3 permute(vec3 x) { return mod(((x * 34.0) + 1.0) * x, 289.0); }
+
+float snoise(vec2 v) {
+	const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
+	vec2 i  = floor(v + dot(v, C.yy));
+	vec2 x0 = v -   i + dot(i, C.xx);
+	vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+	vec4 x12 = x0.xyxy + C.xxzz;
+	x12.xy -= i1;
+	i = mod(i, 289.0);
+	vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
+	vec3 m = max(0.5 - vec3(dot(x0, x0), dot(x12.xy, x12.xy), dot(x12.zw, x12.zw)), 0.0);
+	m = m * m; m = m * m;
+	vec3 x = 2.0 * fract(p * C.www) - 1.0;
+	vec3 h = abs(x) - 0.5;
+	vec3 ox = floor(x + 0.5);
+	vec3 a0 = x - ox;
+	m *= 1.79284291400159 - 0.85373472095314 * (a0 * a0 + h * h);
+	vec3 g;
+	g.x  = a0.x  * x0.x  + h.x  * x0.y;
+	g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+	return 130.0 * dot(m, g);
+}
+
+float fbm(vec2 p, float t) {
+	float v = 0.0;
+	float a = 0.55;
+	for (int i = 0; i < 5; i++) {
+		v += a * snoise(p + vec2(t * 0.2, t * 0.12) * a);
+		p = p * 2.03 + vec2(1.7, 9.2);
+		a *= 0.5;
+	}
+	return v;
+}
+
+void main() {
+	// Use screen-space normalized coordinates so proportions feel right
+	// across viewport shapes (not tied to v_patternUV's world scale).
+	vec2 screen = gl_FragCoord.xy / u_resolution.xy;
+	float aspect = u_resolution.x / u_resolution.y;
+	vec2 uv = vec2(screen.x * aspect, screen.y) * 2.2;
+
+	float t = u_time * 0.055;
+
+	// Altitude 0..1
+	float h = fbm(uv, t) * 0.5 + 0.5;
+
+	// Contour line detection: distance from nearest integer level, antialiased.
+	// dist = 0 AT a contour, up to 0.5 between contours.
+	float levels = 12.0;
+	float scaled = h * levels;
+	float dist = 0.5 - abs(fract(scaled) - 0.5);
+	float fw = fwidth(scaled);
+	float line = 1.0 - smoothstep(0.018, 0.045 + fw * 0.5, dist);
+
+	// Index line: every 4th contour, a touch thicker.
+	float idxScaled = h * levels * 0.25;
+	float idxDist = 0.5 - abs(fract(idxScaled) - 0.5);
+	float idxFw = fwidth(idxScaled);
+	float indexLine = 1.0 - smoothstep(0.018, 0.07 + idxFw * 0.5, idxDist);
+
+	// Contour Field palette
+	vec3 paper  = vec3(0.984, 0.965, 0.925);  // Ivory (slightly lifted)
+	vec3 chalk  = vec3(0.992, 0.976, 0.945);  // Chalk highlight
+	vec3 ink    = vec3(0.062, 0.129, 0.169);  // Midnight ink
+	vec3 lichen = vec3(0.333, 0.384, 0.294);  // Lichen
+	vec3 sun    = vec3(0.784, 0.455, 0.208);  // Sun Clay
+
+	// Base wash: paper-dominant. Almost no tint so the map reads as clean
+	// paper with ink lines on it — the lines carry the information, not
+	// the fills. Keeps bg→fg contrast generous.
+	vec3 base = paper;
+	base = mix(base, mix(paper, lichen, 0.16), 1.0 - smoothstep(0.18, 0.42, h));
+	base = mix(base, chalk, smoothstep(0.72, 0.95, h) * 0.4);
+
+	// Draw contour lines — minor (softer ink) then index (a touch heavier)
+	vec3 color = mix(base, ink, line * 0.38);
+	color = mix(color, ink, indexLine * 0.58);
+
+	// Subtle soft horizon gradient so the top reads a bit hazier than the foreground.
+	color = mix(color * 0.97, color, smoothstep(-0.1, 1.0, screen.y));
+
+	// Sun Clay disk at a fixed screen position, upper-right. Radii scale with
+	// aspect so the disk is clearly circular on screen.
+	vec2 sunPos = vec2(0.82, 0.58);
+	vec2 sunDelta = (screen - sunPos) * vec2(aspect, 1.0);
+	float sunDist = length(sunDelta);
+	float disk = 1.0 - smoothstep(0.042, 0.048, sunDist);
+	float halo1 = (1.0 - smoothstep(0.06, 0.11, sunDist)) * 0.55;
+	float halo2 = (1.0 - smoothstep(0.1, 0.18, sunDist)) * 0.22;
+	color = mix(color, sun, disk);
+	color = mix(color, sun, halo1 * (1.0 - disk));
+	color = mix(color, mix(color, sun, 0.5), halo2 * (1.0 - disk));
+
+	// Paper wash on the left behind the copy column so the headline holds
+	// cleanly against the contour field.
+	float copyWash = smoothstep(-0.05, 0.55, screen.x);
+	color = mix(mix(color, paper, 0.32), color, copyWash);
+
+	fragColor = vec4(color, 1.0);
+}
+`;
+
+	const initContour = () => {
+		const host = document.querySelector('.hero-contour-canvas');
+		if (!(host instanceof HTMLElement)) return;
+
+		try {
+			new ShaderMount(
+				host,
+				fragmentShader,
+				{
+					// Shader sizing params (defaults — we don't transform the plane).
+					u_fit: 0, // none
+					u_scale: 1,
+					u_rotation: 0,
+					u_originX: 0.5,
+					u_originY: 0.5,
+					u_offsetX: 0,
+					u_offsetY: 0,
+					u_worldWidth: 0,
+					u_worldHeight: 0,
+				},
+				undefined,
+				1, // speed (slow drift — noise also scaled down internally)
+			);
+		} catch (error) {
+			console.error('Contour field shader failed to initialize.', error);
+		}
+	};
+
+	const run = () => {
+		initContour();
+		initWaitlistForms();
+	};
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', run, { once: true });
+	} else {
+		run();
+	}
+</script>
