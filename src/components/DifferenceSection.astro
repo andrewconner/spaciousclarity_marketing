@@ -5,12 +5,7 @@ const cards = [
 	{
 		icon: 'spa',
 		title: 'Life-affirming, not renunciative',
-		copy: 'Welcomes emotions, thoughts, and ordinary life as part of practice, rather than something to be discarded.',
-	},
-	{
-		icon: 'psychology_alt',
-		title: 'Fully adaptive and dynamic course',
-		copy: 'The course adapts to your experience, pulling from over 100 lessons to craft a maximally impactful experience.',
+		copy: 'Welcome emotions, thoughts, and ordinary life, rather than regarding them as obstacles to overcome.',
 	},
 	{
 		icon: 'restore',
@@ -20,23 +15,22 @@ const cards = [
 	{
 		icon: 'visibility',
 		title: 'Presence in Daily Life',
-		copy: 'Learn to feel more present and vivid during your daily activities, not just during the time on the cushion.',
+		copy: "Become more present and vivid during your daily activities, not just while you're meditating.",
 	},
 	{
 		icon: 'all_inclusive',
 		title: 'Emotional Resilience',
-		copy: 'Handle difficult emotions with spaciousness and curiosity instead of being overwhelmed or controlled by them.',
+		copy: 'Handle difficult emotions with spaciousness and curiosity instead of being overwhelmed or rigidly controlling them.',
 	},
 	{
 		icon: 'energy_savings_leaf',
 		title: 'Relief from Effort',
 		copy: 'Find a radical alternative to exhausting, effort-based self-improvement approaches that leave you drained.',
-		highlight: true,
 	},
 	{
 		icon: 'groups',
 		title: 'Improved Relationships',
-		copy: 'Greater presence leads to more authentic, responsive, and deeply felt connections with those around you.',
+		copy: 'Discover capacity for authenticity, responsiveness, and rich connections with those around you.',
 	},
 ];
 ---
@@ -45,23 +39,18 @@ const cards = [
 	<div class="shell">
 		<div class="difference-heading">
 			<h2>What makes this different</h2>
-			<p>Part Six: Real Involvement</p>
 		</div>
 
 		<div class="feature-grid">
 			{
 				cards.map((card) => (
-					<article class:list={['feature-card', card.highlight && 'feature-card--highlight']}>
-						<FeatureIcon name={card.icon} highlight={card.highlight} />
+					<article class="feature-card">
+						<FeatureIcon name={card.icon} />
 						<h3>{card.title}</h3>
 						<p>{card.copy}</p>
 					</article>
 				))
 			}
-
-			<div class="texture-card" aria-hidden="true">
-				<img src="/images/linen-reference.jpg" alt="" loading="lazy" decoding="async" />
-			</div>
 		</div>
 	</div>
 </section>

@@ -1,36 +1,171 @@
 ---
-import { primaryContactHref } from '../content/site';
+import { site } from '../content/site';
 ---
 
 <section class="hero">
-	<div class="shell hero-grid">
+	<div class="hero-backdrop">
+		<img
+			class="hero-image-source"
+			src="/images/img-4142.jpg"
+			alt="Clear blue water beside pale shoreline boulders and pine branches"
+			loading="eager"
+			decoding="async"
+		/>
+		<div class="hero-paper-shader" aria-hidden="true"></div>
+		<div class="hero-scrim" aria-hidden="true"></div>
+	</div>
+
+	<div class="shell hero-shell">
 		<div class="hero-copy">
-			<p class="eyebrow">Grounded Mindfulness</p>
-			<h1>Meditation that welcomes all of life.</h1>
+			<h1>Meditation that welcomes <em>all of life</em>.</h1>
 			<p class="hero-intro">
-				A life-affirming practice that leads to spacious clarity, vivid,
-				uncomplicated presence with life as it actually is.
+				Uncomplicated presence that leads to spacious clarity and vividness with
+				life as it actually is
 			</p>
 
-			<div class="hero-actions">
-				<a class="button" href={primaryContactHref}>Start practicing</a>
-				<a class="button button--outline" href="#method">The philosophy</a>
-			</div>
-		</div>
-
-		<div class="hero-media">
-			<div class="hero-image-frame">
-				<img
-					src="/images/hero-reference.jpg"
-					alt="Warm morning sunlight hitting a minimalist wooden floor with a single small potted plant"
-					loading="eager"
-					decoding="async"
-				/>
-			</div>
-
-			<aside class="hero-quote">
-				<p>"The goal isn't to leave the world, but to inhabit it fully."</p>
-			</aside>
+			<form class="hero-waitlist" data-hero-waitlist data-waitlist-recipient={site.email}>
+				<label class="sr-only" for="hero-email">Email address</label>
+				<div class="hero-waitlist-field">
+					<p class="hero-waitlist-note">Get early access to the course when it is ready</p>
+					<div class="hero-waitlist-row">
+						<input
+							id="hero-email"
+							class="hero-waitlist-input"
+							name="email"
+							type="email"
+							autocomplete="email"
+							inputmode="email"
+							placeholder="Email address"
+							required
+						/>
+						<button class="button hero-waitlist-button" type="submit">Join waitlist</button>
+					</div>
+				</div>
+			</form>
 		</div>
 	</div>
 </section>
+
+<script>
+	import {
+		ShaderFitOptions,
+		ShaderMount,
+		getShaderColorFromString,
+		getShaderNoiseTexture,
+		halftoneCmykFragmentShader,
+	} from '@paper-design/shaders';
+
+	const waitForImage = (image: HTMLImageElement) =>
+		image.complete && image.naturalWidth > 0
+			? Promise.resolve(image)
+			: new Promise<HTMLImageElement>((resolve, reject) => {
+					image.addEventListener('load', () => resolve(image), { once: true });
+					image.addEventListener('error', () => reject(new Error(`Failed to load ${image.src}`)), {
+						once: true,
+					});
+				});
+
+	const initHeroPaperTexture = async () => {
+		const hero = document.querySelector('.hero');
+		const image = hero?.querySelector('.hero-image-source');
+		const shaderHost = hero?.querySelector('.hero-paper-shader');
+
+		if (!(hero instanceof HTMLElement) || !(image instanceof HTMLImageElement) || !(shaderHost instanceof HTMLElement)) {
+			return;
+		}
+
+		if ('paperShaderMount' in shaderHost && shaderHost.paperShaderMount) {
+			return;
+		}
+
+		try {
+			const noiseTexture = getShaderNoiseTexture();
+
+			if (!(noiseTexture instanceof HTMLImageElement)) {
+				return;
+			}
+
+			await Promise.all([waitForImage(image), waitForImage(noiseTexture)]);
+
+			new ShaderMount(
+				shaderHost,
+				halftoneCmykFragmentShader,
+				{
+					u_image: image,
+					u_noiseTexture: noiseTexture,
+					u_colorBack: getShaderColorFromString('#fbfaf4'),
+					u_colorC: getShaderColorFromString('#00b3ff'),
+					u_colorM: getShaderColorFromString('#fc4f9d'),
+					u_colorY: getShaderColorFromString('#ffd900'),
+					u_colorK: getShaderColorFromString('#231f20'),
+					u_size: 0.01,
+					u_gridNoise: 0.18,
+					u_type: 2,
+					u_softness: 1,
+					u_contrast: 1.09,
+					u_floodC: 0.26,
+					u_floodM: 0.07,
+					u_floodY: 0,
+					u_floodK: 0,
+					u_gainC: 0.07,
+					u_gainM: 0.42,
+					u_gainY: 0.51,
+					u_gainK: -0.02,
+					u_grainMixer: 0.04,
+					u_grainOverlay: 0,
+					u_grainSize: 0,
+					u_fit: ShaderFitOptions.cover,
+					u_scale: 1.08,
+					u_rotation: 0,
+					u_originX: 0.5,
+					u_originY: 0,
+					u_offsetX: 0,
+					u_offsetY: 0,
+					u_worldWidth: 0,
+					u_worldHeight: 0,
+				},
+				undefined,
+				0,
+			);
+
+			hero.classList.add('hero--paper-ready');
+		} catch (error) {
+			console.error('Paper texture hero shader failed to initialize.', error);
+		}
+	};
+
+	const initHeroWaitlistForm = () => {
+		const form = document.querySelector('[data-hero-waitlist]');
+
+		if (!(form instanceof HTMLFormElement)) {
+			return;
+		}
+
+		const input = form.querySelector('input[name="email"]');
+		const recipient = form.dataset.waitlistRecipient;
+
+		if (!(input instanceof HTMLInputElement) || !recipient) {
+			return;
+		}
+
+		form.addEventListener('submit', (event) => {
+			event.preventDefault();
+
+			if (!input.reportValidity()) {
+				return;
+			}
+
+			const subject = 'Spacious Clarity Waitlist';
+			const body = `Please add me to the waitlist.%0A%0AEmail: ${encodeURIComponent(input.value)}`;
+			window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${body}`;
+		});
+	};
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initHeroPaperTexture, { once: true });
+		document.addEventListener('DOMContentLoaded', initHeroWaitlistForm, { once: true });
+	} else {
+		void initHeroPaperTexture();
+		initHeroWaitlistForm();
+	}
+</script>

@@ -1,31 +1,24 @@
----
-import { primaryContactHref } from '../content/site';
-
-const year = new Date().getFullYear();
----
-
 <footer class="site-footer">
-	<div class="shell footer-grid">
-		<div class="footer-brand">
-			<div class="footer-wordmark">Spacious Clarity</div>
-			<p>
-				Practical philosophy and meditative arts for an uncomplicated life.
-			</p>
-			<p class="footer-meta">© {year} Spacious Clarity. Grounded in Silence.</p>
-		</div>
+	<div class="shell">
+		<div class="footer-grid">
+			<div class="footer-brand">
+				<div class="footer-wordmark">Spacious Clarity</div>
+				<p class="footer-meta">© 2026 Spacious Clarity</p>
+			</div>
 
-		<div class="footer-links">
-			<div>
-				<span>Platform</span>
-				<a href="#method">The Method</a>
-				<a href="#difference">What Makes This Different</a>
-				<a href="#begin">Join the Next Cohort</a>
-			</div>
-			<div>
-				<span>Connect</span>
-				<a href={primaryContactHref}>Contact</a>
-				<a href="/">Home</a>
-			</div>
+			<nav class="footer-links" aria-label="Footer">
+				<a
+					href="https://charlieawbery.substack.com/"
+					target="_blank"
+					rel="noreferrer"
+				>
+					Follow Charlie on Substack
+				</a>
+				<a href="https://www.evolvingground.org/" target="_blank" rel="noreferrer">
+					Evolving Ground
+				</a>
+				<a href="mailto:hi@spaciousclarity.com">Contact Us</a>
+			</nav>
 		</div>
 	</div>
 </footer>

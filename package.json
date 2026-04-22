@@ -20,6 +20,7 @@
     "@astrojs/sitemap": "^3.7.2",
     "@fontsource-variable/manrope": "^5.2.8",
     "@fontsource-variable/newsreader": "^5.2.10",
+    "@paper-design/shaders": "^0.0.71",
     "astro": "^6.1.6"
   },
   "devDependencies": {
