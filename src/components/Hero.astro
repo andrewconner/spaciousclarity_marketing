@@ -4,19 +4,21 @@ import HeroCopy from './HeroCopy.astro';
 
 <section class="hero" aria-labelledby="hero-heading">
 	<div class="hero-backdrop" aria-hidden="true">
-		<img
-			class="hero-image-source"
-			src="/images/hero-1800.jpg"
-			srcset="/images/hero-800.jpg 800w, /images/hero-1400.jpg 1400w, /images/hero-1800.jpg 1800w"
-			sizes="100vw"
-			alt=""
-			width="1800"
-			height="2400"
-			loading="eager"
-			decoding="async"
-			fetchpriority="high"
-		/>
-		<div class="hero-paper-shader" aria-hidden="true"></div>
+		<div class="hero-art">
+			<img
+				class="hero-image-source"
+				src="/images/hero-1800.jpg"
+				srcset="/images/hero-800.jpg 800w, /images/hero-1400.jpg 1400w, /images/hero-1800.jpg 1800w"
+				sizes="100vw"
+				alt=""
+				width="1800"
+				height="2400"
+				loading="eager"
+				decoding="async"
+				fetchpriority="high"
+			/>
+			<div class="hero-paper-shader" aria-hidden="true"></div>
+		</div>
 		<div class="hero-scrim" aria-hidden="true"></div>
 	</div>
 
@@ -94,7 +96,7 @@ import HeroCopy from './HeroCopy.astro';
 					u_fit: ShaderFitOptions.cover,
 					u_scale: 1,
 					u_rotation: 0,
-					u_originX: 0.5,
+					u_originX: 0,
 					u_originY: 0,
 					u_offsetX: 0,
 					u_offsetY: 0,
