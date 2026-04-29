@@ -33,7 +33,7 @@ import HeroCopy from './HeroCopy.astro';
 		getShaderNoiseTexture,
 		halftoneCmykFragmentShader,
 	} from '@paper-design/shaders';
-	import { initWaitlistForms } from '../scripts/waitlist';
+	import { initKitAttributionFields } from '../scripts/kit-attribution';
 
 	const waitForImage = (image: HTMLImageElement) =>
 		image.complete && image.naturalWidth > 0
@@ -112,8 +112,8 @@ import HeroCopy from './HeroCopy.astro';
 	};
 
 	const run = () => {
+		initKitAttributionFields();
 		void initHeroShader();
-		initWaitlistForms();
 	};
 
 	if (document.readyState === 'loading') {

@@ -16,26 +16,39 @@ import { site } from '../content/site';
 		</p>
 
 		<form
-			class="closing-waitlist"
-			data-waitlist
-			data-waitlist-recipient={site.email}
-			novalidate
+			class="closing-waitlist seva-form formkit-form"
+			action={site.waitlist.action}
+			method="post"
+			data-sv-form={site.waitlist.formId}
+			data-uid={site.waitlist.uid}
+			data-format="inline"
+			data-version="5"
+			data-options={site.waitlist.options}
 		>
+			<input type="hidden" name="fields[signup_source]" value={site.waitlist.source} />
+			<input type="hidden" name="fields[signup_box]" value="closing" />
+			<input type="hidden" name="fields[referrer]" data-kit-attribution="referrer" />
+			<input type="hidden" name="fields[utm_source]" data-kit-attribution="utm_source" />
+			<input type="hidden" name="fields[utm_medium]" data-kit-attribution="utm_medium" />
+			<input type="hidden" name="fields[utm_campaign]" data-kit-attribution="utm_campaign" />
+			<input type="hidden" name="fields[utm_term]" data-kit-attribution="utm_term" />
+			<input type="hidden" name="fields[utm_content]" data-kit-attribution="utm_content" />
 			<label class="sr-only" for="closing-email">Email address</label>
-			<div class="closing-waitlist-field">
+			<div class="closing-waitlist-field" data-element="fields">
 				<input
 					id="closing-email"
 					class="closing-waitlist-input"
-					name="email"
+					name="email_address"
 					type="email"
 					autocomplete="email"
 					inputmode="email"
 					placeholder="you@example.com"
 					required
 				/>
-				<button class="closing-waitlist-button" type="submit">Join the waitlist</button>
+				<button class="closing-waitlist-button" type="submit" data-element="submit">
+					Join the waitlist
+				</button>
 			</div>
 		</form>
 	</div>
 </section>
-

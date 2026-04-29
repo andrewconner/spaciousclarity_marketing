@@ -30,27 +30,41 @@ import { site } from '../content/site';
 		</p>
 
 		<form
-			class="hero-waitlist"
-			data-waitlist
-			data-waitlist-recipient={site.email}
-			novalidate
+			class="hero-waitlist seva-form formkit-form"
+			action={site.waitlist.action}
+			method="post"
+			data-sv-form={site.waitlist.formId}
+			data-uid={site.waitlist.uid}
+			data-format="inline"
+			data-version="5"
+			data-options={site.waitlist.options}
 		>
+			<input type="hidden" name="fields[signup_source]" value={site.waitlist.source} />
+			<input type="hidden" name="fields[signup_box]" value="hero" />
+			<input type="hidden" name="fields[referrer]" data-kit-attribution="referrer" />
+			<input type="hidden" name="fields[utm_source]" data-kit-attribution="utm_source" />
+			<input type="hidden" name="fields[utm_medium]" data-kit-attribution="utm_medium" />
+			<input type="hidden" name="fields[utm_campaign]" data-kit-attribution="utm_campaign" />
+			<input type="hidden" name="fields[utm_term]" data-kit-attribution="utm_term" />
+			<input type="hidden" name="fields[utm_content]" data-kit-attribution="utm_content" />
 			<p class="hero-waitlist-note">
 				The course opens on a rolling basis. Leave your email for early access.
 			</p>
-			<div class="hero-waitlist-field">
+			<div class="hero-waitlist-field" data-element="fields">
 				<label class="sr-only" for="hero-email">Email address</label>
 				<input
 					id="hero-email"
 					class="hero-waitlist-input"
-					name="email"
+					name="email_address"
 					type="email"
 					autocomplete="email"
 					inputmode="email"
 					placeholder="you@example.com"
 					required
 				/>
-				<button class="hero-waitlist-button" type="submit">Join the waitlist</button>
+				<button class="hero-waitlist-button" type="submit" data-element="submit">
+					Join the waitlist
+				</button>
 			</div>
 		</form>
 	</div>

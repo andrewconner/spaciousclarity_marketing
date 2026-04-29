@@ -1,0 +1,29 @@
+---
+import SiteFooter from '../components/SiteFooter.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+	title="You're on the waitlist | Spacious Clarity"
+	description="Thank you for joining the Spacious Clarity waitlist."
+	path="/waitlist"
+	noindex={true}
+>
+	<main id="main-content">
+		<section class="not-found-page">
+			<div class="not-found-card">
+				<span class="label">Waitlist</span>
+				<h1>You're on the list.</h1>
+				<p>
+					Check your inbox for the confirmation email from Spacious Clarity. We'll
+					send course access details as new spots open.
+				</p>
+				<div>
+					<a class="button" href="/">Return to the homepage</a>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<SiteFooter />
+</BaseLayout>
