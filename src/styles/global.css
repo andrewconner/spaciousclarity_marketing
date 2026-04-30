@@ -290,7 +290,7 @@ section[id] {
 	/* Brightness and saturation tuned so blue reads clearly through the
 	   multiplied halftone while the photo stays a tint rather than a
 	   second subject competing with the ink. */
-	filter: brightness(1.2) saturate(1.0) contrast(0.96);
+	filter: brightness(0.95) saturate(1.0) contrast(0.98);
 }
 
 .hero-paper-shader {
@@ -316,23 +316,23 @@ section[id] {
 	inset: 0;
 	background:
 		linear-gradient(
-			color-mix(in srgb, var(--midnight) 20%, transparent),
-			color-mix(in srgb, var(--midnight) 20%, transparent)
+			color-mix(in srgb, var(--midnight) 38%, transparent),
+			color-mix(in srgb, var(--midnight) 38%, transparent)
 		),
 		/* Left-column darkening for copy legibility; fully gone by midline. */
 		linear-gradient(
 			95deg,
-			color-mix(in srgb, var(--midnight) 68%, transparent) 0%,
-			color-mix(in srgb, var(--midnight) 36%, transparent) 34%,
-			transparent 52%
+			color-mix(in srgb, var(--midnight) 84%, transparent) 0%,
+			color-mix(in srgb, var(--midnight) 58%, transparent) 36%,
+			color-mix(in srgb, var(--midnight) 18%, transparent) 58%,
+			transparent 72%
 		),
-		/* Bottom vignette only — top is intentionally clear so the upper-right
-		   breathes and the blue in the water comes through brightly. */
+		/* Bottom vignette preserves depth while keeping the full header readable. */
 		linear-gradient(
 			180deg,
-			transparent 0%,
+			color-mix(in srgb, var(--midnight) 12%, transparent) 0%,
 			transparent 34%,
-			color-mix(in srgb, var(--midnight) 22%, transparent) 100%
+			color-mix(in srgb, var(--midnight) 34%, transparent) 100%
 		);
 }
 
@@ -357,24 +357,7 @@ section[id] {
 	align-items: center;
 	justify-content: space-between;
 	gap: 1rem;
-	padding-bottom: clamp(0.85rem, 1vw + 0.55rem, 1.25rem);
 	margin: 0 0 clamp(5rem, 5vw + 2rem, 8.5rem);
-}
-
-.hero-masthead::after {
-	content: '';
-	position: absolute;
-	inset-inline: 0;
-	bottom: 0;
-	height: 1px;
-	background: color-mix(in srgb, var(--ink-on-dark) 22%, transparent);
-	transform-origin: left center;
-	animation: hero-masthead-rule 1600ms cubic-bezier(0.22, 1, 0.36, 1) 180ms both;
-}
-
-@keyframes hero-masthead-rule {
-	from { transform: scaleX(0); opacity: 0; }
-	to   { transform: scaleX(1); opacity: 1; }
 }
 
 .hero-mark {
@@ -383,10 +366,10 @@ section[id] {
 	gap: 0.7rem;
 	margin: 0;
 	font-family: var(--font-sans);
-	font-size: 0.88rem;
+	font-size: 1.3rem;
 	font-weight: 600;
-	letter-spacing: 0.18em;
-	text-transform: uppercase;
+	letter-spacing: 0.12em;
+	padding-top: 6px;
 	color: var(--ink-on-dark);
 	text-shadow: 0 1px 10px color-mix(in srgb, var(--midnight) 55%, transparent);
 }
@@ -416,21 +399,14 @@ section[id] {
 	white-space: nowrap;
 }
 
-@media (max-width: 32rem) {
+@media (max-width: 530px) {
 	.hero-masthead {
 		flex-wrap: wrap;
 		gap: 0.75rem 1rem;
 	}
 
 	.hero-masthead-meta {
-		font-size: 0.72rem;
-	}
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.hero-masthead::after {
-		animation: none;
-		transform: none;
+		display: none;
 	}
 }
 
@@ -489,6 +465,7 @@ section[id] {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: stretch;
+	justify-content: center;
 	gap: 0.55rem;
 	padding: 0.5rem;
 	border-radius: var(--radius);
@@ -506,7 +483,7 @@ section[id] {
 	background: transparent;
 	color: var(--ink);
 	padding: 0.75rem 0.85rem;
-	font-size: 1rem;
+	font-size: 1.15rem;
 }
 
 .hero-waitlist-input::placeholder {
@@ -983,6 +960,7 @@ section[id] {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: stretch;
+	justify-content: center;
 	gap: 0.55rem;
 	padding: 0.5rem;
 	border-radius: var(--radius);
@@ -1000,7 +978,7 @@ section[id] {
 	background: transparent;
 	color: var(--ink);
 	padding: 0.75rem 0.85rem;
-	font-size: 1rem;
+	font-size: 1.15rem;
 }
 
 .closing-waitlist-input::placeholder {
