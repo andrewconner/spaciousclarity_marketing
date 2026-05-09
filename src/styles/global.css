@@ -287,10 +287,9 @@ section[id] {
 	width: 100%;
 	height: 100%;
 	object-fit: fill;
-	/* Brightness and saturation tuned so blue reads clearly through the
-	   multiplied halftone while the photo stays a tint rather than a
-	   second subject competing with the ink. */
-	filter: brightness(0.95) saturate(1.0) contrast(0.98);
+	/* Lift the photo so the first viewport reads as paper and light, while the
+	   local copy wash handles legibility instead of a full dark blanket. */
+	filter: brightness(1.08) saturate(0.96) contrast(0.94);
 }
 
 .hero-paper-shader {
@@ -299,10 +298,9 @@ section[id] {
 	pointer-events: none;
 	/* Multiply sits the halftone ink on top of the photograph like real
 	   riso: paper regions pass the photo through; ink dots darken it.
-	   Slight opacity lets raw photo color bleed through where multiply
-	   would otherwise crush the blues against the warm/dark inks. */
+	   Lower opacity keeps the ink present without crushing the top field. */
 	mix-blend-mode: multiply;
-	opacity: 0.84;
+	opacity: 0.68;
 }
 
 .hero-paper-shader canvas {
@@ -315,24 +313,32 @@ section[id] {
 	position: absolute;
 	inset: 0;
 	background:
-		linear-gradient(
-			color-mix(in srgb, var(--midnight) 38%, transparent),
-			color-mix(in srgb, var(--midnight) 38%, transparent)
-		),
-		/* Left-column darkening for copy legibility; fully gone by midline. */
+		/* Text-side depth, fading quickly so the image can breathe. */
 		linear-gradient(
 			95deg,
-			color-mix(in srgb, var(--midnight) 84%, transparent) 0%,
-			color-mix(in srgb, var(--midnight) 58%, transparent) 36%,
-			color-mix(in srgb, var(--midnight) 18%, transparent) 58%,
-			transparent 72%
+			color-mix(in srgb, var(--midnight) 78%, transparent) 0%,
+			color-mix(in srgb, var(--midnight) 58%, transparent) 28%,
+			color-mix(in srgb, var(--midnight) 22%, transparent) 48%,
+			transparent 64%
 		),
-		/* Bottom vignette preserves depth while keeping the full header readable. */
+		/* A small top shade keeps the masthead crisp without darkening the field. */
 		linear-gradient(
 			180deg,
-			color-mix(in srgb, var(--midnight) 12%, transparent) 0%,
-			transparent 34%,
-			color-mix(in srgb, var(--midnight) 34%, transparent) 100%
+			color-mix(in srgb, var(--midnight) 14%, transparent) 0%,
+			transparent 26%
+		),
+		/* Warm paper lift counterbalances the shader's dark ink. */
+		linear-gradient(
+			180deg,
+			color-mix(in srgb, var(--chalk) 18%, transparent) 0%,
+			color-mix(in srgb, var(--chalk) 10%, transparent) 44%,
+			transparent 78%
+		),
+		/* Shallow bottom vignette keeps the hero anchored. */
+		linear-gradient(
+			180deg,
+			transparent 42%,
+			color-mix(in srgb, var(--midnight) 22%, transparent) 100%
 		);
 }
 
@@ -347,6 +353,26 @@ section[id] {
 
 .hero-copy {
 	max-width: 44rem;
+	position: relative;
+	isolation: isolate;
+}
+
+.hero-copy::before {
+	content: '';
+	position: absolute;
+	z-index: -1;
+	--hero-copy-wash-x: clamp(8rem, 22vw, 18rem);
+	inset: -5rem calc(-1 * var(--hero-copy-wash-x)) -4rem
+		calc(-1 * var(--hero-copy-wash-x));
+	background: radial-gradient(
+		ellipse 58% 62% at 42% 44%,
+		color-mix(in srgb, var(--midnight) 34%, transparent) 0%,
+		color-mix(in srgb, var(--midnight) 20%, transparent) 34%,
+		color-mix(in srgb, var(--midnight) 7%, transparent) 64%,
+		transparent 84%
+	);
+	filter: blur(6px);
+	pointer-events: none;
 }
 
 /* ── masthead: logo + wordmark | edition marker, grounded by a hairline rule ── */
@@ -427,7 +453,7 @@ section[id] {
 .hero-title em {
 	font-style: italic;
 	font-weight: 400;
-	color: #ffffff;
+	color: color-mix(in srgb, var(--chalk) 86%, var(--ink-on-dark));
 }
 
 .hero-intro {
