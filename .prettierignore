@@ -1,5 +1,7 @@
 dist
 .astro
+.agents
+.claude
 node_modules
 pnpm-lock.yaml
 .wrangler

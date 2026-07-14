@@ -32,7 +32,7 @@
 	--ivory: #f6f2ea; /* field ivory — main surface */
 	--chalk: #fbf8f2; /* elevated surface */
 	--stone: #d9d1c4; /* borders, soft dividers */
-	--fog: #a79f93; /* muted text / icons */
+	--fog: #716b63; /* muted text / icons */
 	--midnight: #10212b; /* primary dark surface */
 	--terrain: #17303a; /* dark cards / dark buttons */
 	--lichen: #55624b; /* secondary earthy accent */
@@ -430,6 +430,10 @@ section[id] {
 
 .waitlist-input::placeholder {
 	color: var(--fog);
+}
+
+.waitlist-form--on-dark .waitlist-input::placeholder {
+	color: color-mix(in srgb, var(--ink-on-dark) 70%, transparent);
 }
 
 .waitlist-input:hover {

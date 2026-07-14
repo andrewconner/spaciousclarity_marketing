@@ -5,6 +5,6 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://spaciousclarity.com',
-	integrations: [sitemap()],
+	integrations: [sitemap({ filter: (page) => new URL(page).pathname !== '/waitlist/' })],
 	output: 'static',
 });
