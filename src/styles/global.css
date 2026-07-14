@@ -60,7 +60,7 @@
 	--fs-metadata: 1rem; /* 16px — labels read clearly */
 	--fs-caption: 0.8125rem; /* 13px   */
 	--fs-body: 1.25rem; /* 20px — running prose */
-	--fs-body-lg: 1.25rem; /* 20px   */
+	--fs-body-sm: 1.125rem; /* 18px — lists and supporting prose */
 	--fs-lede: clamp(1.15rem, 1rem + 0.7vw, 1.625rem);
 	--fs-h2: clamp(1.9rem, 1.35rem + 2.4vw, 3.4rem);
 	--fs-h1: clamp(2.35rem, 1.55rem + 4vw, 5.25rem);
