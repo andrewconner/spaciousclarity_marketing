@@ -20,15 +20,15 @@ The repo includes `.nvmrc` so local Node version managers can switch automatical
 
 ## Scripts
 
-| Command | Purpose |
-| :------ | :------ |
-| `pnpm dev` | Start the Astro dev server |
-| `pnpm check` | Run Astro's project checks |
-| `pnpm build` | Build the static site into `dist/` |
-| `pnpm preview` | Preview the production build locally |
-| `pnpm validate` | Run checks and build together |
+| Command               | Purpose                                                |
+| :-------------------- | :----------------------------------------------------- |
+| `pnpm dev`            | Start the Astro dev server                             |
+| `pnpm check`          | Run Astro's project checks                             |
+| `pnpm build`          | Build the static site into `dist/`                     |
+| `pnpm preview`        | Preview the production build locally                   |
+| `pnpm validate`       | Run checks and build together                          |
 | `pnpm deploy:dry-run` | Build and validate the Cloudflare deploy configuration |
-| `pnpm deploy` | Build and deploy to Cloudflare Workers |
+| `pnpm deploy`         | Build and deploy to Cloudflare Workers                 |
 
 ## Local development
 
@@ -71,4 +71,12 @@ pnpm dev
 ## Notes
 
 - The production domain lives in two places: `astro.config.mjs` (`site`) and `src/content/site.ts` (`url`/`email`). Keep them aligned if it ever changes.
-- The teacher section expects `public/images/charlie-awbery.jpg`. Drop in a portrait-orientation headshot at that path.
+- The social card ships as `public/og-card.png` (most platforms won't render SVG `og:image`). `public/og-card.svg` is the editable source; `scripts/og-card.html` regenerates the PNG:
+
+  ```sh
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new \
+    --allow-file-access-from-files --hide-scrollbars --window-size=1200,630 \
+    --screenshot=public/og-card.png "file://$PWD/scripts/og-card.html"
+  ```
+
+- `docs/kit-form-reference.html` is the reference markup for the Kit waitlist form; the live forms render through `src/components/WaitlistForm.astro`.

@@ -8,14 +8,14 @@
     <path d="M 40 400 C 200 360 400 340 600 340 C 740 340 860 368 960 404 C 1040 430 1140 454 1200 446" />
   </g>
 
-  <g fill="none" stroke="#1A2129" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" opacity="0.55">
-    <path d="M 680 320 C 760 286 880 270 980 276 C 1060 282 1140 310 1190 350 C 1210 366 1220 384 1220 400 C 1220 418 1160 428 1080 420 C 980 410 880 380 810 348 C 760 326 700 330 680 320 Z" />
-    <path d="M 760 312 C 820 286 900 276 970 282 C 1030 288 1090 308 1130 336 C 1160 356 1170 374 1170 388 C 1170 404 1120 412 1060 408 C 980 402 910 376 860 354 C 816 332 776 324 760 312 Z" />
-    <path d="M 820 316 C 858 298 912 292 958 298 C 998 302 1036 316 1062 334 C 1082 346 1090 360 1090 372 C 1090 384 1060 392 1018 392 C 966 390 916 376 880 360 C 848 346 828 332 820 316 Z" />
+  <g fill="none" stroke="#1A2129" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" opacity="0.5">
+    <path d="M 848 284 C 904 264 972 256 1040 262 C 1098 267 1150 282 1188 306" />
+    <path d="M 806 328 C 870 302 950 292 1030 298 C 1100 304 1160 324 1200 354" />
+    <path d="M 830 434 C 886 410 958 398 1032 402 C 1098 406 1156 424 1198 452" />
   </g>
 
   <!-- Sun Clay anchor over the peak -->
-  <g transform="translate(956 316)">
+  <g transform="translate(988 362)">
     <circle r="56" fill="none" stroke="#C87435" stroke-opacity="0.26" stroke-width="1.2" />
     <circle r="36" fill="none" stroke="#C87435" stroke-opacity="0.36" stroke-width="1.2" />
     <circle r="18" fill="#C87435" />

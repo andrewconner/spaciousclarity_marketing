@@ -1,0 +1,167 @@
+---
+/**
+ * Objection handling, set as a ruled list of native disclosures. Serif
+ * questions, hairline rules, plain +/− marker. The composition answer is
+ * deliberately mechanism-honest without naming implementation details.
+ */
+const faqs = [
+	{
+		q: 'What do you mean by "spacious clarity"?',
+		a: "The result the practice points at: continuous, vivid appreciation of what is happening. It isn't blankness, numbness, or a special state you manufacture. Students describe it as more room around experience: thoughts and feelings still arrive, and there's space for them.",
+	},
+	{
+		q: `Doesn't "uninvolved" mean detachment?`,
+		a: "It points the opposite direction. You practice remaining uninvolved during a sit so that clarity is available when you're fully involved in life. Nothing is pushed away: thoughts and feelings stay, and you stop building on them. If a practice starts to feel numb or distant, that's a misread we watch for and correct.",
+	},
+	{
+		q: "I've never meditated. Can I start here?",
+		a: "Yes. The course assumes no experience, and the first sessions build the foundation: how to sit, what to do with thoughts, how to return. Beginners sometimes have an advantage; there's less to unlearn.",
+	},
+	{
+		q: 'I already meditate. Will this be remedial?',
+		a: "No. Different systems aim at different results, and this one aims somewhere specific. Don't buy the platitude that all paths lead to the same goal; empirically, this is not so. Opening Awareness works by release rather than concentration, and many students arrive from vipassana, TMI, or years of app practice. The first ten days recalibrate the instruction; they don't restart you.",
+	},
+	{
+		q: 'Is this religious?',
+		a: 'The practice descends from a Tibetan lineage: Opening Awareness is a contemporary adaptation of a practice called shi-né. The course asks for experiment, not belief. Nothing to join, no vocabulary to adopt.',
+	},
+	{
+		q: 'Is this therapy?',
+		a: "No. Meditation and therapy develop different capacities, and this course isn't a treatment for anything. Practice can sit well alongside therapy, and many students find it steadying. If you're in acute crisis or working through trauma, therapy first is often the right order; the course will still be here.",
+	},
+	{
+		q: 'How much time does it take?',
+		a: 'Sessions run fifteen to thirty minutes, most days. You set the rhythm, and consistency matters more than duration; the aim is a habit that fits your real, ordinary life, not just the mountain tops. Missed days are information, not failure; the course adjusts rather than scolds.',
+	},
+	{
+		q: 'How long until I notice anything?',
+		a: "Honestly, it varies. With regular practice, many people notice changes in the quality of attention within weeks; understanding the instruction deeply can take a year or more. Consistent short sits beat occasional long ones, and day-to-day changes usually show up before the method feels clear. We'd rather undersell this than promise you a schedule.",
+	},
+	{
+		q: 'Is it an app?',
+		a: 'Technically, yes: iOS, Android, and web. It behaves more like correspondence with a teacher: no streaks, no badges, no fixed ladder. It gets quieter as you need it less.',
+	},
+	{
+		q: 'How are sessions composed?',
+		a: "Every word of teaching is Charlie's, recorded and written in advance. The course software chooses which teaching, which sit, which question comes next, based on what your practice actually shows. It can't invent instruction, and it doesn't diagnose you.",
+	},
+	{
+		q: 'The course makes itself unnecessary. Then what?',
+		a: "You keep the practice; that's the point. The course fades toward a simple timer and a library you can browse when curious. And if you want teachers, peers, and practices beyond Opening Awareness, Evolving Ground is the wider community this grew out of.",
+	},
+	{
+		q: 'What will it cost?',
+		a: "A one-time purchase, not a subscription; we don't want an incentive pointed at keeping you around. The price will be announced as cohorts open. The first lessons will be free.",
+	},
+];
+---
+
+<section class="faq-section" id="questions" aria-labelledby="faq-heading">
+	<div class="sheet">
+		<h2 id="faq-heading" class="faq-heading">Questions</h2>
+
+		<div class="faq-list">
+			{
+				faqs.map((item) => (
+					<details class="faq-item">
+						<summary>
+							<span class="faq-question">{item.q}</span>
+							<span class="faq-marker" aria-hidden="true" />
+						</summary>
+						<p class="faq-answer">{item.a}</p>
+					</details>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.faq-section {
+		background: var(--surface);
+		padding: clamp(3rem, 4vw + 1rem, 5.5rem) 0 clamp(3.5rem, 5vw + 1rem, 6.5rem);
+	}
+
+	.faq-heading {
+		font-size: clamp(1.7rem, 1.2rem + 1.8vw, 2.6rem);
+		font-weight: 390;
+		letter-spacing: -0.016em;
+		line-height: 1.1;
+		margin: 0 0 clamp(1.25rem, 2vw, 2rem);
+	}
+
+	.faq-list {
+		border-top: 1px solid var(--rule);
+	}
+
+	.faq-item {
+		border-bottom: 1px solid var(--rule);
+	}
+
+	.faq-item summary {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 1.1rem 0;
+		cursor: pointer;
+		list-style: none;
+	}
+
+	.faq-item summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.faq-question {
+		font-family: var(--font-serif);
+		font-size: 1.25rem;
+		font-weight: 430;
+		line-height: 1.35;
+		color: var(--ink);
+	}
+
+	.faq-marker {
+		flex: 0 0 auto;
+		position: relative;
+		width: 0.85rem;
+		height: 0.85rem;
+		transform: translateY(0.1em);
+	}
+
+	.faq-marker::before,
+	.faq-marker::after {
+		content: '';
+		position: absolute;
+		background: var(--ink-soft);
+	}
+
+	.faq-marker::before {
+		inset: 50% 0 auto 0;
+		height: 1.5px;
+		transform: translateY(-50%);
+	}
+
+	.faq-marker::after {
+		inset: 0 auto 0 50%;
+		width: 1.5px;
+		transform: translateX(-50%);
+		transition: transform 200ms ease;
+	}
+
+	.faq-item[open] .faq-marker::after {
+		transform: translateX(-50%) scaleY(0);
+	}
+
+	.faq-item summary:hover .faq-question {
+		color: var(--ink-soft);
+	}
+
+	.faq-answer {
+		max-width: var(--measure);
+		margin: 0;
+		padding: 0 0 1.35rem;
+		font-size: 1.125rem;
+		line-height: 1.65;
+		color: var(--ink-soft);
+	}
+</style>

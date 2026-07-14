@@ -1,24 +1,29 @@
 ---
 import ApproachSection from '../components/ApproachSection.astro';
-import ClosingSection from '../components/ClosingSection.astro';
-import DifferenceSection from '../components/DifferenceSection.astro';
+import Colophon from '../components/Colophon.astro';
+import FaqSection from '../components/FaqSection.astro';
+import FitSection from '../components/FitSection.astro';
 import Hero from '../components/Hero.astro';
-import SiteFooter from '../components/SiteFooter.astro';
+import HowItWorksSection from '../components/HowItWorksSection.astro';
+import MethodSection from '../components/MethodSection.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 import TeacherSection from '../components/TeacherSection.astro';
-import TestimonialSection from '../components/TestimonialSection.astro';
+import WhatChangesSection from '../components/WhatChangesSection.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout path="/">
 	<main id="main-content" class="main-home">
 		<Hero />
+		<SiteHeader />
+		<MethodSection />
 		<ApproachSection />
+		<HowItWorksSection />
 		<TeacherSection />
-		<TestimonialSection />
-		<DifferenceSection />
-		<ClosingSection />
+		<WhatChangesSection />
+		<FitSection />
+		<FaqSection />
 	</main>
 
-	<SiteFooter />
-	<script is:inline src="https://f.convertkit.com/ckjs/ck.5.js" defer></script>
+	<Colophon />
 </BaseLayout>

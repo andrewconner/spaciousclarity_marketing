@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<style>
+			@font-face {
+				font-family: 'Host Grotesk';
+				src: url('../../node_modules/@fontsource-variable/host-grotesk/files/host-grotesk-latin-wght-normal.woff2')
+					format('woff2-variations');
+				font-weight: 300 800;
+			}
+			body {
+				margin: 0;
+				padding: 48px;
+				background: #f6f2ea;
+				font-family: 'Host Grotesk', sans-serif;
+				display: grid;
+				gap: 40px;
+				width: 1104px;
+			}
+			.row {
+				display: grid;
+				grid-template-columns: 220px 1fr 1fr;
+				gap: 32px;
+				align-items: center;
+			}
+			.name {
+				font-size: 13px;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: #a79f93;
+			}
+			.masthead {
+				display: inline-flex;
+				align-items: center;
+				gap: 10px;
+				font-size: 17px;
+				font-weight: 600;
+				letter-spacing: 0.11em;
+				color: #1a2129;
+				padding: 18px 24px;
+				border-bottom: 1px solid #d9d1c4;
+				background: #f6f2ea;
+			}
+			.masthead.dark {
+				background: #10212b;
+				color: #ece6d8;
+				border-bottom-color: rgba(236, 230, 216, 0.22);
+			}
+			.masthead svg {
+				width: 26px;
+				height: 26px;
+				display: block;
+			}
+			.tiny {
+				display: inline-flex;
+				gap: 16px;
+				align-items: center;
+				margin-left: 20px;
+			}
+			.tiny svg {
+				width: 16px;
+				height: 16px;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Candidate A — terrain strokes + summit dot (the favicon language, promoted) -->
+		<div class="row">
+			<div class="name">A · Terrain + summit</div>
+			<div class="masthead">
+				<svg viewBox="0 0 64 64" fill="none">
+					<g
+						stroke="currentColor"
+						stroke-width="4"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						opacity="0.8"
+					>
+						<path d="M 6 46 C 16 41 26 41 34 43 C 44 46 52 48 58 46" />
+						<path d="M 12 32 C 21 27 30 27 38 29 C 46 31 52 31 58 29" />
+					</g>
+					<circle cx="45" cy="16" r="8" fill="#C87435" />
+				</svg>
+				<span>SPACIOUS CLARITY</span>
+			</div>
+			<div class="masthead dark">
+				<svg viewBox="0 0 64 64" fill="none">
+					<g
+						stroke="currentColor"
+						stroke-width="4"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						opacity="0.8"
+					>
+						<path d="M 6 46 C 16 41 26 41 34 43 C 44 46 52 48 58 46" />
+						<path d="M 12 32 C 21 27 30 27 38 29 C 46 31 52 31 58 29" />
+					</g>
+					<circle cx="45" cy="16" r="8" fill="#C87435" />
+				</svg>
+				<span>SPACIOUS CLARITY</span>
+			</div>
+		</div>
+
+		<!-- Candidate B — rising ridge arcs + crest dot -->
+		<div class="row">
+			<div class="name">B · Ridge lines</div>
+			<div class="masthead">
+				<svg viewBox="0 0 64 64" fill="none">
+					<g
+						stroke="currentColor"
+						stroke-width="4"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						opacity="0.8"
+					>
+						<path d="M 6 50 C 20 44 36 42 58 46" />
+						<path d="M 10 37 C 24 30 40 29 58 33" />
+						<path d="M 16 24 C 28 18 40 17 54 20" />
+					</g>
+					<circle cx="32" cy="8" r="7" fill="#C87435" />
+				</svg>
+				<span>SPACIOUS CLARITY</span>
+			</div>
+			<div class="masthead dark">
+				<svg viewBox="0 0 64 64" fill="none">
+					<g
+						stroke="currentColor"
+						stroke-width="4"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						opacity="0.8"
+					>
+						<path d="M 6 50 C 20 44 36 42 58 46" />
+						<path d="M 10 37 C 24 30 40 29 58 33" />
+						<path d="M 16 24 C 28 18 40 17 54 20" />
+					</g>
+					<circle cx="32" cy="8" r="7" fill="#C87435" />
+				</svg>
+				<span>SPACIOUS CLARITY</span>
+			</div>
+		</div>
+
+		<!-- Candidate C — open concentric rings + clay center (summit target) -->
+		<div class="row">
+			<div class="name">C · Summit rings</div>
+			<div class="masthead">
+				<svg viewBox="0 0 64 64" fill="none">
+					<g stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity="0.8">
+						<path d="M 32 6 A 26 26 0 1 1 8.5 20" />
+						<path d="M 32 18 A 14 14 0 1 0 44.5 25" />
+					</g>
+					<circle cx="32" cy="32" r="7" fill="#C87435" />
+				</svg>
+				<span>SPACIOUS CLARITY</span>
+			</div>
+			<div class="masthead dark">
+				<svg viewBox="0 0 64 64" fill="none">
+					<g stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity="0.8">
+						<path d="M 32 6 A 26 26 0 1 1 8.5 20" />
+						<path d="M 32 18 A 14 14 0 1 0 44.5 25" />
+					</g>
+					<circle cx="32" cy="32" r="7" fill="#C87435" />
+				</svg>
+				<span>SPACIOUS CLARITY</span>
+			</div>
+		</div>
+
+		<!-- Current leaf, for reference -->
+		<div class="row">
+			<div class="name">Current · Leaf</div>
+			<div class="masthead">
+				<img src="../../public/images/logo.svg" width="26" height="26" alt="" />
+				<span>SPACIOUS CLARITY</span>
+			</div>
+			<div class="masthead dark">
+				<img src="../../public/images/logo.svg" width="26" height="26" alt="" />
+				<span>SPACIOUS CLARITY</span>
+			</div>
+		</div>
+	</body>
+</html>

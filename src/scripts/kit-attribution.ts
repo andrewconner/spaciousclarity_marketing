@@ -36,12 +36,10 @@ export const initKitAttributionFields = () => {
 
 	if (document.referrer) setStoredValue('referrer', document.referrer);
 
-	document
-		.querySelectorAll<HTMLInputElement>('input[data-kit-attribution]')
-		.forEach((input) => {
-			const key = input.dataset.kitAttribution;
-			if (!key) return;
+	document.querySelectorAll<HTMLInputElement>('input[data-kit-attribution]').forEach((input) => {
+		const key = input.dataset.kitAttribution;
+		if (!key) return;
 
-			input.value = getStoredValue(key);
-		});
+		input.value = getStoredValue(key);
+	});
 };

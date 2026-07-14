@@ -1,6 +1,7 @@
 ---
 import hostGroteskFontUrl from '@fontsource-variable/host-grotesk/files/host-grotesk-latin-wght-normal.woff2?url';
-import literataFontUrl from '@fontsource-variable/literata/files/literata-latin-wght-normal.woff2?url';
+import literataItalicFontUrl from '@fontsource-variable/literata/files/literata-latin-standard-italic.woff2?url';
+import literataFontUrl from '@fontsource-variable/literata/files/literata-latin-standard-normal.woff2?url';
 import { site } from '../content/site';
 import '../styles/global.css';
 
@@ -16,7 +17,7 @@ const {
 	title = site.title,
 	description = site.description,
 	path = '/',
-	image = '/og-card.svg',
+	image = '/og-card.png',
 	noindex = false,
 } = Astro.props;
 
@@ -42,9 +43,17 @@ const schema = {
 		<meta name="robots" content={noindex ? 'noindex' : 'index,follow'} />
 		<link rel="canonical" href={canonical} />
 		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 		<link
 			rel="preload"
 			href={literataFontUrl}
+			as="font"
+			type="font/woff2"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="preload"
+			href={literataItalicFontUrl}
 			as="font"
 			type="font/woff2"
 			crossorigin="anonymous"
@@ -62,6 +71,9 @@ const schema = {
 		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonical} />
 		<meta property="og:image" content={socialImage} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:type" content="image/png" />
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />

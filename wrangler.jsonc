@@ -1,12 +1,12 @@
 {
-  "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "spaciousclarity-marketing",
-  "compatibility_date": "2026-04-14",
-  "assets": {
-    "directory": "./dist",
-    "not_found_handling": "404-page"
-  },
-  "observability": {
-    "enabled": true
-  }
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "spaciousclarity-marketing",
+	"compatibility_date": "2026-04-14",
+	"assets": {
+		"directory": "./dist",
+		"not_found_handling": "404-page",
+	},
+	"observability": {
+		"enabled": true,
+	},
 }

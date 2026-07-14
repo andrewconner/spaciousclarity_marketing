@@ -10,16 +10,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	noindex={true}
 >
 	<main id="main-content">
-		<section class="not-found-page">
-			<div class="not-found-card">
-				<span class="label">Waitlist</span>
-				<h1>You're on the list.</h1>
-				<p>
-					Check your inbox for the confirmation email from Spacious Clarity. We'll
-					send course access details as new spots open.
-				</p>
-				<div>
-					<a class="button" href="/">Return to the homepage</a>
+		<section class="page-sheet grain" aria-labelledby="waitlist-heading">
+			<div class="sheet">
+				<span class="label-caps sheet-margin">Welcome</span>
+				<div class="page-sheet-body">
+					<h1 id="waitlist-heading">Please confirm your email address</h1>
+					<p>
+						You will receive a confirmation email from hi@spaciousclarity.com. Check your spam
+						folder if you don't within the next few minutes.
+					</p>
+					<p>We'll send course access details as new spots open.</p>
+					<p>
+						While you wait: Charlie's book,
+						<a href="https://www.evolvingground.org/opening-awareness" rel="noreferrer"
+							><cite>Opening Awareness</cite></a
+						>, is the long-form version of the method, and
+						<a href="https://charlieawbery.substack.com/" rel="noreferrer">the Substack</a>
+						carries ongoing practice notes.
+					</p>
+					<div class="page-sheet-actions">
+						<a class="button" href="/">Return to the homepage</a>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -27,3 +38,48 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	<SiteFooter />
 </BaseLayout>
+
+<style>
+	.page-sheet {
+		background: var(--surface);
+		padding: clamp(4rem, 8vw, 8rem) 0 clamp(4rem, 8vw, 7rem);
+		min-height: 62vh;
+	}
+
+	.page-sheet-body {
+		display: grid;
+		gap: var(--space-md);
+		border-top: 1px solid var(--rule);
+		padding-top: clamp(1.5rem, 2vw, 2.25rem);
+	}
+
+	h1 {
+		font-size: clamp(2rem, 1.4rem + 2.2vw, 3rem);
+		font-weight: 390;
+		letter-spacing: -0.018em;
+		line-height: 1.1;
+		margin: 0;
+	}
+
+	p {
+		font-size: var(--fs-body);
+		line-height: 1.65;
+		color: var(--ink-soft);
+		margin: 0;
+		max-width: var(--measure);
+	}
+
+	a:not(.button) {
+		text-decoration: underline;
+		text-decoration-color: color-mix(in srgb, var(--accent) 65%, transparent);
+		text-underline-offset: 0.16em;
+	}
+
+	a:not(.button):hover {
+		text-decoration-color: var(--accent);
+	}
+
+	.page-sheet-actions {
+		margin-top: 0.5rem;
+	}
+</style>

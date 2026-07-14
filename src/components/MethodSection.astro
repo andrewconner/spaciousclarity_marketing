@@ -1,0 +1,191 @@
+---
+/**
+ * The page's emptiest section, on purpose: the whole method, set as an
+ * instruction at display size on bare paper. Faint topographic rings and the
+ * clay summit dot mark it as the place the rest of the page orients around.
+ */
+---
+
+<section class="method-section" id="method" aria-labelledby="method-heading">
+	<div class="sheet">
+		<div class="method-stage sheet-breakout">
+			<div class="method-rings" aria-hidden="true">
+				<svg viewBox="-300 -300 600 600" fill="none">
+					<path
+						class="ring"
+						d="M 0 -96 C 54 -94 94 -52 92 2 C 90 54 50 94 -2 92 C -54 90 -92 50 -94 -2 C -96 -54 -54 -98 0 -96 Z"
+					></path>
+					<path
+						class="ring"
+						d="M 0 -164 C 92 -160 162 -90 158 2 C 154 92 88 160 -4 158 C -94 156 -158 88 -160 -4 C -162 -94 -92 -168 0 -164 Z"
+					></path>
+					<path
+						class="ring"
+						d="M 0 -234 C 130 -230 230 -128 228 4 C 226 130 126 228 -6 226 C -132 224 -226 124 -228 -6 C -230 -134 -130 -238 0 -234 Z"
+					></path>
+					<circle class="summit" cx="0" cy="0" r="5"></circle>
+				</svg>
+			</div>
+
+			<h2 id="method-heading" class="method-instruction">
+				<span class="method-line">Remain uninvolved</span>
+				<span class="method-line">with whatever arises.</span>
+			</h2>
+		</div>
+
+		<div class="method-support">
+			<p>
+				Our method is simple, and genuinely tricky to learn. Almost everyone misinterprets it at
+				first, each in their own way.
+			</p>
+			<p>
+				We'll guide you through learning this method in our fully adaptive course. Unlike a
+				meditation app with fixed lessons or a book, we adapt to your experience, history, and
+				feedback. Each session is composed around what's actually happening in your practice.
+			</p>
+		</div>
+	</div>
+</section>
+
+<style>
+	.method-section {
+		background: var(--surface);
+		padding: clamp(4rem, 6vw + 1.5rem, 8rem) 0 clamp(3rem, 4vw + 1rem, 5rem);
+		overflow: hidden;
+	}
+
+	.method-stage {
+		position: relative;
+		display: grid;
+		align-content: center;
+		min-height: min(52vh, 30rem);
+		padding: clamp(2rem, 4vw, 4rem) 0;
+	}
+
+	.method-rings {
+		position: absolute;
+		top: 50%;
+		right: -8rem;
+		width: clamp(24rem, 40vw, 38rem);
+		aspect-ratio: 1;
+		transform: translateY(-50%);
+		pointer-events: none;
+	}
+
+	.method-rings svg {
+		width: 100%;
+		height: 100%;
+	}
+
+	.method-rings .ring {
+		stroke: var(--ink);
+		stroke-width: 1;
+		opacity: 0.12;
+		vector-effect: non-scaling-stroke;
+	}
+
+	.method-rings .summit {
+		fill: var(--accent);
+	}
+
+	.method-instruction {
+		position: relative;
+		font-family: var(--font-serif);
+		font-size: clamp(2.6rem, 1.3rem + 4vw, 5.1rem);
+		font-weight: 365;
+		letter-spacing: -0.02em;
+		line-height: 1.1;
+		color: var(--ink);
+		margin: 0;
+	}
+
+	.method-line {
+		display: block;
+	}
+
+	.method-support {
+		max-width: var(--measure);
+		display: grid;
+		gap: var(--space-sm);
+		margin-top: clamp(2rem, 3vw, 3rem);
+		font-size: var(--fs-body);
+		line-height: 1.65;
+		color: var(--ink-soft);
+	}
+
+	/* The one motion moment: the sentence settles, the rings draw once.
+	   Classes are applied by script, so without JS everything is simply visible.
+	   The global reduced-motion block neutralizes the transitions. */
+	.method-stage.js-anim .method-instruction {
+		opacity: 0;
+		transform: translateY(-10px);
+		transition:
+			opacity 1000ms cubic-bezier(0.16, 1, 0.3, 1),
+			transform 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.method-stage.js-anim .ring {
+		stroke-dasharray: 1600;
+		stroke-dashoffset: 1600;
+		transition: stroke-dashoffset 1800ms cubic-bezier(0.33, 1, 0.68, 1);
+	}
+
+	.method-stage.js-anim .summit {
+		opacity: 0;
+		transition: opacity 600ms ease 1200ms;
+	}
+
+	.method-stage.is-settled .method-instruction {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.method-stage.is-settled .ring {
+		stroke-dashoffset: 0;
+	}
+
+	.method-stage.is-settled .summit {
+		opacity: 1;
+	}
+
+	@media (max-width: 52rem) {
+		.method-instruction {
+			font-size: clamp(2.4rem, 1.4rem + 6vw, 3.4rem);
+		}
+
+		.method-line {
+			display: inline;
+		}
+
+		.method-rings {
+			right: -14rem;
+			opacity: 0.7;
+		}
+	}
+</style>
+
+<script>
+	const stage = document.querySelector('.method-stage');
+
+	if (stage instanceof HTMLElement) {
+		const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+		if (!reduceMotion && 'IntersectionObserver' in window) {
+			stage.classList.add('js-anim');
+
+			const observer = new IntersectionObserver(
+				(entries) => {
+					for (const entry of entries) {
+						if (entry.isIntersecting) {
+							stage.classList.add('is-settled');
+							observer.disconnect();
+						}
+					}
+				},
+				{ threshold: 0.35 },
+			);
+
+			observer.observe(stage);
+		}
+	}
+</script>

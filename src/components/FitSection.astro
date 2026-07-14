@@ -1,0 +1,125 @@
+---
+/**
+ * Self-selection, generous not gatekeepy. Every "not for" names a legitimate
+ * want, affirms it, and points away without contempt. Both columns in full
+ * ink — the honesty is the point.
+ */
+---
+
+<section class="fit-section" id="fit" aria-labelledby="fit-heading">
+	<div class="sheet">
+		<span class="label-caps sheet-margin">Fit</span>
+
+		<h2 id="fit-heading" class="fit-heading">Is this for you?</h2>
+
+		<div class="fit-columns sheet-wide">
+			<div class="fit-col">
+				<h3 class="label-caps">This will probably suit you if</h3>
+				<ul>
+					<li>
+						You have no consistent practice, having had prior difficulty finding a system that works
+						for you.
+					</li>
+					<li>
+						You've bounced off meditation apps, not for lack of discipline, but because guided
+						breath number two hundred didn't seem to be going anywhere.
+					</li>
+					<li>
+						You have real experience (perhaps mindfulness, vipassana, TMI, years of sits) and
+						something's gone dry. Or "equanimity" has started to feel more like distance from the
+						world.
+					</li>
+					<li>
+						You keep returning to practice and stalling in the same place, and are interested in a
+						new approach.
+					</li>
+				</ul>
+			</div>
+			<div class="fit-col">
+				<h3 class="label-caps">It's probably not for you if</h3>
+				<ul>
+					<li>
+						You want ten minutes a day of guided calming-down. There are excellent apps for it, but
+						this isn't one.
+					</li>
+					<li>
+						You want the full traditional container: ritual, a teacher relationship in the old form.
+						This is a practical plain-English adaptation.
+					</li>
+					<li>
+						You need every sit to feel like progress. Sits can be boring, confusing, or dull. This
+						method takes practice, not more head knowledge.
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.fit-section {
+		background: var(--surface);
+		padding: clamp(3.5rem, 5vw + 1rem, 6.5rem) 0;
+	}
+
+	.fit-heading {
+		font-size: var(--fs-h2);
+		font-weight: 390;
+		letter-spacing: -0.018em;
+		line-height: 1.12;
+		margin: 0 0 clamp(1.75rem, 2vw + 0.75rem, 2.75rem);
+	}
+
+	/* Spills a little past the text column, like the teacher photo, but never
+	   pins to the viewport edge on wide windows. */
+	.fit-columns {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 0 clamp(1.75rem, 3vw, 3rem);
+		max-width: 56rem;
+		border-top: 1px solid var(--rule);
+		padding-top: clamp(1.5rem, 2vw, 2.25rem);
+	}
+
+	.fit-col ul {
+		list-style: none;
+		margin: 1.1rem 0 0;
+		padding: 0;
+		display: grid;
+		gap: 1.1rem;
+	}
+
+	.fit-col li {
+		position: relative;
+		padding-left: 1.5rem;
+		font-size: 1.125rem;
+		line-height: 1.6;
+		color: var(--ink);
+	}
+
+	.fit-col li::before {
+		content: '—';
+		position: absolute;
+		left: 0;
+		color: var(--ink-dim);
+	}
+
+	.fit-col + .fit-col {
+		border-left: 1px solid var(--rule);
+		padding-left: clamp(1.75rem, 3vw, 3rem);
+	}
+
+	@media (max-width: 52rem) {
+		.fit-columns {
+			grid-template-columns: 1fr;
+			gap: 2.25rem;
+		}
+
+		.fit-col + .fit-col {
+			border-left: 0;
+			border-top: 1px solid var(--rule);
+			padding-left: 0;
+			padding-top: 2rem;
+		}
+	}
+</style>

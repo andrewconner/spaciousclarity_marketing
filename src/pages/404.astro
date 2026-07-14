@@ -10,16 +10,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 	noindex={true}
 >
 	<main id="main-content">
-		<section class="not-found-page">
-			<div class="not-found-card">
-				<span class="label">Off the map · 404</span>
-				<h1>This path isn't charted yet.</h1>
-				<p>
-					The page you were looking for doesn't exist, or it moved while the site
-					is still in its first public build.
-				</p>
-				<div>
-					<a class="button" href="/">Return to the homepage</a>
+		<section class="page-sheet grain" aria-labelledby="notfound-heading">
+			<div class="sheet">
+				<span class="label-caps sheet-margin">Off the map · 404</span>
+				<div class="page-sheet-body">
+					<h1 id="notfound-heading">This path isn't charted yet.</h1>
+					<p>
+						The page you were looking for doesn't exist, or it moved while the site is still in its
+						first public build.
+					</p>
+					<div class="page-sheet-actions">
+						<a class="button" href="/">Return to the homepage</a>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -27,3 +29,38 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 	<SiteFooter />
 </BaseLayout>
+
+<style>
+	.page-sheet {
+		background: var(--surface);
+		padding: clamp(4rem, 8vw, 8rem) 0 clamp(4rem, 8vw, 7rem);
+		min-height: 62vh;
+	}
+
+	.page-sheet-body {
+		display: grid;
+		gap: var(--space-md);
+		border-top: 1px solid var(--rule);
+		padding-top: clamp(1.5rem, 2vw, 2.25rem);
+	}
+
+	h1 {
+		font-size: clamp(2rem, 1.4rem + 2.2vw, 3rem);
+		font-weight: 390;
+		letter-spacing: -0.018em;
+		line-height: 1.1;
+		margin: 0;
+	}
+
+	p {
+		font-size: var(--fs-body);
+		line-height: 1.65;
+		color: var(--ink-soft);
+		margin: 0;
+		max-width: var(--measure);
+	}
+
+	.page-sheet-actions {
+		margin-top: 0.5rem;
+	}
+</style>

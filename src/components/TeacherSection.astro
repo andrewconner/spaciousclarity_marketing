@@ -1,34 +1,201 @@
-<section class="teacher-section" id="teacher" aria-labelledby="teacher-heading">
-	<div class="shell">
-		<div class="teacher-grid">
-			<div class="teacher-media">
-				<img
-					src="/images/charlie.jpeg"
-					alt="Portrait of Charlie Awbery"
-					loading="lazy"
-					decoding="async"
-					width="2988"
-					height="2508"
-				/>
+---
+/**
+ * An author's note, on paper — not a dark band. Credentials stated flatly for
+ * the skeptic, warmth second. The portrait and the book cover sit as
+ * captioned plates hanging toward the right margin.
+ */
+---
+
+<section class="teacher-section grain" id="teacher" aria-labelledby="teacher-heading">
+	<div class="sheet">
+		<span class="label-caps sheet-margin">The teacher</span>
+
+		<div class="teacher-layout sheet-wide">
+			<div class="teacher-copy">
+				<h2 id="teacher-heading" class="teacher-heading">Led by Charlie Awbery</h2>
+
+				<p>
+					Charlie spent twenty-five years in traditional Vajrayana and trained as a Gestalt
+					psychotherapist. They cofounded
+					<a href="https://www.evolvingground.org/" rel="noreferrer">Evolving Ground</a>, a
+					community of contemporary practice, and wrote
+					<a href="https://www.evolvingground.org/opening-awareness" rel="noreferrer"
+						><cite>Opening Awareness</cite></a
+					>
+					(2023), the book this course grows from. These days they also work with tech founders and AI
+					researchers operating at the frontier of artificial intelligence.
+				</p>
+				<p>
+					In the course, Charlie guides with a steady, companionable presence. Sometimes you'll get
+					clear instruction, or perhaps experiments to try or new things to notice. You get both
+					clear, rooted instruction, and broad context into how this method works. They stay close
+					and responsive, offering simple pointers that help you notice what's already present.
+				</p>
+				<p class="teacher-provenance">
+					The method is a contemporary adaptation of a practice with centuries of history in Tibetan
+					traditions. The course is in plain, practical English throughout.
+				</p>
 			</div>
 
-			<div class="teacher-copy">
-				<span class="label label--on-dark">The Teacher</span>
-				<h2 id="teacher-heading">Led by Charlie Awbery</h2>
-				<p>
-					Charlie Awbery will guide you through the course with a steady, companionable
-					presence—sometimes giving clear instructions, other times a comforting voice to
-					practice alongside. Rather than telling you what to find, Charlie stays close
-					and responsive, offering simple pointers that help you notice what’s already
-					present.
-				</p>
-				<p>
-					Charlie is a coach and teacher whose work integrates developmental psychology,
-					systems thinking and Vajrayana practice into a distinctive approach to
-					awareness in leadership. They work with tech founders and AI researchers
-					operating at the frontier of artificial intelligence.
-				</p>
+			<div class="teacher-media">
+				<figure class="teacher-figure">
+					<div class="teacher-portrait plate">
+						<img
+							src="/images/charlie.jpeg"
+							alt="Portrait of Charlie Awbery"
+							loading="eager"
+							fetchpriority="low"
+							decoding="async"
+							width="2988"
+							height="2508"
+						/>
+					</div>
+					<figcaption class="caption">Charlie Awbery</figcaption>
+				</figure>
+
+				<figure class="teacher-figure">
+					<a
+						class="book-plate plate"
+						href="https://www.evolvingground.org/opening-awareness"
+						rel="noreferrer"
+						aria-label="Opening Awareness, the book, at Evolving Ground"
+					>
+						<img
+							src="/images/opening-awareness-cover.jpg"
+							alt="Cover of Opening Awareness by Charlie Awbery"
+							loading="eager"
+							fetchpriority="low"
+							decoding="async"
+							width="348"
+							height="522"
+						/>
+					</a>
+					<figcaption class="caption">
+						The book this course grows from: a guide to finding vividness in spacious clarity.
+					</figcaption>
+				</figure>
 			</div>
 		</div>
+
+		<figure class="book-quote">
+			<blockquote>
+				This is a path of celebration, of down-to-earth realism, of uplifting courage, of gentle
+				precision, and of open hearts.
+			</blockquote>
+			<figcaption>— <cite>Opening Awareness</cite> (2023)</figcaption>
+		</figure>
 	</div>
 </section>
+
+<style>
+	.teacher-section {
+		background: var(--surface);
+		padding: clamp(3.5rem, 5vw + 1rem, 6.5rem) 0;
+	}
+
+	.teacher-layout {
+		display: grid;
+		grid-template-columns: minmax(0, var(--measure)) minmax(10rem, 13rem);
+		gap: clamp(2rem, 4vw, 4rem);
+		align-items: start;
+	}
+
+	.teacher-heading {
+		font-size: var(--fs-h2);
+		font-weight: 390;
+		letter-spacing: -0.018em;
+		line-height: 1.1;
+		margin: 0 0 clamp(1.25rem, 2vw, 2rem);
+	}
+
+	.teacher-copy p {
+		font-size: var(--fs-body);
+		line-height: 1.65;
+		color: var(--ink-soft);
+		margin: 0 0 var(--space-sm);
+	}
+
+	.teacher-copy p:first-of-type {
+		color: var(--ink);
+	}
+
+	.teacher-copy a {
+		text-decoration: underline;
+		text-decoration-color: color-mix(in srgb, var(--accent) 65%, transparent);
+		text-underline-offset: 0.16em;
+		transition: text-decoration-color 180ms ease;
+	}
+
+	.teacher-copy a:hover {
+		text-decoration-color: var(--accent);
+	}
+
+	.teacher-provenance {
+		font-style: italic;
+	}
+
+	.teacher-media {
+		display: grid;
+		gap: 1.5rem;
+	}
+
+	.teacher-figure {
+		margin: 0;
+	}
+
+	.teacher-portrait {
+		width: 100%;
+		aspect-ratio: 1;
+	}
+
+	.teacher-portrait img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center 28%;
+	}
+
+	.book-plate {
+		display: block;
+		width: 100%;
+		max-width: 11rem;
+	}
+
+	.book-plate img {
+		width: 100%;
+		display: block;
+	}
+
+	.book-quote {
+		margin: clamp(3rem, 4vw + 1rem, 5rem) 0 0;
+		max-width: 44rem;
+	}
+
+	.book-quote blockquote {
+		font-family: var(--font-serif);
+		font-style: italic;
+		font-size: clamp(1.5rem, 1.05rem + 1.6vw, 2.1rem);
+		line-height: 1.4;
+		letter-spacing: -0.01em;
+		color: var(--ink);
+		margin: 0;
+	}
+
+	.book-quote figcaption {
+		margin-top: 1rem;
+		font-family: var(--font-sans);
+		font-size: var(--fs-metadata);
+		color: var(--ink-soft);
+	}
+
+	@media (max-width: 52rem) {
+		.teacher-layout {
+			grid-template-columns: 1fr;
+		}
+
+		.teacher-media {
+			grid-template-columns: repeat(2, minmax(0, 11rem));
+			align-items: start;
+		}
+	}
+</style>

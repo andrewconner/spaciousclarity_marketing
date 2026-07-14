@@ -1,29 +1,143 @@
 ---
-import HeroCopy from './HeroCopy.astro';
+/**
+ * Full-bleed midnight hero with the halftone turned up until the photograph
+ * reads as riso. No header here by design: the brand bar (SiteHeader) sits
+ * beneath the hero and pins to the top on scroll.
+ */
+import WaitlistForm from './WaitlistForm.astro';
 ---
 
-<section class="hero" aria-labelledby="hero-heading">
+<section class="hero-dark" aria-labelledby="hero-heading">
 	<div class="hero-backdrop" aria-hidden="true">
-		<div class="hero-art">
-			<img
-				class="hero-image-source"
-				src="/images/hero-1800.jpg"
-				srcset="/images/hero-800.jpg 800w, /images/hero-1400.jpg 1400w, /images/hero-1800.jpg 1800w"
-				sizes="100vw"
-				alt=""
-				width="1800"
-				height="2400"
-				loading="eager"
-				decoding="async"
-				fetchpriority="high"
-			/>
-			<div class="hero-paper-shader" aria-hidden="true"></div>
-		</div>
-		<div class="hero-scrim" aria-hidden="true"></div>
+		<img
+			class="hero-image-source"
+			src="/images/hero-1800.jpg"
+			srcset="/images/hero-800.jpg 800w, /images/hero-1400.jpg 1400w, /images/hero-1800.jpg 1800w"
+			sizes="100vw"
+			alt=""
+			width="1800"
+			height="2400"
+			loading="eager"
+			decoding="async"
+			fetchpriority="high"
+		/>
+		<div class="hero-wash-shader" data-hero-wash aria-hidden="true"></div>
+		<div class="hero-scrim"></div>
 	</div>
 
-	<HeroCopy />
+	<div class="sheet hero-sheet">
+		<div class="hero-copy sheet-breakout">
+			<h1 id="hero-heading" class="hero-title">
+				Meditation that welcomes <em>all of life.</em>
+			</h1>
+
+			<p class="hero-intro">
+				Find uncomplicated presence, leading to spacious clarity and experience of vividness with
+				life as it actually is.
+			</p>
+
+			<WaitlistForm
+				box="hero"
+				tone="dark"
+				class="waitlist-form--panel"
+				note="The course opens on a rolling basis. Leave your email for early access."
+			/>
+		</div>
+	</div>
 </section>
+
+<style>
+	.hero-dark {
+		position: relative;
+		isolation: isolate;
+		overflow: hidden;
+		background: var(--midnight);
+		padding: clamp(5rem, 8vw, 8rem) 0 clamp(4rem, 4vw + 2rem, 7rem);
+		min-height: min(42rem, 84vh);
+		display: grid;
+		align-content: center;
+		color: var(--ink-on-dark);
+	}
+
+	.hero-backdrop {
+		position: absolute;
+		inset: 0;
+		overflow: hidden;
+		z-index: 0;
+	}
+
+	.hero-image-source {
+		position: absolute;
+		top: -170px;
+		left: 0;
+		width: max(100%, 700px);
+		height: calc(100% + 170px);
+		object-fit: cover;
+		filter: brightness(1.05) saturate(0.92);
+	}
+
+	.hero-wash-shader {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		mix-blend-mode: multiply;
+		opacity: 0.78;
+	}
+
+	.hero-wash-shader :global(canvas) {
+		width: 100% !important;
+		height: 100% !important;
+		display: block;
+	}
+
+	/* One scrim, not four: left depth for the copy, nothing else. */
+	.hero-scrim {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			97deg,
+			color-mix(in srgb, var(--midnight) 82%, transparent) 0%,
+			color-mix(in srgb, var(--midnight) 50%, transparent) 34%,
+			color-mix(in srgb, var(--midnight) 12%, transparent) 58%,
+			transparent 72%
+		);
+	}
+
+	.hero-sheet {
+		position: relative;
+		z-index: 1;
+	}
+
+	.hero-copy {
+		max-width: 44rem;
+	}
+
+	.hero-title {
+		font-size: var(--fs-h1);
+		font-weight: 375;
+		letter-spacing: -0.022em;
+		line-height: 1.04;
+		color: var(--ink-on-dark);
+		margin: 0 0 clamp(1.25rem, 1vw + 0.75rem, 2rem);
+		text-wrap: balance;
+		text-shadow: 0 1px 18px color-mix(in srgb, var(--midnight) 50%, transparent);
+	}
+
+	.hero-title em {
+		font-style: italic;
+		font-weight: 390;
+		color: color-mix(in srgb, var(--chalk) 88%, var(--ink-on-dark));
+	}
+
+	.hero-intro {
+		font-size: var(--fs-lede);
+		line-height: 1.55;
+		color: color-mix(in srgb, var(--ink-on-dark) 94%, transparent);
+		max-width: 36rem;
+		margin: 0 0 clamp(2rem, 2vw + 1rem, 3rem);
+		text-shadow: 0 1px 14px color-mix(in srgb, var(--midnight) 55%, transparent);
+	}
+</style>
 
 <script>
 	import {
@@ -40,57 +154,59 @@ import HeroCopy from './HeroCopy.astro';
 			? Promise.resolve(image)
 			: new Promise<HTMLImageElement>((resolve, reject) => {
 					image.addEventListener('load', () => resolve(image), { once: true });
-					image.addEventListener(
-						'error',
-						() => reject(new Error(`Failed to load ${image.src}`)),
-						{ once: true },
-					);
+					image.addEventListener('error', () => reject(new Error(`Failed to load ${image.src}`)), {
+						once: true,
+					});
 				});
 
-	const initHeroShader = async () => {
-		const hero = document.querySelector('.hero');
-		const image = hero?.querySelector('.hero-image-source');
-		const shaderHost = hero?.querySelector('.hero-paper-shader');
+	// Multiply ink over the photograph, turned up enough to read as
+	// screenprint rather than a moody stock photo.
+	const WASH_UNIFORMS = {
+		u_colorBack: '#fbf8f2',
+		u_colorC: '#17303a',
+		u_colorM: '#c87435',
+		u_colorY: '#c6a36a',
+		u_colorK: '#10212b',
+		u_gridNoise: 0.22,
+		u_type: 2,
+		u_softness: 0.85,
+		u_size: 0.026,
+		u_contrast: 1.06,
+		u_floodC: 0.08,
+		u_floodM: 0.04,
+		u_floodY: 0.02,
+		u_floodK: 0,
+		u_gainC: 0.3,
+		u_gainM: 0.5,
+		u_gainY: 0.1,
+		u_gainK: 0.02,
+		u_grainMixer: 0.06,
+	};
 
-		if (
-			!(hero instanceof HTMLElement) ||
-			!(image instanceof HTMLImageElement) ||
-			!(shaderHost instanceof HTMLElement)
-		) return;
+	const initHeroShader = async () => {
+		const host = document.querySelector<HTMLElement>('[data-hero-wash]');
+		if (!host) return;
+
+		const image = host.parentElement?.querySelector('img');
+		if (!(image instanceof HTMLImageElement)) return;
 
 		try {
 			const noiseTexture = getShaderNoiseTexture();
 			if (!(noiseTexture instanceof HTMLImageElement)) return;
 			await Promise.all([waitForImage(image), waitForImage(noiseTexture)]);
 
-			// Risograph-style two-ink pull: Midnight (K) + Sun Clay (M) on Chalk paper.
-			// C and Y channels are tuned to brand-adjacent tones and gained down so the
-			// output reads as a screenprint rather than a full CMYK halftone.
 			new ShaderMount(
-				shaderHost,
+				host,
 				halftoneCmykFragmentShader,
 				{
 					u_image: image,
 					u_noiseTexture: noiseTexture,
-					u_colorBack: getShaderColorFromString('#fbf8f2'),
-					u_colorC: getShaderColorFromString('#17303a'),
-					u_colorM: getShaderColorFromString('#c87435'),
-					u_colorY: getShaderColorFromString('#c6a36a'),
-					u_colorK: getShaderColorFromString('#10212b'),
-					u_size: 0.017,
-					u_gridNoise: 0.22,
-					u_type: 2,
-					u_softness: 0.85,
-					u_contrast: 1.06,
-					u_floodC: 0.08,
-					u_floodM: 0.04,
-					u_floodY: 0.02,
-					u_floodK: 0,
-					u_gainC: 0.28,
-					u_gainM: 0.46,
-					u_gainY: 0.1,
-					u_gainK: 0.015,
-					u_grainMixer: 0.06,
+					...Object.fromEntries(
+						Object.entries(WASH_UNIFORMS).map(([key, value]) => [
+							key,
+							typeof value === 'string' ? getShaderColorFromString(value) : value,
+						]),
+					),
 					u_grainOverlay: 0,
 					u_grainSize: 0,
 					u_fit: ShaderFitOptions.cover,

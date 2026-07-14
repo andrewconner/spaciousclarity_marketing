@@ -1,0 +1,46 @@
+---
+import { site } from '../content/site';
+
+interface Props {
+	/** Recorded in Kit as fields[signup_box] so we can tell which form converted. */
+	box: 'hero' | 'closing';
+	/** Optional one-line note rendered above the field. */
+	note?: string;
+	/** 'dark' adjusts note color and field border for dark backgrounds. */
+	tone?: 'light' | 'dark';
+	class?: string;
+}
+
+const { box, note, tone = 'light', class: className } = Astro.props;
+const inputId = `${box}-email`;
+---
+
+<form
+	class:list={['waitlist-form', tone === 'dark' && 'waitlist-form--on-dark', className]}
+	action={site.waitlist.action}
+	method="post"
+>
+	<input type="hidden" name="fields[signup_source]" value={site.waitlist.source} />
+	<input type="hidden" name="fields[signup_box]" value={box} />
+	<input type="hidden" name="fields[referrer]" data-kit-attribution="referrer" />
+	<input type="hidden" name="fields[utm_source]" data-kit-attribution="utm_source" />
+	<input type="hidden" name="fields[utm_medium]" data-kit-attribution="utm_medium" />
+	<input type="hidden" name="fields[utm_campaign]" data-kit-attribution="utm_campaign" />
+	<input type="hidden" name="fields[utm_term]" data-kit-attribution="utm_term" />
+	<input type="hidden" name="fields[utm_content]" data-kit-attribution="utm_content" />
+	{note && <p class="waitlist-note">{note}</p>}
+	<label class="sr-only" for={inputId}>Email address</label>
+	<div class="waitlist-field">
+		<input
+			id={inputId}
+			class="waitlist-input"
+			name="email_address"
+			type="email"
+			autocomplete="email"
+			inputmode="email"
+			placeholder="you@example.com"
+			required
+		/>
+		<button class="waitlist-button" type="submit">Join the waitlist</button>
+	</div>
+</form>

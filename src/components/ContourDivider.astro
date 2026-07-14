@@ -1,0 +1,36 @@
+---
+interface Props {
+	variant?: 1 | 2 | 3;
+	class?: string;
+}
+
+const { variant = 1, class: className } = Astro.props;
+
+const paths: Record<1 | 2 | 3, string> = {
+	1: 'M 2 14 C 30 8 62 6 96 9 C 124 12 152 16 178 14',
+	2: 'M 2 10 C 26 16 58 18 92 15 C 122 12 150 8 178 10',
+	3: 'M 2 12 C 24 6 48 12 72 12 C 100 12 128 6 152 10 C 162 12 172 12 178 11',
+};
+---
+
+<div class:list={['contour-divider', className]} aria-hidden="true">
+	<svg viewBox="0 0 180 22" width="180" height="22" fill="none">
+		<path d={paths[variant]}></path>
+	</svg>
+</div>
+
+<style>
+	.contour-divider {
+		display: flex;
+		justify-content: center;
+		padding: clamp(1.5rem, 2vw + 0.5rem, 2.5rem) 0;
+	}
+
+	.contour-divider path {
+		stroke: var(--ink);
+		stroke-width: 1;
+		stroke-linecap: round;
+		opacity: 0.3;
+		vector-effect: non-scaling-stroke;
+	}
+</style>
