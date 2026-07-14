@@ -1,0 +1,82 @@
+<header class="utility-header">
+	<div class="sheet">
+		<div class="utility-header-inner sheet-breakout">
+			<a class="utility-header-brand" href="/" aria-label="Spacious Clarity, home">
+				<img src="/images/mark.svg" width="24" height="24" alt="" />
+				<span>Spacious Clarity</span>
+			</a>
+
+			<a class="utility-header-home" href="/">Home</a>
+		</div>
+	</div>
+</header>
+
+<style>
+	.utility-header {
+		background: color-mix(in oklch, var(--terrain) 88%, var(--lichen));
+		color: var(--ink-on-dark);
+		border-bottom: 1px solid color-mix(in oklch, var(--ink-on-dark) 18%, transparent);
+	}
+
+	.utility-header-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-md);
+		min-height: 4.25rem;
+	}
+
+	.utility-header-brand,
+	.utility-header-home {
+		display: inline-flex;
+		align-items: center;
+		font-family: var(--font-sans);
+		font-size: 0.875rem;
+		line-height: 1;
+	}
+
+	.utility-header-brand {
+		gap: 0.6rem;
+		font-weight: 650;
+		letter-spacing: 0.055em;
+	}
+
+	.utility-header-brand img {
+		flex: 0 0 auto;
+	}
+
+	.utility-header-home {
+		justify-content: center;
+		min-height: 2.75rem;
+		padding-inline: 1rem;
+		border: 1px solid var(--sun-clay);
+		border-radius: var(--radius-sm);
+		background: var(--sun-clay);
+		color: var(--midnight);
+		font-weight: 690;
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.utility-header-brand,
+		.utility-header-home {
+			transition:
+				color 180ms cubic-bezier(0.22, 1, 0.36, 1),
+				background-color 180ms cubic-bezier(0.22, 1, 0.36, 1),
+				border-color 180ms cubic-bezier(0.22, 1, 0.36, 1);
+		}
+
+		.utility-header-brand:hover {
+			color: var(--sun-clay);
+		}
+
+		.utility-header-home:hover {
+			border-color: color-mix(in oklch, var(--sun-clay) 78%, var(--ink-on-dark));
+			background: color-mix(in oklch, var(--sun-clay) 78%, var(--ink-on-dark));
+		}
+	}
+
+	.utility-header-brand:focus-visible,
+	.utility-header-home:focus-visible {
+		outline-color: var(--ink-on-dark);
+	}
+</style>

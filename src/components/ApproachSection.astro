@@ -17,10 +17,10 @@
 
 		<div class="stance-lede">
 			<p>
-				There is nothing fundamentally wrong with you. A lot of meditation is quietly renunciative:
-				emotions are noise, thoughts are failures, ordinary life is the thing you retreat from. This
-				practice runs the other way. We train richer involvement in our ordinary life, not a
-				graceful exit from it.
+				There is nothing fundamentally wrong with you. A lot of meditation is renunciative: emotions
+				are noise, thoughts are failures, ordinary life is the thing you retreat from. This practice
+				runs the other way. We train richer involvement in our ordinary life, not a graceful calm
+				exit from it.
 			</p>
 			<p>
 				You can remain connected and present in any circumstance, however frightening or exciting it
@@ -30,24 +30,24 @@
 		</div>
 
 		<div class="stance-collation sheet-wide">
-			<div class="stance-col">
-				<h3 class="label-caps">The renunciate habit</h3>
-				<ul>
-					<li>Emotions are obstacles to be managed down.</li>
-					<li>Thoughts mean you're doing it wrong.</li>
-					<li>"Letting go," "non-attachment," a calm that can quietly become distance.</li>
-					<li>Practice as retreat from ordinary life.</li>
-					<li>One more exhausting, effort-based self-improvement project.</li>
-				</ul>
-			</div>
 			<div class="stance-col stance-col--this">
 				<h3 class="label-caps">This practice</h3>
 				<ul>
 					<li>Emotions are welcome. All of them.</li>
 					<li>No sound is distracting, no thought is bad, no experience is wrong.</li>
-					<li>Clarity that stays connected: to people, to work, to the whole of it.</li>
-					<li>Ordinary life is the arena. The aim is more life, not less.</li>
-					<li>Relief from striving, rather than another approach that leaves you drained.</li>
+					<li>Clarity with connection to people, work, and circumstances.</li>
+					<li>Ordinary life is the arena. More life of life not less.</li>
+					<li>Encourages being effective without striving</li>
+				</ul>
+			</div>
+			<div class="stance-col">
+				<h3 class="label-caps">The renunciate habit</h3>
+				<ul>
+					<li>One more exhausting, effort-based self-improvement project.</li>
+					<li>Emotions are obstacles to be managed and controlled</li>
+					<li>Thoughts mean you're doing it wrong.</li>
+					<li>"Letting go," "non-attachment," a calm that can become dissociation.</li>
+					<li>Meditation as retreat from ordinary life.</li>
 				</ul>
 			</div>
 		</div>
@@ -100,6 +100,7 @@
 		margin-top: clamp(2.5rem, 3vw + 1rem, 4rem);
 		border-top: 1px solid var(--rule);
 		padding-top: clamp(1.5rem, 2vw, 2.25rem);
+		padding-right: clamp(1.5rem, 3vw, 3rem);
 	}
 
 	.stance-col ul {
@@ -117,7 +118,7 @@
 		font-weight: 400;
 	}
 
-	.stance-col--this {
+	.stance-col + .stance-col {
 		border-left: 1px solid var(--rule);
 		padding-left: clamp(2rem, 4vw, 4rem);
 	}
@@ -161,9 +162,10 @@
 		.stance-collation {
 			grid-template-columns: 1fr;
 			gap: 2rem;
+			padding-right: 0;
 		}
 
-		.stance-col--this {
+		.stance-col + .stance-col {
 			border-left: 0;
 			border-top: 1px solid var(--rule);
 			padding-left: 0;

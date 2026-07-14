@@ -1,0 +1,213 @@
+---
+import SiteFooter from './SiteFooter.astro';
+import UtilityHeader from './UtilityHeader.astro';
+
+interface Props {
+	headingId: string;
+	marker: string;
+	context: string;
+	title: string;
+}
+
+const { headingId, marker, context, title } = Astro.props;
+---
+
+<UtilityHeader />
+
+<main id="main-content" class="utility-page">
+	<section class="utility-field grain" aria-labelledby={headingId}>
+		<div class="utility-landscape" aria-hidden="true">
+			<svg viewBox="0 0 1200 680" fill="none" preserveAspectRatio="none">
+				<circle cx="988" cy="116" r="24" fill="currentColor"></circle>
+				<path d="M310 350C508 250 644 406 814 308C954 228 1064 276 1240 176"></path>
+				<path d="M254 410C470 298 628 468 818 366C970 284 1080 326 1254 234"></path>
+				<path d="M190 472C430 346 610 530 812 428C978 344 1096 386 1272 294"></path>
+				<path d="M116 538C390 396 582 594 804 492C986 408 1114 450 1292 358"></path>
+				<path d="M24 606C342 448 552 660 792 558C996 472 1134 514 1312 424"></path>
+			</svg>
+		</div>
+
+		<div class="sheet utility-sheet">
+			<aside class="utility-aside sheet-margin">
+				{
+					marker === 'sun' ? (
+						<span class="utility-sun" aria-hidden="true" />
+					) : (
+						<span class="utility-marker">{marker}</span>
+					)
+				}
+				<span class="utility-context">{context}</span>
+			</aside>
+
+			<div class="utility-copy">
+				<h1 id={headingId}>{title}</h1>
+				<div class="utility-prose">
+					<slot />
+				</div>
+				<div class="utility-actions">
+					<slot name="actions" />
+				</div>
+			</div>
+		</div>
+	</section>
+</main>
+
+<SiteFooter />
+
+<style>
+	.utility-page {
+		background: var(--surface);
+	}
+
+	.utility-field {
+		position: relative;
+		display: grid;
+		align-content: center;
+		overflow: hidden;
+		min-height: clamp(35rem, calc(100svh - 12rem), 49rem);
+		padding: clamp(4.5rem, 9vw, 8rem) 0;
+		background: var(--surface);
+	}
+
+	.utility-landscape {
+		position: absolute;
+		inset: auto -8rem -5rem 28%;
+		z-index: 0;
+		height: min(38rem, 76%);
+		color: var(--sun-clay);
+		pointer-events: none;
+		opacity: 0.7;
+		-webkit-mask-image: linear-gradient(100deg, transparent 4%, black 64%);
+		mask-image: linear-gradient(100deg, transparent 4%, black 64%);
+	}
+
+	.utility-landscape svg {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.utility-landscape path {
+		stroke: color-mix(in srgb, var(--lichen) 56%, var(--stone));
+		stroke-width: 1.25;
+		vector-effect: non-scaling-stroke;
+	}
+
+	.utility-sheet {
+		position: relative;
+		z-index: 1;
+		align-items: start;
+	}
+
+	.utility-aside {
+		display: grid;
+		gap: var(--space-2xs);
+		align-content: start;
+		padding-top: 0.35rem;
+	}
+
+	.utility-marker {
+		font-family: var(--font-serif);
+		font-size: clamp(2.25rem, 1.75rem + 2vw, 3.75rem);
+		font-weight: 340;
+		letter-spacing: -0.04em;
+		line-height: 1;
+		color: var(--lichen);
+	}
+
+	.utility-context {
+		font-family: var(--font-sans);
+		font-size: var(--fs-caption);
+		font-weight: 560;
+		line-height: 1.35;
+		color: var(--ink-dim);
+	}
+
+	.utility-sun {
+		display: block;
+		width: 2.25rem;
+		height: 2.25rem;
+		border-radius: 50%;
+		background: var(--sun-clay);
+	}
+
+	.utility-copy {
+		display: grid;
+		gap: var(--space-lg);
+		max-width: var(--measure);
+	}
+
+	.utility-copy h1 {
+		max-width: 12ch;
+		font-size: var(--fs-h1);
+		font-weight: 375;
+		letter-spacing: -0.025em;
+		line-height: 1.02;
+		text-wrap: balance;
+	}
+
+	.utility-prose {
+		display: grid;
+		gap: var(--space-md);
+		max-width: 38rem;
+	}
+
+	.utility-prose :global(p) {
+		margin: 0;
+		font-size: var(--fs-body);
+		line-height: 1.65;
+		color: var(--ink-soft);
+	}
+
+	.utility-prose :global(a) {
+		text-decoration: underline;
+		text-decoration-color: color-mix(in srgb, var(--accent) 65%, transparent);
+		text-underline-offset: 0.16em;
+	}
+
+	.utility-prose :global(a:hover) {
+		text-decoration-color: var(--accent);
+	}
+
+	.utility-actions {
+		margin-top: var(--space-xs);
+	}
+
+	@media (max-width: 52rem) {
+		.utility-field {
+			align-content: start;
+			min-height: 38rem;
+			padding: var(--space-3xl) 0;
+		}
+
+		.utility-landscape {
+			inset: auto -13rem -1rem 2rem;
+			height: 24rem;
+			opacity: 0.55;
+		}
+
+		.utility-aside {
+			grid-template-columns: auto minmax(0, 1fr);
+			align-items: end;
+			gap: var(--space-xs);
+			margin-bottom: var(--space-xl);
+		}
+
+		.utility-marker {
+			font-size: 2.5rem;
+		}
+
+		.utility-sun {
+			width: 1.75rem;
+			height: 1.75rem;
+		}
+
+		.utility-context {
+			padding-bottom: 0.18rem;
+		}
+
+		.utility-copy h1 {
+			font-size: clamp(2.5rem, 1.85rem + 4vw, 4rem);
+		}
+	}
+</style>

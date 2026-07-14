@@ -3,19 +3,103 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
-	<div class="shell footer-grid">
-		<div class="footer-brand">
-			<p class="footer-meta">&copy; {year} Spacious Clarity.</p>
-		</div>
+	<div class="sheet">
+		<div class="site-footer-inner sheet-breakout">
+			<a class="site-footer-brand" href="/">
+				<img src="/images/mark.svg" width="32" height="32" alt="" />
+				<span>Spacious Clarity</span>
+			</a>
 
-		<nav class="footer-links" aria-label="Footer">
-			<a href="https://charlieawbery.substack.com/" target="_blank" rel="noreferrer">
-				Charlie on Substack
-			</a>
-			<a href="https://www.evolvingground.org/" target="_blank" rel="noreferrer">
-				Evolving Ground
-			</a>
-			<a href="mailto:hi@spaciousclarity.com">Contact</a>
-		</nav>
+			<nav class="site-footer-links" aria-label="Footer">
+				<a href="https://charlieawbery.substack.com/" target="_blank" rel="noreferrer">
+					Charlie on Substack
+				</a>
+				<a href="https://www.evolvingground.org/" target="_blank" rel="noreferrer">
+					Evolving Ground
+				</a>
+				<a href="mailto:hi@spaciousclarity.com">Contact</a>
+			</nav>
+
+			<p class="site-footer-meta">&copy; {year} Spacious Clarity.</p>
+		</div>
 	</div>
 </footer>
+
+<style>
+	.site-footer {
+		padding: var(--space-2xl) 0 var(--space-xl);
+		background: var(--surface-dark);
+		color: var(--ink-on-dark);
+		border-top: 1px solid var(--rule-dark);
+	}
+
+	.site-footer-inner {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		grid-template-areas:
+			'brand links'
+			'meta links';
+		gap: var(--space-2xs) var(--space-xl);
+		align-items: start;
+	}
+
+	.site-footer-brand {
+		grid-area: brand;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.65rem;
+		font-family: var(--font-sans);
+		font-size: 0.875rem;
+		font-weight: 650;
+		letter-spacing: 0.055em;
+	}
+
+	.site-footer-brand img {
+		flex: 0 0 auto;
+	}
+
+	.site-footer-links {
+		grid-area: links;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		gap: var(--space-sm) var(--space-lg);
+	}
+
+	.site-footer-links a,
+	.site-footer-meta {
+		font-family: var(--font-sans);
+		font-size: var(--fs-caption);
+		letter-spacing: 0.01em;
+	}
+
+	.site-footer-links a {
+		color: color-mix(in srgb, var(--ink-on-dark) 74%, transparent);
+		transition: color 180ms ease;
+	}
+
+	.site-footer-links a:hover {
+		color: var(--sun-clay);
+	}
+
+	.site-footer-meta {
+		grid-area: meta;
+		margin: 0;
+		color: color-mix(in srgb, var(--ink-on-dark) 44%, transparent);
+	}
+
+	@media (max-width: 48rem) {
+		.site-footer-inner {
+			grid-template-columns: 1fr;
+			grid-template-areas:
+				'brand'
+				'links'
+				'meta';
+			gap: var(--space-md);
+		}
+
+		.site-footer-links {
+			justify-content: flex-start;
+		}
+	}
+</style>
