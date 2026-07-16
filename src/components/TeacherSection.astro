@@ -1,19 +1,24 @@
 ---
 /**
- * An author’s note, on paper — not a dark band. Credentials stated flatly for
- * the skeptic, warmth second. The portrait and the book cover sit as
- * captioned plates hanging toward the right margin.
+ * An author’s note, inverted onto midnight so it stands apart from the paper
+ * sections around it. Credentials stated flatly for the skeptic, warmth
+ * second. The portrait and the book cover sit as captioned plates hanging
+ * toward the right margin.
  */
 ---
 
-<section class="teacher-section grain" id="teacher" aria-labelledby="teacher-heading">
+<section
+	class="teacher-section grain grain--overlay"
+	id="teacher"
+	aria-labelledby="teacher-heading"
+>
 	<div class="sheet">
 		<span class="label-caps sheet-margin">The teacher</span>
 
 		<div class="teacher-layout sheet-wide">
-			<div class="teacher-copy">
-				<h2 id="teacher-heading" class="teacher-heading">Led by Charlie Awbery</h2>
+			<h2 id="teacher-heading" class="teacher-heading">Led by Charlie Awbery</h2>
 
+			<div class="teacher-copy">
 				<p>
 					Charlie spent twenty-five years studying, practicing, and teaching Vajrayana, a
 					life-affirming Buddhist path. They cofounded
@@ -55,7 +60,7 @@
 					<figcaption class="caption">Charlie Awbery</figcaption>
 				</figure>
 
-				<figure class="teacher-figure">
+				<figure class="teacher-figure teacher-figure--book">
 					<a
 						class="book-plate plate"
 						href="https://www.evolvingground.org/opening-awareness"
@@ -72,9 +77,7 @@
 							height="522"
 						/>
 					</a>
-					<figcaption class="caption">
-						The book this course grows from: a guide to finding vividness in spacious clarity.
-					</figcaption>
+					<figcaption class="caption"><cite>Opening Awareness</cite> (2023)</figcaption>
 				</figure>
 			</div>
 		</div>
@@ -91,24 +94,34 @@
 
 <style>
 	.teacher-section {
-		background: var(--surface);
-		padding: clamp(1.25rem, 2vw, 2rem) 0 clamp(3.5rem, 5vw + 1rem, 6.5rem);
+		background: var(--surface-dark);
+		color: var(--ink-on-dark);
+		padding: clamp(3.5rem, 5vw + 1rem, 6.5rem) 0;
+	}
+
+	.teacher-section .label-caps {
+		color: color-mix(in srgb, var(--ink-on-dark) 76%, transparent);
 	}
 
 	.teacher-layout {
 		display: grid;
 		grid-template-columns: minmax(0, var(--measure)) minmax(10rem, 13rem);
-		gap: clamp(2rem, 4vw, 4rem);
+		/* Row gap stays 0 so the heading's own margin sets the space below it. */
+		gap: 0 clamp(2rem, 4vw, 4rem);
 		align-items: start;
 		padding-right: clamp(1.5rem, 3vw, 3rem);
 	}
 
+	/* The heading rides its own full-width row, so the media column starts
+	   level with the first paragraph. */
 	.teacher-heading {
+		grid-column: 1 / -1;
 		font-size: var(--fs-h2);
 		font-weight: 390;
 		letter-spacing: -0.018em;
 		line-height: 1.1;
 		text-wrap: balance;
+		color: var(--ink-on-dark);
 		margin: 0 0 clamp(1.25rem, 2vw, 2rem);
 	}
 
@@ -116,12 +129,12 @@
 		font-size: var(--fs-body);
 		line-height: var(--leading-prose);
 		text-wrap: pretty;
-		color: var(--ink-soft);
+		color: color-mix(in srgb, var(--ink-on-dark) 88%, transparent);
 		margin: 0 0 var(--space-sm);
 	}
 
 	.teacher-copy p:first-of-type {
-		color: var(--ink);
+		color: var(--ink-on-dark);
 	}
 
 	.teacher-copy a {
@@ -148,6 +161,30 @@
 		gap: 1.5rem;
 	}
 
+	/* On midnight the plates border and caption with light ink, not paper ink. */
+	.teacher-media .plate {
+		border-color: color-mix(in srgb, var(--ink-on-dark) 32%, transparent);
+	}
+
+	.teacher-media .caption {
+		color: color-mix(in srgb, var(--ink-on-dark) 76%, transparent);
+		border-top: 0;
+		padding-top: 0;
+		text-align: center;
+	}
+
+	/* Shrink the book figure to its plate so the caption centers under it. */
+	.teacher-figure--book {
+		max-width: 11rem;
+	}
+
+	/* Cited title, so serif italic — the sans has no italic face and
+	   font-synthesis is off. */
+	.teacher-figure--book .caption {
+		font-family: var(--font-serif);
+		font-style: italic;
+	}
+
 	.teacher-figure {
 		margin: 0;
 	}
@@ -169,7 +206,7 @@
 		width: 100%;
 		max-width: 11rem;
 		transition:
-			box-shadow var(--dur-hover) var(--ease-standard),
+			border-color var(--dur-hover) var(--ease-standard),
 			scale var(--dur-press) var(--ease-standard);
 	}
 
@@ -179,8 +216,9 @@
 	}
 
 	@media (hover: hover) and (pointer: fine) {
+		/* A shadow won't read on midnight — brighten the plate edge instead. */
 		.book-plate:hover {
-			box-shadow: 0 2px 8px color-mix(in oklch, var(--midnight) 10%, transparent);
+			border-color: color-mix(in srgb, var(--ink-on-dark) 60%, transparent);
 		}
 	}
 
@@ -200,7 +238,7 @@
 		font-size: clamp(1.5rem, 1.05rem + 1.6vw, 2.1rem);
 		line-height: 1.4;
 		letter-spacing: -0.01em;
-		color: var(--ink);
+		color: var(--ink-on-dark);
 		margin: 0;
 	}
 
@@ -208,7 +246,7 @@
 		margin-top: 1rem;
 		font-family: var(--font-sans);
 		font-size: var(--fs-metadata);
-		color: var(--ink-soft);
+		color: color-mix(in srgb, var(--ink-on-dark) 76%, transparent);
 	}
 
 	@media (max-width: 52rem) {
@@ -217,9 +255,40 @@
 			padding-right: 0;
 		}
 
+		/* Both plates share one height; the book keeps its 2:3 ratio, so the
+		   pair reads as a centered pair of prints. The size formula keeps
+		   portrait + book + gap inside the viewport on narrow phones. */
 		.teacher-media {
-			grid-template-columns: repeat(2, minmax(0, 11rem));
+			--plate-size: min(11rem, calc((100vw - 6.5rem) * 0.6));
+			grid-template-columns: auto auto;
+			justify-content: center;
+			gap: 1.5rem 2.5rem;
 			align-items: start;
+			/* With the copy's 1rem paragraph margin this matches the 3rem the
+			   book quote leaves below the block. */
+			margin-top: 2rem;
+		}
+
+		.teacher-portrait {
+			width: var(--plate-size);
+		}
+
+		/* The figure matches the cover's width (348:522 cover at plate height),
+		   so the caption wraps and centers within the image edges — one unit. */
+		.teacher-figure--book {
+			width: calc(var(--plate-size) * 348 / 522);
+		}
+
+		.book-plate {
+			max-width: none;
+			width: 100%;
+			height: var(--plate-size);
+		}
+
+		.book-plate img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
 		}
 	}
 </style>
