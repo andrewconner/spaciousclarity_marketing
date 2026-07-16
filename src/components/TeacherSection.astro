@@ -1,6 +1,6 @@
 ---
 /**
- * An author's note, on paper — not a dark band. Credentials stated flatly for
+ * An author’s note, on paper — not a dark band. Credentials stated flatly for
  * the skeptic, warmth second. The portrait and the book cover sit as
  * captioned plates hanging toward the right margin.
  */
@@ -26,10 +26,10 @@
 					to tech founders and AI researchers operating at the frontier of artificial intelligence.
 				</p>
 				<p>
-					In the course, Charlie guides with a steady, companionable presence. Sometimes you'll get
+					In the course, Charlie guides with a steady, companionable presence. Sometimes you’ll get
 					clear instruction, or perhaps experiments to try or new things to notice. You get both
 					clear, rooted instruction, and broad context into how this method works. They stay close
-					and responsive, offering simple pointers that help you notice what's already present.
+					and responsive, offering simple pointers that help you notice what’s already present.
 				</p>
 				<p class="teacher-provenance">
 					The method is a contemporary adaptation of a practice with centuries of history in Tibetan
@@ -92,7 +92,7 @@
 <style>
 	.teacher-section {
 		background: var(--surface);
-		padding: clamp(3.5rem, 5vw + 1rem, 6.5rem) 0;
+		padding: clamp(1.25rem, 2vw, 2rem) 0 clamp(3.5rem, 5vw + 1rem, 6.5rem);
 	}
 
 	.teacher-layout {
@@ -108,12 +108,14 @@
 		font-weight: 390;
 		letter-spacing: -0.018em;
 		line-height: 1.1;
+		text-wrap: balance;
 		margin: 0 0 clamp(1.25rem, 2vw, 2rem);
 	}
 
 	.teacher-copy p {
 		font-size: var(--fs-body);
-		line-height: 1.65;
+		line-height: var(--leading-prose);
+		text-wrap: pretty;
 		color: var(--ink-soft);
 		margin: 0 0 var(--space-sm);
 	}
@@ -125,12 +127,16 @@
 	.teacher-copy a {
 		text-decoration: underline;
 		text-decoration-color: color-mix(in srgb, var(--accent) 65%, transparent);
+		text-decoration-thickness: from-font;
+		text-decoration-skip-ink: auto;
 		text-underline-offset: 0.16em;
-		transition: text-decoration-color 180ms ease;
+		transition: text-decoration-color var(--dur-hover) var(--ease-standard);
 	}
 
-	.teacher-copy a:hover {
-		text-decoration-color: var(--accent);
+	@media (hover: hover) and (pointer: fine) {
+		.teacher-copy a:hover {
+			text-decoration-color: var(--accent);
+		}
 	}
 
 	.teacher-provenance {
@@ -162,6 +168,20 @@
 		display: block;
 		width: 100%;
 		max-width: 11rem;
+		transition:
+			box-shadow var(--dur-hover) var(--ease-standard),
+			scale var(--dur-press) var(--ease-standard);
+	}
+
+	/* A whisper of lift and press so the plate reads as a link, not a print. */
+	.book-plate:active {
+		scale: var(--press-scale);
+	}
+
+	@media (hover: hover) and (pointer: fine) {
+		.book-plate:hover {
+			box-shadow: 0 2px 8px color-mix(in oklch, var(--midnight) 10%, transparent);
+		}
 	}
 
 	.book-plate img {

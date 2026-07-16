@@ -24,6 +24,13 @@ import WaitlistForm from './WaitlistForm.astro';
 		<div class="hero-wash-shader" data-hero-wash aria-hidden="true"></div>
 		<div class="hero-scrim"></div>
 	</div>
+	<noscript>
+		<style is:inline>
+			.hero-backdrop {
+				opacity: 1 !important;
+			}
+		</style>
+	</noscript>
 
 	<div class="sheet hero-sheet">
 		<div class="hero-copy sheet-breakout">
@@ -59,11 +66,19 @@ import WaitlistForm from './WaitlistForm.astro';
 		color: var(--ink-on-dark);
 	}
 
+	/* Hidden until the shader composite is ready, so the hero fades up from
+	   midnight rather than flashing the raw photograph. */
 	.hero-backdrop {
 		position: absolute;
 		inset: 0;
 		overflow: hidden;
 		z-index: 0;
+		opacity: 0;
+		transition: opacity 600ms ease;
+	}
+
+	.hero-backdrop[data-ready] {
+		opacity: 1;
 	}
 
 	.hero-image-source {
@@ -132,10 +147,24 @@ import WaitlistForm from './WaitlistForm.astro';
 	.hero-intro {
 		font-size: var(--fs-lede);
 		line-height: 1.55;
+		text-wrap: pretty;
 		color: color-mix(in srgb, var(--ink-on-dark) 94%, transparent);
 		max-width: 36rem;
 		margin: 0 0 clamp(2rem, 2vw + 1rem, 3rem);
 		text-shadow: 0 1px 14px color-mix(in srgb, var(--midnight) 55%, transparent);
+	}
+
+	@media (max-width: 52rem) {
+		.hero-image-source {
+			left: 50%;
+			transform: translateX(-50%);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hero-backdrop {
+			transition: none;
+		}
 	}
 </style>
 
@@ -160,10 +189,12 @@ import WaitlistForm from './WaitlistForm.astro';
 				});
 
 	// Multiply ink over the photograph, turned up enough to read as
-	// screenprint rather than a moody stock photo.
+	// screenprint rather than a moody stock photo. Shader uniforms can't read
+	// CSS vars — these mirror global.css tokens (chalk, terrain, sun-clay,
+	// gold, midnight); keep in sync.
 	const WASH_UNIFORMS = {
 		u_colorBack: '#fbf8f2',
-		u_colorC: '#17303a',
+		u_colorC: '#192f3c',
 		u_colorM: '#c87435',
 		u_colorY: '#c6a36a',
 		u_colorK: '#10212b',
@@ -187,8 +218,12 @@ import WaitlistForm from './WaitlistForm.astro';
 		const host = document.querySelector<HTMLElement>('[data-hero-wash]');
 		if (!host) return;
 
-		const image = host.parentElement?.querySelector('img');
-		if (!(image instanceof HTMLImageElement)) return;
+		const backdrop = host.parentElement;
+		const image = backdrop?.querySelector('img');
+		if (!(image instanceof HTMLImageElement)) {
+			backdrop?.setAttribute('data-ready', '');
+			return;
+		}
 
 		try {
 			const noiseTexture = getShaderNoiseTexture();
@@ -224,6 +259,10 @@ import WaitlistForm from './WaitlistForm.astro';
 			);
 		} catch (error) {
 			console.error('Hero shader failed to initialize.', error);
+		} finally {
+			// Reveal the backdrop either way — without the shader it degrades to
+			// the plain photograph rather than a permanently dark hero.
+			backdrop?.setAttribute('data-ready', '');
 		}
 	};
 

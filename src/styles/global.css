@@ -28,30 +28,47 @@
 /* ─────────────────────────── tokens ─────────────────────────── */
 
 :root {
-	/* Palette — Contour Field. Source-of-truth hex; derived variants via color-mix. */
-	--ivory: #f6f2ea; /* field ivory — main surface */
-	--chalk: #fbf8f2; /* elevated surface */
-	--stone: #d9d1c4; /* borders, soft dividers */
-	--fog: #716b63; /* muted text / icons */
-	--midnight: #10212b; /* primary dark surface */
-	--terrain: #17303a; /* dark cards / dark buttons */
-	--lichen: #55624b; /* secondary earthy accent */
-	--sun-clay: #c87435; /* primary orienting accent */
+	/* Missing faces fail visibly instead of rendering faked bold/italic —
+	   Host Grotesk ships no italic file. */
+	font-synthesis: none;
+
+	/* Palette — Contour Field. OKLCH source of truth; derived variants via
+	   color-mix. The hero shader (Hero.astro) and public/images/mark.svg
+	   mirror these as hex — keep in sync. */
+	--ivory: oklch(0.962 0.011 84.6); /* field ivory — main surface (#f6f2ea) */
+	--chalk: oklch(0.98 0.009 84.6); /* elevated surface (#fbf8f2) */
+	--stone: oklch(0.864 0.02 80.1); /* borders, soft dividers (#d9d1c4) */
+	--fog: oklch(0.478 0.015 75.3); /* muted text / icons (#625c54) — L set for APCA 75 on ivory */
+	--midnight: oklch(0.238 0.03 235.7); /* primary dark surface (#10212b) */
+	--terrain: oklch(
+		0.294 0.036 234
+	); /* dark cards / dark buttons (#192f3c) — hue aligned to midnight */
+	--lichen: oklch(0.478 0.039 131.8); /* secondary earthy accent (#55624b) */
+	--sun-clay: oklch(0.641 0.13 54.4); /* primary orienting accent (#c87435) */
+	--gold: oklch(0.734 0.085 79); /* hero halftone Y ink (#c6a36a) */
+	--misty-blue: oklch(0.807 0.015 231.3); /* logo terrain band (#b7c2c8) */
+	--sage: oklch(0.708 0.055 130.5); /* logo terrain band (#95a884) — chroma matched to lichen */
 
 	/* Semantic roles */
 	--surface: var(--ivory);
 	--surface-elevated: var(--chalk);
 	--surface-dark: var(--midnight);
 
-	--ink: #1a2129; /* near-midnight, a touch warmer for type */
-	--ink-soft: #3d4750;
+	--ink: oklch(0.244 0.018 252); /* near-midnight, a touch warmer for type (#1a2129) */
+	--ink-soft: oklch(0.392 0.02 245.5); /* #3d4750 */
 	--ink-dim: var(--fog);
-	--ink-on-dark: #ece6d8; /* warm off-white ink on dark */
+	--ink-on-dark: oklch(0.926 0.02 87.5); /* warm off-white ink on dark (#ece6d8) */
+	--ink-on-accent: oklch(0.197 0.022 235.7); /* CTA labels on sun-clay */
 
-	--rule: color-mix(in srgb, var(--stone) 90%, black 4%);
+	--rule: color-mix(in srgb, var(--stone) 96%, black 4%);
 	--rule-dark: color-mix(in srgb, var(--ink-on-dark) 18%, transparent);
 
 	--accent: var(--sun-clay);
+
+	/* Header band — shared by SiteHeader and UtilityHeader. */
+	--header-surface: color-mix(in oklch, var(--terrain) 88%, var(--lichen));
+	--header-border: color-mix(in oklch, var(--midnight) 86%, var(--terrain));
+	--accent-hover: color-mix(in oklch, var(--sun-clay) 78%, var(--ink-on-dark));
 
 	/* Type scale — fluid for marketing display, fixed for controls. */
 	--font-serif: 'Literata Variable', 'Iowan Old Style', Georgia, serif;
@@ -59,12 +76,16 @@
 
 	--fs-metadata: 1rem; /* 16px — labels read clearly */
 	--fs-caption: 0.8125rem; /* 13px   */
+	--fs-control-sm: 0.875rem; /* 14px — nav links, footer brand */
+	--fs-control: 0.95rem; /* 15px — sans UI: buttons, brand marks, notes */
 	--fs-body: 1.25rem; /* 20px — running prose */
 	--fs-body-sm: 1.125rem; /* 18px — lists and supporting prose */
 	--fs-lede: clamp(1.15rem, 1rem + 0.7vw, 1.625rem);
+	--fs-quote: clamp(1.35rem, 1rem + 1.2vw, 1.75rem); /* editorial pull quotes */
 	--fs-h2: clamp(1.9rem, 1.35rem + 2.4vw, 3.4rem);
 	--fs-h1: clamp(2.35rem, 1.55rem + 4vw, 5.25rem);
-	--fs-display: clamp(3rem, 1.9rem + 5.5vw, 6.75rem);
+
+	--leading-prose: 1.65;
 
 	/* Prose never exceeds this measure. */
 	--measure: 42rem;
@@ -86,10 +107,26 @@
 	--radius: 0.375rem;
 	--radius-lg: 0.5rem;
 
+	/* Motion — one shared curve, two shared clocks. Press feedback is a 1px
+	   depress into the paper; the reduced-motion block zeroes it. */
+	--ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+	--dur-hover: 180ms;
+	--dur-press: 120ms;
+	--press-shift: 1px;
+	--press-scale: 0.98;
+
 	--shell: min(54rem, calc(100% - 3rem));
 	--shell-narrow: min(48rem, calc(100% - 3rem));
 
 	--paper-grain: url('/textures/paper-grain.png');
+}
+
+/* On wide-gamut displays the accent takes the extra chroma P3 offers at this
+   hue — a deeper, more molten clay. Same L and H, so contrast is unchanged. */
+@media (color-gamut: p3) {
+	:root {
+		--sun-clay: oklch(0.645 0.165 54.4);
+	}
 }
 
 /* ───────────────────────────  reset  ─────────────────────────── */
@@ -102,6 +139,8 @@
 
 html {
 	scroll-behavior: smooth;
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
 }
 
 body {
@@ -114,8 +153,8 @@ body {
 	color: var(--ink);
 	background: var(--surface);
 	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 	text-rendering: optimizeLegibility;
-	font-feature-settings: 'kern';
 }
 
 img {
@@ -172,7 +211,7 @@ section[id] {
 @media (max-width: 62rem) {
 	section[id],
 	.waitlist-input {
-		scroll-margin-top: 8rem;
+		scroll-margin-top: 5rem;
 	}
 }
 
@@ -259,6 +298,10 @@ section[id] {
 	.sheet .sheet-breakout {
 		grid-column: text;
 	}
+
+	.label-caps.sheet-margin {
+		margin-bottom: 0.75rem;
+	}
 }
 
 /* Margin notes — caption-size italic serif asides in the margin column. */
@@ -277,19 +320,15 @@ section[id] {
 	}
 }
 
-/* Wayfinding — small letterspaced caps in the sans; replaces the old dot-label. */
+/* Wayfinding — small letterspaced sentence-case labels in the sans. */
 .label-caps {
 	display: block;
 	font-family: var(--font-sans);
 	font-size: var(--fs-caption);
 	font-weight: 500;
-	letter-spacing: 0.11em;
-	text-transform: uppercase;
+	/* Sentence case, not uppercase — tracking eased accordingly. */
+	letter-spacing: 0.03em;
 	color: var(--ink-dim);
-}
-
-.label-caps--on-dark {
-	color: color-mix(in srgb, var(--ink-on-dark) 62%, transparent);
 }
 
 /* Paper grain — one utility instead of per-section pseudo-elements. */
@@ -353,19 +392,20 @@ section[id] {
 	background: var(--midnight);
 	color: var(--ink-on-dark);
 	font-family: var(--font-sans);
-	font-size: 0.95rem;
+	font-size: var(--fs-control);
 	font-weight: 500;
 	letter-spacing: 0.005em;
 	cursor: pointer;
+	user-select: none;
 	transition:
-		background-color 220ms ease,
-		color 220ms ease,
-		border-color 220ms ease,
-		transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+		background-color var(--dur-hover) var(--ease-standard),
+		color var(--dur-hover) var(--ease-standard),
+		border-color var(--dur-hover) var(--ease-standard),
+		transform var(--dur-press) var(--ease-standard);
 }
 
-.button:hover {
-	background: var(--terrain);
+.button:active {
+	transform: translateY(var(--press-shift));
 }
 
 /* ───────────── waitlist form — shared by hero and closing ───────────── */
@@ -388,7 +428,7 @@ section[id] {
 
 .waitlist-note {
 	font-family: var(--font-sans);
-	font-size: 0.95rem;
+	font-size: var(--fs-control);
 	font-weight: 500;
 	letter-spacing: 0.005em;
 	margin: 0;
@@ -412,6 +452,7 @@ section[id] {
 .waitlist-input {
 	flex: 1 1 16rem;
 	min-width: 0;
+	min-height: 2.75rem;
 	border: 0;
 	border-bottom: 1px solid color-mix(in srgb, var(--ink) 55%, var(--stone));
 	border-radius: 0;
@@ -419,8 +460,9 @@ section[id] {
 	color: var(--ink);
 	padding: 0.55rem 0.1rem;
 	font-family: var(--font-serif);
-	font-size: 1.125rem;
-	transition: border-color 180ms ease;
+	font-size: var(--fs-body-sm);
+	caret-color: var(--accent);
+	transition: border-color var(--dur-hover) var(--ease-standard);
 }
 
 .waitlist-form--on-dark .waitlist-input {
@@ -429,19 +471,19 @@ section[id] {
 }
 
 .waitlist-input::placeholder {
-	color: var(--fog);
+	color: var(--ink-dim);
 }
 
 .waitlist-form--on-dark .waitlist-input::placeholder {
-	color: color-mix(in srgb, var(--ink-on-dark) 70%, transparent);
+	color: color-mix(in srgb, var(--ink-on-dark) 88%, transparent);
 }
 
-.waitlist-input:hover {
-	border-bottom-color: var(--ink-soft);
+.waitlist-input:focus {
+	border-bottom-color: var(--ink);
 }
 
-.waitlist-form--on-dark .waitlist-input:hover {
-	border-bottom-color: color-mix(in srgb, var(--ink-on-dark) 70%, transparent);
+.waitlist-form--on-dark .waitlist-input:focus {
+	border-bottom-color: color-mix(in srgb, var(--ink-on-dark) 88%, transparent);
 }
 
 .waitlist-button {
@@ -452,18 +494,20 @@ section[id] {
 	background: var(--midnight);
 	color: var(--ink-on-dark);
 	cursor: pointer;
+	user-select: none;
 	font-family: var(--font-sans);
-	font-size: 0.95rem;
+	font-size: var(--fs-control);
 	font-weight: 500;
 	letter-spacing: 0.02em;
 	white-space: nowrap;
 	transition:
-		background 220ms ease,
-		color 220ms ease;
+		background-color var(--dur-hover) var(--ease-standard),
+		color var(--dur-hover) var(--ease-standard),
+		transform var(--dur-press) var(--ease-standard);
 }
 
-.waitlist-button:hover {
-	background: var(--terrain);
+.waitlist-button:active {
+	transform: translateY(var(--press-shift));
 }
 
 .waitlist-form--on-dark .waitlist-button {
@@ -471,8 +515,26 @@ section[id] {
 	color: var(--midnight);
 }
 
-.waitlist-form--on-dark .waitlist-button:hover {
-	background: var(--ivory);
+@media (hover: hover) and (pointer: fine) {
+	.button:hover {
+		background: var(--terrain);
+	}
+
+	.waitlist-input:hover {
+		border-bottom-color: var(--ink-soft);
+	}
+
+	.waitlist-form--on-dark .waitlist-input:hover {
+		border-bottom-color: color-mix(in srgb, var(--ink-on-dark) 70%, transparent);
+	}
+
+	.waitlist-button:hover {
+		background: var(--terrain);
+	}
+
+	.waitlist-form--on-dark .waitlist-button:hover {
+		background: var(--ivory);
+	}
 }
 
 /* ─────────────────────────── focus + selection ─────────────────────────── */
@@ -480,7 +542,6 @@ section[id] {
 :focus-visible {
 	outline: 2px solid var(--accent);
 	outline-offset: 3px;
-	border-radius: 2px;
 }
 
 ::selection {
@@ -491,16 +552,12 @@ section[id] {
 /* ─────────────────────────── reduced motion ─────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
-	html {
-		scroll-behavior: auto;
+	:root {
+		--press-shift: 0px;
+		--press-scale: 1;
 	}
 
-	*,
-	*::before,
-	*::after {
-		animation-duration: 0.01ms !important;
-		animation-iteration-count: 1 !important;
-		transition-duration: 0.01ms !important;
-		scroll-behavior: auto !important;
+	html {
+		scroll-behavior: auto;
 	}
 }

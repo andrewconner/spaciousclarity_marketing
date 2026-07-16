@@ -1,6 +1,6 @@
 ---
 /**
- * The page's emptiest section, on purpose: the whole method, set as an
+ * The page’s emptiest section, on purpose: the whole method, set as an
  * instruction at display size on bare paper. Faint topographic rings and the
  * clay summit dot mark it as the place the rest of the page orients around.
  */
@@ -41,7 +41,7 @@
 			<p>
 				This fully adaptive course will guide you through the learning. Unlike a meditation app with
 				fixed lessons or a book, we adapt to your experience, history, and feedback. Each session is
-				composed around what's actually happening in your practice.
+				composed around what’s actually happening in your practice.
 			</p>
 		</div>
 	</div>
@@ -95,6 +95,7 @@
 		font-weight: 365;
 		letter-spacing: -0.02em;
 		line-height: 1.1;
+		text-wrap: balance;
 		color: var(--ink);
 		margin: 0;
 	}
@@ -109,19 +110,25 @@
 		gap: var(--space-sm);
 		margin-top: clamp(2rem, 3vw, 3rem);
 		font-size: var(--fs-body);
-		line-height: 1.65;
+		line-height: var(--leading-prose);
+		text-wrap: pretty;
 		color: var(--ink-soft);
 	}
 
-	/* The one motion moment: the sentence settles, the rings draw once.
-	   Classes are applied by script, so without JS everything is simply visible.
-	   The global reduced-motion block neutralizes the transitions. */
-	.method-stage.js-anim .method-instruction {
+	/* The one motion moment: the sentence settles line by line, the rings draw
+	   once. Classes are applied by script, so without JS everything is simply
+	   visible; under reduced motion the script never adds js-anim, so these
+	   transitions never attach. */
+	.method-stage.js-anim .method-line {
 		opacity: 0;
 		transform: translateY(-10px);
 		transition:
 			opacity 1000ms cubic-bezier(0.16, 1, 0.3, 1),
 			transform 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.method-stage.js-anim .method-line:nth-child(2) {
+		transition-delay: 90ms;
 	}
 
 	.method-stage.js-anim .ring {
@@ -135,7 +142,7 @@
 		transition: opacity 600ms ease 1200ms;
 	}
 
-	.method-stage.is-settled .method-instruction {
+	.method-stage.is-settled .method-line {
 		opacity: 1;
 		transform: translateY(0);
 	}
@@ -149,8 +156,10 @@
 	}
 
 	@media (max-width: 52rem) {
+		/* Same slope as --fs-h1 with a lower intercept, so this h2 stays below
+		   the hero h1 at every mobile width and the hierarchy never inverts. */
 		.method-instruction {
-			font-size: clamp(2.4rem, 1.4rem + 6vw, 3.4rem);
+			font-size: clamp(2.15rem, 1.3rem + 4vw, 3.4rem);
 		}
 
 		.method-line {
@@ -160,6 +169,27 @@
 		.method-rings {
 			right: -14rem;
 			opacity: 0.7;
+		}
+
+		/* The lines flow inline as one sentence here (transforms don’t apply to
+		   inline boxes), so the heading settles as a unit instead. */
+		.method-stage.js-anim .method-line {
+			opacity: 1;
+			transform: none;
+			transition: none;
+		}
+
+		.method-stage.js-anim .method-instruction {
+			opacity: 0;
+			transform: translateY(-10px);
+			transition:
+				opacity 1000ms cubic-bezier(0.16, 1, 0.3, 1),
+				transform 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.method-stage.is-settled .method-instruction {
+			opacity: 1;
+			transform: translateY(0);
 		}
 	}
 </style>

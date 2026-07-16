@@ -13,6 +13,7 @@ interface Props {
 
 const { box, note, tone = 'light', class: className } = Astro.props;
 const inputId = `${box}-email`;
+const noteId = `${box}-note`;
 ---
 
 <form
@@ -28,7 +29,13 @@ const inputId = `${box}-email`;
 	<input type="hidden" name="fields[utm_campaign]" data-kit-attribution="utm_campaign" />
 	<input type="hidden" name="fields[utm_term]" data-kit-attribution="utm_term" />
 	<input type="hidden" name="fields[utm_content]" data-kit-attribution="utm_content" />
-	{note && <p class="waitlist-note">{note}</p>}
+	{
+		note && (
+			<p id={noteId} class="waitlist-note">
+				{note}
+			</p>
+		)
+	}
 	<label class="sr-only" for={inputId}>Email address</label>
 	<div class="waitlist-field">
 		<input
@@ -39,6 +46,7 @@ const inputId = `${box}-email`;
 			autocomplete="email"
 			inputmode="email"
 			placeholder="you@example.com"
+			aria-describedby={note ? noteId : undefined}
 			required
 		/>
 		<button class="waitlist-button" type="submit">Join the waitlist</button>

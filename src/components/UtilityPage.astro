@@ -155,22 +155,58 @@ const { headingId, marker, context, title } = Astro.props;
 	.utility-prose :global(p) {
 		margin: 0;
 		font-size: var(--fs-body);
-		line-height: 1.65;
+		line-height: var(--leading-prose);
+		text-wrap: pretty;
+		overflow-wrap: break-word;
 		color: var(--ink-soft);
 	}
 
 	.utility-prose :global(a) {
 		text-decoration: underline;
 		text-decoration-color: color-mix(in srgb, var(--accent) 65%, transparent);
+		text-decoration-thickness: from-font;
+		text-decoration-skip-ink: auto;
 		text-underline-offset: 0.16em;
 	}
 
-	.utility-prose :global(a:hover) {
-		text-decoration-color: var(--accent);
+	@media (hover: hover) and (pointer: fine) {
+		.utility-prose :global(a:hover) {
+			text-decoration-color: var(--accent);
+		}
 	}
 
 	.utility-actions {
 		margin-top: var(--space-xs);
+	}
+
+	/* Arrival entrance — one quiet settle for a page seen once. */
+	@media (prefers-reduced-motion: no-preference) {
+		@keyframes utility-rise {
+			from {
+				opacity: 0;
+				transform: translateY(8px);
+			}
+			to {
+				opacity: 1;
+				transform: none;
+			}
+		}
+
+		.utility-aside {
+			animation: utility-rise 560ms cubic-bezier(0.22, 1, 0.36, 1) 40ms both;
+		}
+
+		.utility-copy h1 {
+			animation: utility-rise 620ms cubic-bezier(0.22, 1, 0.36, 1) 140ms both;
+		}
+
+		.utility-prose {
+			animation: utility-rise 620ms cubic-bezier(0.22, 1, 0.36, 1) 240ms both;
+		}
+
+		.utility-actions {
+			animation: utility-rise 560ms cubic-bezier(0.22, 1, 0.36, 1) 360ms both;
+		}
 	}
 
 	@media (max-width: 52rem) {

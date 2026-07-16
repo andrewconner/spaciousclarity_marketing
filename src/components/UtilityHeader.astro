@@ -3,7 +3,7 @@
 		<div class="utility-header-inner sheet-breakout">
 			<a class="utility-header-brand" href="/" aria-label="Spacious Clarity, home">
 				<img src="/images/mark.svg" width="24" height="24" alt="" />
-				<span>Spacious Clarity</span>
+				<span>Spacious&nbsp;Clarity</span>
 			</a>
 
 			<a class="utility-header-home" href="/">Home</a>
@@ -13,9 +13,9 @@
 
 <style>
 	.utility-header {
-		background: color-mix(in oklch, var(--terrain) 88%, var(--lichen));
+		background: var(--header-surface);
 		color: var(--ink-on-dark);
-		border-bottom: 1px solid color-mix(in oklch, var(--midnight) 86%, var(--terrain));
+		border-bottom: 1px solid var(--header-border);
 	}
 
 	.utility-header-inner {
@@ -34,9 +34,10 @@
 	}
 
 	.utility-header-brand {
+		min-height: 2.75rem;
 		gap: 0.6rem;
 		font-family: var(--font-serif);
-		font-size: 0.95rem;
+		font-size: var(--fs-control);
 		font-weight: 520;
 		letter-spacing: -0.012em;
 	}
@@ -52,33 +53,51 @@
 		border: 1px solid var(--sun-clay);
 		border-radius: var(--radius-sm);
 		background: var(--sun-clay);
-		color: var(--midnight);
+		color: var(--ink-on-accent);
 		font-family: var(--font-sans);
-		font-size: 0.8125rem;
+		font-size: var(--fs-caption);
 		font-weight: 690;
+		user-select: none;
+		transition: transform var(--dur-press) var(--ease-standard);
+	}
+
+	.utility-header-home:active {
+		transform: translateY(var(--press-shift));
 	}
 
 	@media (hover: hover) and (pointer: fine) {
 		.utility-header-brand,
 		.utility-header-home {
 			transition:
-				color 180ms cubic-bezier(0.22, 1, 0.36, 1),
-				background-color 180ms cubic-bezier(0.22, 1, 0.36, 1),
-				border-color 180ms cubic-bezier(0.22, 1, 0.36, 1);
+				color var(--dur-hover) var(--ease-standard),
+				background-color var(--dur-hover) var(--ease-standard),
+				border-color var(--dur-hover) var(--ease-standard),
+				transform var(--dur-press) var(--ease-standard);
 		}
 
+		/* Hover cue is a thin clay underline, matching SiteHeader — sun-clay
+		   text on the dark band falls short of AA. */
 		.utility-header-brand:hover {
-			color: var(--sun-clay);
+			text-decoration: underline;
+			text-decoration-color: var(--sun-clay);
+			text-decoration-thickness: 1.5px;
+			text-underline-offset: 0.35em;
 		}
 
 		.utility-header-home:hover {
-			border-color: color-mix(in oklch, var(--sun-clay) 78%, var(--ink-on-dark));
-			background: color-mix(in oklch, var(--sun-clay) 78%, var(--ink-on-dark));
+			border-color: var(--accent-hover);
+			background: var(--accent-hover);
 		}
 	}
 
 	.utility-header-brand:focus-visible,
 	.utility-header-home:focus-visible {
 		outline-color: var(--ink-on-dark);
+	}
+
+	@media (pointer: coarse) {
+		.utility-header-home {
+			min-height: 3rem;
+		}
 	}
 </style>

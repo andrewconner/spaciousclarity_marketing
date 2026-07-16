@@ -1,8 +1,8 @@
 ---
 /**
- * Our perspective. The emotional core of the page: name the reader's
+ * Our perspective. The emotional core of the page: name the reader’s
  * suspicion of meditation culture, flip it, and make the renunciative vs
- * life-affirming contrast concrete. The Jared quote is a cofounder's
+ * life-affirming contrast concrete. The Jared quote is a cofounder’s
  * confession, not a testimonial.
  */
 ---
@@ -45,8 +45,8 @@
 				<ul>
 					<li>One more exhausting, effort-based self-improvement project.</li>
 					<li>Emotions are obstacles that you have to manage and control.</li>
-					<li>Thoughts mean you're doing it wrong.</li>
-					<li>"Letting go," "non-attachment," a calm that can become dissociation.</li>
+					<li>Thoughts mean you’re doing it wrong.</li>
+					<li>“Letting go,” “non-attachment,” a calm that can become dissociation.</li>
 					<li>Meditation as retreat from ordinary life.</li>
 				</ul>
 			</div>
@@ -54,7 +54,7 @@
 
 		<figure class="stance-quote">
 			<blockquote>
-				It wasn't until I realized how lonely and frustrating it was for my wife being married to
+				It wasn’t until I realized how lonely and frustrating it was for my wife being married to
 				the equanimous, distant version of Jared that I started to wonder if there was a different
 				way to approach my meditation practice.
 			</blockquote>
@@ -74,6 +74,7 @@
 		font-weight: 390;
 		letter-spacing: -0.018em;
 		line-height: 1.12;
+		text-wrap: balance;
 		margin: 0 0 clamp(1.5rem, 2vw + 0.5rem, 2.5rem);
 		max-width: var(--measure);
 	}
@@ -85,7 +86,8 @@
 
 	.stance-prose p {
 		font-size: var(--fs-body);
-		line-height: 1.65;
+		line-height: var(--leading-prose);
+		text-wrap: pretty;
 		color: var(--ink);
 		margin: 0;
 	}
@@ -135,7 +137,7 @@
 	.stance-quote blockquote {
 		font-family: var(--font-serif);
 		font-style: italic;
-		font-size: clamp(1.35rem, 1rem + 1.2vw, 1.75rem);
+		font-size: var(--fs-quote);
 		font-weight: 400;
 		line-height: 1.45;
 		letter-spacing: -0.008em;

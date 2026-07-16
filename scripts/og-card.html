@@ -24,115 +24,206 @@
 				src: url('../node_modules/@fontsource-variable/host-grotesk/files/host-grotesk-latin-wght-normal.woff2')
 					format('woff2-variations');
 			}
+
+			/* Tokens mirrored from src/styles/global.css — keep in sync. */
+			:root {
+				--ivory: #f6f2ea;
+				--stone: #d9d1c4;
+				--fog: #625c54;
+				--ink: #1a2129;
+				--ink-soft: #3d4750;
+				--sun-clay: #c87435;
+				--rule: #d0c8bc;
+			}
+
 			html,
 			body {
 				margin: 0;
 				padding: 0;
 			}
+
 			body {
 				width: 1200px;
 				height: 630px;
 				overflow: hidden;
 			}
-			svg {
+
+			.card {
+				position: relative;
+				width: 1200px;
+				height: 630px;
+				background: var(--ivory);
+				overflow: hidden;
+				isolation: isolate;
+			}
+
+			/* Paper grain — same recipe as the site's .grain utility. Sits over
+			   the art so the terrain bands print with texture; type stays crisp
+			   above it. */
+			.card::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background-image: url('../public/textures/paper-grain.png');
+				background-size: 460px 460px;
+				mix-blend-mode: multiply;
+				opacity: 0.1;
+				pointer-events: none;
+				z-index: 1;
+			}
+
+			.card > * {
+				position: absolute;
+				z-index: 2;
+			}
+
+			.card svg.art {
+				inset: 0;
+				z-index: 0;
+			}
+
+			/* Brand row — the site header's mark + serif wordmark, set on paper. */
+			.brand {
+				left: 88px;
+				top: 76px;
+				display: flex;
+				align-items: center;
+				gap: 16px;
+				font-family: 'Literata', Georgia, serif;
+				font-size: 27px;
+				font-weight: 520;
+				letter-spacing: -0.012em;
+				color: var(--ink);
+			}
+
+			.brand svg {
 				display: block;
+			}
+
+			/* Headline — hero title voice: Literata 420, tight leading, italic em. */
+			.headline {
+				left: 88px;
+				top: 224px;
+				width: 1000px;
+				margin: 0;
+				font-family: 'Literata', Georgia, serif;
+				font-size: 78px;
+				font-weight: 420;
+				letter-spacing: -0.012em;
+				line-height: 1.12;
+				color: var(--ink);
+			}
+
+			.headline em {
+				font-style: italic;
+			}
+
+			/* Caption — the site's .caption device: hairline rule, small sans. */
+			.caption {
+				left: 88px;
+				top: 434px;
+				width: 580px;
+				margin: 0;
+				padding-top: 14px;
+				border-top: 1px solid var(--rule);
+				font-family: 'Host Grotesk', Helvetica, sans-serif;
+				font-size: 23px;
+				font-weight: 500;
+				letter-spacing: 0.02em;
+				line-height: 1.5;
+				color: var(--fog);
+			}
+
+			/* Folio — quiet domain, printed in ivory on the lichen band. */
+			.folio {
+				right: 88px;
+				bottom: 12px;
+				margin: 0;
+				font-family: 'Host Grotesk', Helvetica, sans-serif;
+				font-size: 21px;
+				font-weight: 500;
+				letter-spacing: 0.03em;
+				color: var(--ivory);
 			}
 		</style>
 	</head>
 	<body>
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 1200 630"
-			width="1200"
-			height="630"
-			role="img"
-			aria-label="Spacious Clarity social card"
-		>
-			<rect width="1200" height="630" fill="#F6F2EA" />
-
-			<g
+		<div class="card">
+			<!-- Line art: method rings + summit sun over drifting contours. -->
+			<svg
+				class="art"
+				viewBox="0 0 1200 630"
+				width="1200"
+				height="630"
 				fill="none"
-				stroke="#1A2129"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				stroke-width="1.2"
-				opacity="0.28"
+				aria-hidden="true"
 			>
-				<path
-					d="M 0 560 C 160 540 320 552 500 524 C 680 494 860 494 1020 516 C 1120 530 1200 544 1200 544"
-				/>
-				<path
-					d="M 0 480 C 180 440 380 432 580 420 C 760 410 920 428 1060 452 C 1160 470 1200 482 1200 482"
-				/>
-				<path
-					d="M 40 400 C 200 360 400 340 600 340 C 740 340 860 368 960 404 C 1040 430 1140 454 1200 446"
-				/>
-			</g>
+				<!-- Ridge strokes above the bands, a touch firmer -->
+				<g stroke="#1a2129" stroke-width="1.4" stroke-linecap="round" opacity="0.42">
+					<path d="M 820 366 C 890 346 970 338 1050 344 C 1120 349 1175 362 1212 378" />
+					<path d="M 862 404 C 926 388 1000 382 1072 388 C 1132 393 1180 404 1212 416" />
+				</g>
+				<!-- Terrain bands from the mark, swelling toward the sun -->
+				<g>
+					<path
+						d="M -20 566 C 240 552 480 528 720 498 C 900 476 1080 472 1220 486 L 1220 650 L -20 650 Z"
+						fill="#B7C2C8"
+					/>
+					<path
+						d="M -20 600 C 240 590 500 572 760 552 C 940 539 1100 538 1220 546 L 1220 650 L -20 650 Z"
+						fill="#95A884"
+					/>
+					<path
+						d="M -20 622 C 260 616 540 604 800 590 C 970 581 1120 582 1220 588 L 1220 650 L -20 650 Z"
+						fill="#55624B"
+					/>
+				</g>
+				<!-- Method rings + sun-clay summit dot -->
+				<g transform="translate(1002 170)">
+					<circle r="148" stroke="#1a2129" stroke-width="1" opacity="0.12" />
+					<circle r="100" stroke="#1a2129" stroke-width="1" opacity="0.12" />
+					<circle r="54" stroke="#1a2129" stroke-width="1" opacity="0.12" />
+					<circle r="15" fill="#c87435" />
+				</g>
+			</svg>
 
-			<g
-				fill="none"
-				stroke="#1A2129"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				stroke-width="1.5"
-				opacity="0.5"
-			>
-				<path d="M 848 284 C 904 264 972 256 1040 262 C 1098 267 1150 282 1188 306" />
-				<path d="M 806 328 C 870 302 950 292 1030 298 C 1100 304 1160 324 1200 354" />
-				<path d="M 830 434 C 886 410 958 398 1032 402 C 1098 406 1156 424 1198 452" />
-			</g>
+			<div class="brand">
+				<svg viewBox="0 0 64 64" width="46" height="46" fill="none">
+					<defs>
+						<clipPath id="og-mark-paper"><circle cx="32" cy="32" r="31.25"></circle></clipPath>
+					</defs>
+					<circle
+						cx="32"
+						cy="32"
+						r="31.25"
+						fill="#F6F2EA"
+						stroke="#D9D1C4"
+						stroke-width="1.5"
+					></circle>
+					<g clip-path="url(#og-mark-paper)">
+						<path
+							d="M-2 38 C12 33 26 32 38 35.5 C48 38.5 58 37 66 33.5 L66 66 H-2 Z"
+							fill="#B7C2C8"
+						></path>
+						<path
+							d="M-2 47 C10 42.5 24 42 36 45 C46 47.5 58 46.5 66 43.5 L66 66 H-2 Z"
+							fill="#95A884"
+						></path>
+						<path
+							d="M-2 55 C12 51 26 51 38 53.5 C48 55.5 58 55 66 52 L66 66 H-2 Z"
+							fill="#55624B"
+						></path>
+					</g>
+					<circle cx="43" cy="16" r="5.4" fill="#C87435"></circle>
+				</svg>
+				<span>Spacious Clarity</span>
+			</div>
 
-			<g transform="translate(988 362)">
-				<circle r="56" fill="none" stroke="#C87435" stroke-opacity="0.26" stroke-width="1.2" />
-				<circle r="36" fill="none" stroke="#C87435" stroke-opacity="0.36" stroke-width="1.2" />
-				<circle r="18" fill="#C87435" />
-			</g>
+			<h1 class="headline">Meditation that welcomes <em>all of life.</em></h1>
 
-			<text
-				x="88"
-				y="148"
-				fill="#3D4750"
-				font-family="'Host Grotesk', Helvetica, sans-serif"
-				font-size="22"
-				font-weight="600"
-				letter-spacing="5.2"
-			>
-				SPACIOUS CLARITY
-			</text>
+			<p class="caption">An adaptive practice for steady, vivid presence.</p>
 
-			<text
-				x="88"
-				y="256"
-				fill="#1A2129"
-				font-family="'Literata', Georgia, serif"
-				font-size="78"
-				font-weight="400"
-			>
-				Meditation that welcomes
-			</text>
-			<text
-				x="88"
-				y="340"
-				fill="#1A2129"
-				font-family="'Literata', Georgia, serif"
-				font-size="78"
-				font-weight="400"
-				font-style="italic"
-			>
-				all of life.
-			</text>
-
-			<text
-				x="88"
-				y="558"
-				fill="#3D4750"
-				font-family="'Host Grotesk', Helvetica, sans-serif"
-				font-size="22"
-			>
-				An adaptive practice for steady, vivid presence.
-			</text>
-
-			<circle cx="72" cy="140" r="5" fill="#C87435" />
-		</svg>
+			<p class="folio">spaciousclarity.com</p>
+		</div>
 	</body>
 </html>

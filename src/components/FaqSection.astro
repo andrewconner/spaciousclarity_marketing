@@ -6,16 +6,16 @@
  */
 const faqs = [
 	{
-		q: 'What do you mean by "spacious clarity"?',
-		a: "It's the result of the practice: continuous, vivid appreciation of experience. It's not blankness or numbness. Practitioners describe it as more room for all of experience.",
+		q: 'What do you mean by “spacious clarity”?',
+		a: 'It’s the result of the practice: continuous, vivid appreciation of experience. It’s not blankness or numbness. Practitioners describe it as more room for all of experience.',
 	},
 	{
-		q: "I've never meditated. Can I start here?",
-		a: "Yes. The course assumes no experience, and the first sessions build the foundation: how to sit, what to do with thoughts, how to return. Beginners sometimes have an advantage; there's less to unlearn.",
+		q: 'I’ve never meditated. Can I start here?',
+		a: 'Yes. The course assumes no experience, and the first sessions build the foundation: how to sit, what to do with thoughts, how to return. Beginners sometimes have an advantage; there’s less to unlearn.',
 	},
 	{
 		q: 'I already meditate. Will this be remedial?',
-		a: "No. Different systems aim at different results, and this one aims somewhere specific. Don't buy the platitude that all paths lead to the same goal; empirically, this is not so. Opening Awareness works by release, not concentration, and many practitioners arrive from vipassana, staged approaches, or years of app practice. The first ten days help you recalibrate; you don't start again from scratch.",
+		a: 'No. Different systems aim at different results, and this one aims somewhere specific. Don’t buy the platitude that all paths lead to the same goal; empirically, this is not so. Opening Awareness works by release, not concentration, and many practitioners arrive from vipassana, staged approaches, or years of app practice. The first ten days help you recalibrate; you don’t start again from scratch.',
 	},
 	{
 		q: 'Is this religious?',
@@ -23,7 +23,7 @@ const faqs = [
 	},
 	{
 		q: 'Is this therapy?',
-		a: "No. Meditation and therapy develop different capacities, and this course isn't a treatment for anything. Opening Awareness can sit well alongside therapy, and many practitioners find it steadying. If you're in acute crisis or working through trauma, therapy first is often the right order; the course will still be here.",
+		a: 'No. Meditation and therapy develop different capacities, and this course isn’t a treatment for anything. Opening Awareness can sit well alongside therapy, and many practitioners find it steadying. If you’re in acute crisis or working through trauma, therapy first is often the right order; the course will still be here.',
 	},
 	{
 		q: 'How much time does it take?',
@@ -31,23 +31,23 @@ const faqs = [
 	},
 	{
 		q: 'How long until I notice anything?',
-		a: "Honestly, it varies. With regular practice, many people notice changes in the quality of attention within weeks; understanding the instruction deeply can take a year or more. Day-to-day changes usually show up before the method feels clear. We'd rather undersell this than promise you a schedule.",
+		a: 'Honestly, it varies. With regular practice, many people notice changes in the quality of attention within weeks; understanding the instruction deeply can take a year or more. Day-to-day changes usually show up before the method feels clear. We’d rather undersell this than promise you a schedule.',
 	},
 	{
 		q: 'How are sessions composed?',
-		a: "Every word of teaching is Charlie's, recorded and written in advance. The course software chooses which teaching, which sit, which question comes next, based on what happens as you practice.",
+		a: 'Every word of teaching is Charlie’s, recorded and written in advance. The course software chooses which teaching, which sit, which question comes next, based on what happens as you practice.',
 	},
 	{
 		q: 'The course makes itself unnecessary. Then what?',
-		a: "You keep the practice; that's the point. The course fades toward a simple timer and a library you can browse when curious. And if you want teachers, peers, and practices beyond Opening Awareness, Evolving Ground is the wider community this grew out of.",
+		a: 'You keep the practice; that’s the point. The course fades toward a simple timer and a library you can browse when curious. And if you want teachers, peers, and practices beyond Opening Awareness, Evolving Ground is the wider community this grew out of.',
 	},
 	{
 		q: 'What will it cost?',
-		a: "$249 as a one-time purchase, not a subscription. We don't want to optimize for keeping you around. The course works for you.",
+		a: '$249 as a one-time purchase, not a subscription. We don’t want to optimize for keeping you around. The course works for you.',
 	},
 	{
-		q: `Doesn't "uninvolved" mean detachment?`,
-		a: "It points the opposite direction. You practice remaining uninvolved during a sit so that clarity is available when you're fully involved in life. Nothing is pushed away. Thoughts and feelings come and go. You discover they no longer define experience.",
+		q: 'Doesn’t “uninvolved” mean detachment?',
+		a: 'It points the opposite direction. You practice remaining uninvolved during a sit so that clarity is available when you’re fully involved in life. Nothing is pushed away. Thoughts and feelings come and go. You discover they no longer define experience.',
 	},
 ];
 ---
@@ -75,7 +75,7 @@ const faqs = [
 <style>
 	.faq-section {
 		background: var(--surface);
-		padding: clamp(3rem, 4vw + 1rem, 5.5rem) 0 clamp(3.5rem, 5vw + 1rem, 6.5rem);
+		padding: clamp(1.5rem, 2vw, 2.5rem) 0 clamp(3.5rem, 5vw + 1rem, 6.5rem);
 	}
 
 	.faq-heading {
@@ -110,10 +110,12 @@ const faqs = [
 
 	.faq-question {
 		font-family: var(--font-serif);
-		font-size: 1.25rem;
+		font-size: var(--fs-body);
 		font-weight: 430;
 		line-height: 1.35;
+		text-wrap: balance;
 		color: var(--ink);
+		transition: color var(--dur-hover) var(--ease-standard);
 	}
 
 	.faq-marker {
@@ -148,8 +150,10 @@ const faqs = [
 		transform: translateX(-50%) scaleY(0);
 	}
 
-	.faq-item summary:hover .faq-question {
-		color: var(--ink-soft);
+	@media (hover: hover) and (pointer: fine) {
+		.faq-item summary:hover .faq-question {
+			color: var(--ink-soft);
+		}
 	}
 
 	.faq-answer {
@@ -157,7 +161,38 @@ const faqs = [
 		margin: 0;
 		padding: 0 0 1.35rem;
 		font-size: var(--fs-body-sm);
-		line-height: 1.65;
+		line-height: var(--leading-prose);
+		text-wrap: pretty;
 		color: var(--ink-soft);
+	}
+
+	/* Ease the disclosure open/closed where the browser can interpolate to
+	   height: auto; elsewhere it keeps the native instant toggle. */
+	@supports (interpolate-size: allow-keywords) {
+		.faq-item {
+			interpolate-size: allow-keywords;
+		}
+
+		.faq-item::details-content {
+			height: 0;
+			overflow: hidden;
+			opacity: 0;
+			transition:
+				height 220ms cubic-bezier(0.22, 1, 0.36, 1),
+				opacity 160ms ease,
+				content-visibility 220ms allow-discrete;
+		}
+
+		.faq-item[open]::details-content {
+			height: auto;
+			opacity: 1;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.faq-marker::after,
+		.faq-item::details-content {
+			transition-duration: 0.01ms;
+		}
 	}
 </style>

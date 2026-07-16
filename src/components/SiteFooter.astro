@@ -7,7 +7,7 @@ const year = new Date().getFullYear();
 		<div class="site-footer-inner sheet-breakout">
 			<a class="site-footer-brand" href="/">
 				<img src="/images/mark.svg" width="32" height="32" alt="" />
-				<span>Spacious Clarity</span>
+				<span>Spacious&nbsp;Clarity</span>
 			</a>
 
 			<nav class="site-footer-links" aria-label="Footer">
@@ -16,7 +16,7 @@ const year = new Date().getFullYear();
 				<a href="mailto:hi@spaciousclarity.com">Contact</a>
 			</nav>
 
-			<p class="site-footer-meta">&copy; {year} Spacious Clarity.</p>
+			<p class="site-footer-meta">&copy; {year} Spacious&nbsp;Clarity.</p>
 		</div>
 	</div>
 </footer>
@@ -43,11 +43,15 @@ const year = new Date().getFullYear();
 		grid-area: brand;
 		display: inline-flex;
 		align-items: center;
+		/* Pad the hit area to ~44px; the negative margin keeps the layout put. */
+		padding: 0.35rem 0;
+		margin: -0.35rem 0;
 		gap: 0.65rem;
 		font-family: var(--font-sans);
-		font-size: 0.875rem;
+		font-size: var(--fs-control-sm);
 		font-weight: 650;
-		letter-spacing: 0.055em;
+		/* Sentence case, not uppercase — tracking eased accordingly. */
+		letter-spacing: 0.03em;
 	}
 
 	.site-footer-brand img {
@@ -60,6 +64,7 @@ const year = new Date().getFullYear();
 		flex-wrap: wrap;
 		justify-content: flex-end;
 		gap: var(--space-sm) var(--space-lg);
+		margin: -0.65rem 0;
 	}
 
 	.site-footer-links a,
@@ -70,18 +75,25 @@ const year = new Date().getFullYear();
 	}
 
 	.site-footer-links a {
-		color: color-mix(in srgb, var(--ink-on-dark) 74%, transparent);
-		transition: color 180ms ease;
+		/* Pad the hit area to ~40px; the container’s negative margin compensates. */
+		padding: 0.65rem 0;
+		color: color-mix(in srgb, var(--ink-on-dark) 88%, transparent);
+		transition: color var(--dur-hover) var(--ease-standard);
 	}
 
-	.site-footer-links a:hover {
-		color: var(--sun-clay);
+	@media (hover: hover) and (pointer: fine) {
+		/* Hover brightens to full ink, matching Colophon — sun-clay text on
+		   midnight falls short of AA. */
+		.site-footer-links a:hover {
+			color: var(--ink-on-dark);
+		}
 	}
 
 	.site-footer-meta {
 		grid-area: meta;
 		margin: 0;
-		color: color-mix(in srgb, var(--ink-on-dark) 55%, transparent);
+		/* De-emphasized, but 76% still clears APCA 60 on midnight. */
+		color: color-mix(in srgb, var(--ink-on-dark) 76%, transparent);
 	}
 
 	@media (max-width: 48rem) {

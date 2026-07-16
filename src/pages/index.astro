@@ -1,6 +1,7 @@
 ---
 import ApproachSection from '../components/ApproachSection.astro';
 import Colophon from '../components/Colophon.astro';
+import ContourDivider from '../components/ContourDivider.astro';
 import FaqSection from '../components/FaqSection.astro';
 import FitSection from '../components/FitSection.astro';
 import Hero from '../components/Hero.astro';
@@ -12,7 +13,7 @@ import WhatChangesSection from '../components/WhatChangesSection.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout path="/">
+<BaseLayout path="/" preloadItalicFont>
 	<SiteHeader />
 
 	<main id="main-content" class="main-home">
@@ -20,6 +21,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 		<MethodSection />
 		<ApproachSection />
 		<HowItWorksSection />
+		<ContourDivider variant={2} />
 		<TeacherSection />
 		<WhatChangesSection />
 		<FitSection />

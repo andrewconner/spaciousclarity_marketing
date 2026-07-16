@@ -1,6 +1,6 @@
 ---
 /**
- * The page's one structural midnight band, set like a book colophon: the
+ * The page’s one structural midnight band, set like a book colophon: the
  * mark, two honest sentences, the form, a real footnote, and the footer links
  * — all in the same grounded ending. The entire navy budget lives here.
  */
@@ -18,26 +18,32 @@ const year = new Date().getFullYear();
 						<clipPath id="colophon-mark-paper"><circle cx="32" cy="32" r="31.25"></circle></clipPath
 						>
 					</defs>
-					<circle cx="32" cy="32" r="31.25" fill="#F6F2EA" stroke="#D9D1C4" stroke-width="1.5"
-					></circle>
+					<circle
+						cx="32"
+						cy="32"
+						r="31.25"
+						style="fill: var(--ivory); stroke: var(--stone)"
+						stroke-width="1.5"></circle>
 					<g clip-path="url(#colophon-mark-paper)">
-						<path d="M-2 38 C12 33 26 32 38 35.5 C48 38.5 58 37 66 33.5 L66 66 H-2 Z" fill="#B7C2C8"
-						></path>
+						<path
+							d="M-2 38 C12 33 26 32 38 35.5 C48 38.5 58 37 66 33.5 L66 66 H-2 Z"
+							style="fill: var(--misty-blue)"></path>
 						<path
 							d="M-2 47 C10 42.5 24 42 36 45 C46 47.5 58 46.5 66 43.5 L66 66 H-2 Z"
-							fill="#99A68D"></path>
-						<path d="M-2 55 C12 51 26 51 38 53.5 C48 55.5 58 55 66 52 L66 66 H-2 Z" fill="#55624B"
-						></path>
+							style="fill: var(--sage)"></path>
+						<path
+							d="M-2 55 C12 51 26 51 38 53.5 C48 55.5 58 55 66 52 L66 66 H-2 Z"
+							style="fill: var(--lichen)"></path>
 					</g>
-					<circle cx="43" cy="16" r="5.4" fill="#C87435"></circle>
+					<circle cx="43" cy="16" r="5.4" style="fill: var(--sun-clay)"></circle>
 				</svg>
 			</div>
 
-			<h2 id="colophon-heading" class="colophon-heading">Get early access to the course.</h2>
+			<h2 id="colophon-heading" class="colophon-heading">Get early access.</h2>
 
 			<p class="colophon-copy">
-				We're actively building and testing the course, and adding new people on a rolling basis.
-				Leave your email and we'll keep you included as we expand access.
+				We’re actively building and testing the course, and adding new people on a rolling basis.
+				Leave your email and we’ll keep you included as we expand access.
 			</p>
 
 			<WaitlistForm box="closing" tone="dark" class="colophon-waitlist" />
@@ -50,7 +56,7 @@ const year = new Date().getFullYear();
 				<a href="mailto:hi@spaciousclarity.com">Contact</a>
 			</nav>
 
-			<p class="colophon-meta">&copy; {year} Spacious Clarity.</p>
+			<p class="colophon-meta">&copy; {year} Spacious&nbsp;Clarity.</p>
 		</div>
 	</div>
 </footer>
@@ -78,14 +84,16 @@ const year = new Date().getFullYear();
 		font-weight: 390;
 		letter-spacing: -0.018em;
 		line-height: 1.08;
+		text-wrap: balance;
 		color: var(--ink-on-dark);
 		margin: 0;
 	}
 
 	.colophon-copy {
 		font-size: var(--fs-body);
-		line-height: 1.65;
-		color: color-mix(in srgb, var(--ink-on-dark) 82%, transparent);
+		line-height: var(--leading-prose);
+		text-wrap: pretty;
+		color: color-mix(in srgb, var(--ink-on-dark) 88%, transparent);
 		margin: 0;
 		max-width: 38rem;
 	}
@@ -105,24 +113,30 @@ const year = new Date().getFullYear();
 		flex-wrap: wrap;
 		gap: var(--space-sm) var(--space-lg);
 		padding-top: 0.5rem;
+		margin: -0.65rem 0;
 	}
 
 	.colophon-links a {
+		/* Pad the hit area to ~40px; the container’s negative margin compensates. */
+		padding: 0.65rem 0;
 		font-family: var(--font-sans);
 		font-size: var(--fs-caption);
 		letter-spacing: 0.02em;
-		color: color-mix(in srgb, var(--ink-on-dark) 75%, transparent);
-		transition: color 180ms ease;
+		color: color-mix(in srgb, var(--ink-on-dark) 88%, transparent);
+		transition: color var(--dur-hover) var(--ease-standard);
 	}
 
-	.colophon-links a:hover {
-		color: var(--ink-on-dark);
+	@media (hover: hover) and (pointer: fine) {
+		.colophon-links a:hover {
+			color: var(--ink-on-dark);
+		}
 	}
 
 	.colophon-meta {
 		font-family: var(--font-sans);
 		font-size: var(--fs-caption);
-		color: color-mix(in srgb, var(--ink-on-dark) 55%, transparent);
+		/* De-emphasized, but 76% still clears APCA 60 on midnight. */
+		color: color-mix(in srgb, var(--ink-on-dark) 76%, transparent);
 		margin: 0;
 	}
 </style>

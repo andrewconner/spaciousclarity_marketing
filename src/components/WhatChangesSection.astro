@@ -10,28 +10,28 @@
 	<div class="sheet">
 		<span class="label-caps sheet-margin">What changes</span>
 
-		<h2 id="changes-heading" class="changes-heading">You'll notice the world getting more vivid</h2>
+		<h2 id="changes-heading" class="changes-heading">You’ll notice the world getting more vivid</h2>
 
 		<div class="changes-prose">
 			<p>
-				Paradoxically, there's no special state to chase. As the mind settles, you may experience
-				something like a veil lifting you didn't know was there: sounds, sights, and sensations grow
-				vivid. You'll experience:
+				Paradoxically, there’s no special state to chase. As the mind settles, you may experience
+				something like a veil lifting you didn’t know was there: sounds, sights, and sensations grow
+				vivid. You’ll experience:
 			</p>
 			<ul class="changes-list">
-				<li>Courage to stay present in circumstances you'd usually manage or avoid</li>
+				<li>Courage to stay present in circumstances you’d usually manage or avoid</li>
 				<li>Moments of effortless, quiet awareness in the middle of ordinary activities</li>
-				<li>More presence in your interactions, not just while you're meditating</li>
+				<li>More presence in your interactions, not just while you’re meditating</li>
 				<li>Space to hold all your emotions fully without them running you</li>
 				<li>General contentedness, punctuated by moments of irrationally exuberant joy</li>
 			</ul>
 			<p class="changes-honesty">
 				These are common outcomes, though none are guaranteed. Some sits are boring, some are
-				uncomfortable. You'll include everything in experience. And as with physical practice, the
-				benefits tend to arrive before you feel you've accomplished the instructions.
+				uncomfortable. You’ll include everything in experience. And as with physical practice, the
+				benefits tend to arrive before you feel you’ve accomplished the instructions.
 			</p>
 			<p>
-				For those who've practiced elsewhere: in progressive systems the method is reassuring but
+				For those who’ve practiced elsewhere: in progressive systems the method is reassuring but
 				the result can be disorienting. Opening Awareness is the opposite. The method can seem
 				elusive at first, and the results are reliable. Practitioners find spacious clarity more
 				consistent and predictable than almost anything else in life.
@@ -83,6 +83,7 @@
 		font-weight: 390;
 		letter-spacing: -0.018em;
 		line-height: 1.12;
+		text-wrap: balance;
 		margin: 0 0 clamp(1.5rem, 2vw + 0.5rem, 2.25rem);
 		max-width: var(--measure);
 	}
@@ -91,7 +92,8 @@
 		display: grid;
 		gap: var(--space-sm);
 		font-size: var(--fs-body);
-		line-height: 1.65;
+		line-height: var(--leading-prose);
+		text-wrap: pretty;
 		color: var(--ink-soft);
 	}
 
@@ -135,7 +137,7 @@
 	.student-quote blockquote {
 		font-family: var(--font-serif);
 		font-style: italic;
-		font-size: clamp(1.35rem, 1rem + 1.2vw, 1.75rem);
+		font-size: var(--fs-quote);
 		line-height: 1.45;
 		letter-spacing: -0.008em;
 		color: var(--ink);
