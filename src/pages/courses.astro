@@ -1,0 +1,246 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import UtilityHeader from '../components/UtilityHeader.astro';
+import { course } from '../content/course';
+
+const appUrl = import.meta.env.PUBLIC_COURSE_APP_URL || 'https://learn.spaciousclarity.com';
+const apiUrl =
+	import.meta.env.PUBLIC_COURSE_API_URL || 'https://spacious-clarity-api.acon.workers.dev';
+---
+
+<BaseLayout
+	title="Opening Awareness with Charlie Awbery | Spacious Clarity"
+	description="An adaptive meditation course with Charlie Awbery. Join early access to Opening Awareness."
+	path="/courses"
+	noindex
+	noReferrer
+>
+	<UtilityHeader />
+	<main id="main-content" class="course-page">
+		<header class="course-intro">
+			<h1>{course.name}</h1>
+			<p class="teacher">
+				<img src="/images/charlie-320.webp" width="48" height="48" alt="Charlie Awbery" />with
+				Charlie Awbery
+			</p>
+			{course.intro.map((paragraph) => <p>{paragraph}</p>)}
+		</header>
+		{
+			course.sections.map((section) => (
+				<section>
+					<h2>{section.title}</h2>
+					{section.paragraphs.map((paragraph) => (
+						<p>{paragraph}</p>
+					))}
+					{'benefits' in section && (
+						<ul>
+							{section.benefits?.map((benefit) => (
+								<li>{benefit}</li>
+							))}
+						</ul>
+					)}
+					{'after' in section && <p>{section.after}</p>}
+				</section>
+			))
+		}
+		<section class="purchase" aria-labelledby="join-heading">
+			<h2 id="join-heading">Join early access</h2>
+			<p class="price">${course.price}<span>One-time purchase</span></p>
+			<p>{course.access}</p>
+			<form id="course-form" action={new URL('/start', appUrl).href} data-api-url={apiUrl}>
+				<label for="course-email">Email</label>
+				<input
+					id="course-email"
+					type="email"
+					autocomplete="email"
+					inputmode="email"
+					placeholder="you@example.com"
+					required
+					maxlength="254"
+					aria-describedby="course-next"
+				/>
+				<button class="button" type="submit"
+					>Join Early Access <span aria-hidden="true">→</span></button
+				>
+				<p id="course-next" class="form-note">
+					Next, verify your email and continue to secure payment.
+				</p>
+			</form>
+			<noscript
+				><p>
+					<a href={new URL('/sign-in', appUrl).href}>Continue with email</a> to enter your email.
+				</p></noscript
+			>
+			<p class="form-note">
+				Already have access? <a href={new URL('/sign-in', appUrl).href}>Sign in</a>
+			</p>
+		</section>
+		<section class="questions">
+			<h2>Questions</h2>
+			{
+				course.questions.map(({ title, answer }) => (
+					<details>
+						<>
+							<summary>{title}</summary>
+							<p>{answer}</p>
+						</>
+					</details>
+				))
+			}
+			<details>
+				<summary>How can I share feedback?</summary><p id="course-feedback">
+					Email support@spaciousclarity.com with what helped, what was confusing, or anything that
+					went wrong. We can also help with account and payment questions.
+				</p>
+			</details>
+		</section>
+		<footer>
+			<p><a href="mailto:support@spaciousclarity.com">Questions? Email us</a></p>
+			<nav aria-label="Course support">
+				<a href={new URL('/privacy', appUrl).href}>Privacy</a><a
+					href={new URL('/support', appUrl).href}>Support</a
+				>
+			</nav>
+		</footer>
+	</main>
+</BaseLayout>
+
+<script>
+	import { initCourseForm } from '../scripts/course-form';
+	initCourseForm();
+</script>
+
+<style>
+	.course-page {
+		max-width: 44rem;
+		margin-inline: auto;
+		padding: 5rem 1.5rem 2rem;
+	}
+	h1 {
+		font-size: clamp(2.4rem, 7vw, 3.5rem);
+		line-height: 1.16;
+		text-align: center;
+		text-wrap: balance;
+	}
+	h2 {
+		font-size: clamp(1.55rem, 4vw, 2rem);
+		line-height: 1.3;
+		margin-bottom: 1.25rem;
+	}
+	p,
+	li {
+		line-height: 1.7;
+	}
+	p + p {
+		margin-top: 1rem;
+	}
+	section {
+		margin-top: 3rem;
+	}
+	.teacher {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 0.75rem;
+		margin: 1.5rem 0 2.5rem;
+		font-family: var(--font-sans);
+		font-size: var(--fs-body-sm);
+		color: var(--ink-soft);
+	}
+	.teacher img {
+		border-radius: 50%;
+		object-fit: cover;
+	}
+	ul {
+		padding-left: 1.3rem;
+		margin-block: 1.25rem;
+	}
+	li + li {
+		margin-top: 0.75rem;
+	}
+	li::marker {
+		color: var(--accent);
+	}
+	.purchase {
+		background: var(--surface-elevated);
+		border: 1px solid var(--rule);
+		border-radius: var(--radius);
+		padding: clamp(1.25rem, 5vw, 2.5rem);
+	}
+	.price {
+		font-size: 2.75rem;
+		line-height: 1.2;
+		margin-block: 1rem;
+	}
+	.price span {
+		display: block;
+		font-family: var(--font-sans);
+		font-size: var(--fs-caption);
+		color: var(--ink-soft);
+		margin-top: 0.5rem;
+	}
+	form {
+		display: grid;
+		gap: 0.75rem;
+		margin-top: 1.75rem;
+	}
+	label {
+		font-family: var(--font-sans);
+		font-size: var(--fs-control);
+	}
+	input {
+		width: 100%;
+		min-width: 0;
+		min-height: 3rem;
+		padding: 0.75rem;
+		border: 1px solid var(--rule);
+		border-radius: var(--radius-sm);
+		color: var(--ink);
+		background: var(--ivory);
+		font: inherit;
+		font-size: 1rem;
+	}
+	button {
+		margin-top: 0.5rem;
+	}
+	.form-note {
+		font-family: var(--font-sans);
+		font-size: var(--fs-caption);
+		color: var(--ink-soft);
+	}
+	.form-note a,
+	footer a,
+	details a {
+		text-decoration: underline;
+		text-underline-offset: 0.2em;
+	}
+	details {
+		border-bottom: 1px solid var(--rule);
+	}
+	summary {
+		padding-block: 1.25rem;
+		cursor: pointer;
+		font-family: var(--font-sans);
+		line-height: 1.5;
+	}
+	details p {
+		padding-bottom: 1.5rem;
+		color: var(--ink-soft);
+	}
+	footer {
+		margin-top: 3rem;
+		text-align: center;
+		font-family: var(--font-sans);
+		font-size: var(--fs-caption);
+	}
+	footer nav {
+		display: flex;
+		justify-content: center;
+		gap: 1.5rem;
+	}
+	footer a {
+		display: inline-flex;
+		align-items: center;
+		min-height: 2.75rem;
+	}
+</style>

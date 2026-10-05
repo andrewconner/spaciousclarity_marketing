@@ -80,3 +80,24 @@ pnpm dev
   ```
 
 - `docs/kit-form-reference.html` is the reference markup for the Kit waitlist form; the live forms render through `src/components/WaitlistForm.astro`.
+
+## Course invitation page
+
+`/courses` is the noindex early-access page. Its copy lives in
+`src/content/course.ts`; its presentation lives in `src/pages/courses.astro`.
+Keep its displayed price aligned with the app product configuration and Stripe.
+
+The existing API Worker records invitation clicks before redirecting here. The
+page resolves the signed `invite` token through `/invitations/resolve`, leaving
+manual email entry available on failure and preserving any visitor edits. Joining
+passes the email in a URL fragment to the app's `/start` route, which removes
+it and sends a verification code automatically. After verification, paid users
+enter the app and unpaid users continue directly to Stripe. `/checkout` is only
+a recovery screen when sending the code or opening payment fails. Authentication stays on the app
+origin. The invite token and campaign parameters survive that handoff.
+
+For local integration, set `PUBLIC_COURSE_APP_URL` and `PUBLIC_COURSE_API_URL`
+when starting or building Astro. Production defaults point to the learn app and
+its existing API Worker. Neither value is a secret. The production app must have
+`/start`, `/continue`, and `/checkout` deployed before sending visitors to the new course page. The app's
+old `/courses` links redirect here with their query strings intact.

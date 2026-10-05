@@ -11,6 +11,7 @@ interface Props {
 	path?: string;
 	image?: string;
 	noindex?: boolean;
+	noReferrer?: boolean;
 	/** Only the homepage sets italic serif above the fold. */
 	preloadItalicFont?: boolean;
 }
@@ -21,6 +22,7 @@ const {
 	path = '/',
 	image = '/og-card.png',
 	noindex = false,
+	noReferrer = false,
 	preloadItalicFont = false,
 } = Astro.props;
 
@@ -40,6 +42,7 @@ const schema = {
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		{noReferrer && <meta name="referrer" content="no-referrer" />}
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
 		{/* Mirrors --midnight in global.css — keep in sync. */}
